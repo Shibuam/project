@@ -1,0 +1,46 @@
+<div class="container-fluid">
+<section class=" style="width: 15px">
+   View Product
+
+<a class="btn-info float-end m-2 p-2" href="/admin/addProduct">Add Product</a>
+  </section>
+
+<container-flex>
+<table class="table table-dark">
+  <thead>
+    <tr>
+ 
+      <th scope="col">image</th>
+      <th scope="col">Name</th>
+      <th scope="col">Landing cost</th>
+       <th scope="col">MRP</th>
+        <th scope="col">Colour</th>
+         <th scope="col">Category</th>
+         <th scope="col">Brand</th> 
+          <th scope="col">Action</th>
+         
+    </tr>
+  </thead>
+  <tbody>
+      {{#each products}}
+    <tr>
+
+      <td>
+          <img width="50px"height="50px" src="/images/proImage/{{this._id}}.jpg" alt="">
+      </td>
+      <td>{{this.name}}</td>
+      <td>{{this.lanCost}}</td>
+      <td>{{this.stock}}</td>
+      <td>{{this.colour}}</td>
+      <td>{{this.qty}}</td>
+       <td>{{this.qty}}</td>
+       <td>
+       <a class="btn btn-primary" href="/admin/editProduct/{{this._id}}">Edit</a>
+       <a class="btn btn-danger" href="/admin/deleteProduct/{{this._id}}" onclick="return confirm('do you want to delete{{this.name}}?')">Delete</a></td>
+
+ 
+    </tr>
+    {{/each}}
+    </tbody>
+    </table>
+   </div>

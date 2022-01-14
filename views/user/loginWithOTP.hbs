@@ -1,0 +1,139 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: poppins;
+    }
+
+    body {
+        background-color: #f2f4ff;
+    }
+
+    .container {
+        width: 400px;
+        height: 300px;
+        background-color: #fff;
+        margin: 150px auto;
+        border-radius: 11px;
+        padding: 40px 50px;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
+    /* top-header */
+    .top-header h3 {
+        text-align: center;
+        color: #495d76;
+    }
+
+    .top-header p {
+        color: #cecfd3;
+        font-size: 13px;
+        text-align: center;
+        margin-top: 5px;
+    }
+
+    /* top-header */
+    /* form */
+    .user input,
+    .pass input {
+        width: 100%;
+        height: 35px;
+        border: none;
+        border: 1px solid #e6e6e6;
+        border-radius: 6px;
+        outline: none;
+        padding: 0 40px;
+    }
+
+    ::placeholder {
+        color: #9ca5b4;
+        font-size: 12px;
+    }
+
+    .user i,
+    .pass i {
+        position: relative;
+        top: 31px;
+        right: -10px;
+        color: #3981ed;
+    }
+
+    /* form */
+    /* button */
+    .btn {
+        display: flex;
+        justify-content: center;
+        margin-top: 25px;
+    }
+
+    .btn button {
+        width: 100%;
+        border: none;
+        height: 35px;
+        background-color: #277ffd;
+        color: #fff;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    /* button */
+    p.last {
+        text-align: center;
+        position: relative;
+        bottom: 120px;
+        font-size: 12px;
+    }
+</style>
+
+<div class="container">
+    <div class="top-header">
+        <h3>Welcome back</h3>
+        <p>Enter your credentials to access your account</p>
+    </div>
+    <form action="/otp" id='getOtpForm' method="post">
+        <div class="user">
+            <i class="bx bxs-user-circle"></i>
+            <input type='text' name='phone' id="phone" placeholder="Phone Number" />
+        </div>
+        <div class="btn">
+            <input type="submit" id="getOtpBtn" value="Click for OTP">
+        </div>
+    </form>
+
+    <form method="post" action="/otpVerification">
+        <div class="pass">
+            <i class="bx bxs-lock-alt"></i>
+            <input type="password" name="otp" placeholder="Enter OTP" />
+            <input type="text" name="phone" id="otpPhone" hidden />
+        </div>
+        <div class="btn">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</div>
+<script>
+    $("#getOtpForm").on("submit", (e) => {
+        e.preventDefault();
+
+        $.ajax({
+            url: $('#getOtpForm').attr("action"),
+            type: $('#getOtpForm').attr("method"),
+            data: $('#getOtpForm').serialize(),
+            success: otpSuccess,
+            error: otpError
+        })
+    })
+
+    function otpSuccess(res) {
+        console.log("response server => ", res)
+        $("#getOtpBtn").prop('disabled', true);
+    }
+    function otpError(err) {
+        console.log("ajax error")
+    }
+
+    $("#phone").on('input', (e)=>{
+        $('#otpPhone').val(e.target.value);
+    })
+</script>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Add Product - Dashboard HTML Template</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+    />
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="css/fontawesome.min.css" />
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
+    <!-- http://api.jqueryui.com/datepicker/ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
+    <!--
+	Product Admin CSS Template
+	https://templatemo.com/tm-524-product-admin
+	-->
+  </head>
+
+  <body>
+ 
+    <div class="container tm-mt-big tm-mb-big">
+      <div class="row">
+        <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+            <div class="row">
+              <div class="col-12">
+                <h2 class="tm-block-title d-inline-block">Add Product</h2>
+              </div>
+            </div>
+            <div class="row tm-edit-product-row">
+              <div class="col-xl-6 col-lg-6 col-md-12">
+                <form action="/admin/addProducts" class="tm-edit-product-form" method="post" enctype="multipart/form-data">
+                  <div class="form-group mb-3">
+                    <label for="name">Product Name
+                    </label>
+                    <input id="name"name="name"type="text"class="form-control validate"required/>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label
+                      for="description"
+                      >Description</label
+                    >
+                    <textarea
+                      class="form-control validate"
+                      rows="3" name="text"
+                      required
+                    ></textarea>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label
+                      for="category"
+                      >Category</label
+                    >
+                    <select
+                      class="custom-select tm-select-accounts"
+                      id="category">
+                    
+                      <option selected>Select category</option>
+                      <option value="1">T-Shirts</option>
+                      <option value="2">Shorts</option>
+                      <option value="3">Sweat Shirts</option>
+                      <option value="3">Jogger</option>
+                    </select>
+                  </div>
+                     <label
+                            for="expire_date"
+                            >Size
+                          </label>
+                          <input
+                            id="expire_date"
+                            name="Size"
+                            type="text"
+                            class="form-control validate"
+                            data-large-mode="true"
+                          />
+                  <div class="row">
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="expire_date"
+                            >landing cost
+                          </label>
+                          <input
+                            id="expire_date"
+                            name="lanCost"
+                            type="text"
+                            class="form-control validate"
+                            data-large-mode="true"
+                          />
+                        </div>
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="stock"
+                            >MRP
+                          </label>
+                          <input
+                            id="stock"
+                            name="stock"
+                            type="mrp"
+                            class="form-control validate"
+                            required
+                          />
+                        </div>
+                  </div>
+                  <div class="row">
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="expire_date"
+                            >Colour
+                          </label>
+                          <input
+                            id="expire_date"
+                            name="colour"
+                            type="text"
+                            class="form-control validate"
+                            data-large-mode="true"
+                          />
+                        </div>
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="stock"
+                            >QTY
+                          </label>
+                          <input
+                            id="stock"
+                            name="qty"
+                            type="text"
+                            class="form-control validate"
+                            required
+                          />
+                        </div>
+                  </div>
+                  
+              </div>
+              </div>
+              
+              
+              <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+                <div class="tm-product-img-dummy mx-auto">
+                  <i
+                    class="fas fa-cloud-upload-alt tm-upload-icon"
+                    onclick="document.getElementById('fileInput').click();"
+                  ></i>
+                </div>
+                <div class="custom-file mt-3 mb-3">
+           
+                   
+
+                </div>
+              </div>
+              
+              <input type="file" class="m-2" name="image">
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+
+
+  </body>
+</html>

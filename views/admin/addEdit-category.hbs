@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Add Product - Dashboard HTML Template</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+    />
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="css/fontawesome.min.css" />
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
+    <!-- http://api.jqueryui.com/datepicker/ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
+    <!--
+	Product Admin CSS Template
+	https://templatemo.com/tm-524-product-admin
+	-->
+  </head>
+
+  <body>
+ 
+    <div class="container tm-mt-big tm-mb-big">
+      <div class="row">
+        <div >
+          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+            <div class="row">
+              <div class="col-12">
+                <h2 class="tm-block-title d-inline-block">Category Management</h2>
+              </div>
+            </div>
+            <div class="row tm-edit-product-row">
+              <div class="col-xl-6 col-lg-6 col-md-12">
+             <form action="/admin/addCategory" method="post">
+                  <div class="form-group mb-3">
+                    <div class="row"></div>
+                    <label for="name">Add New Category </label>
+                    
+                    <input name="category"type="text"class="form-control validate"required/>
+                  </div>
+                   <div class="form-group mb-3">
+                    <label for="name">Add Sub Category </label>
+                    
+                    <input name="sub-category"type="text"class="form-control validate"required/>
+                  </div>
+                  
+                 <button type="submit" class="btn bg-danger text-white" >Add</button>
+             </form>
+                  <div class="form-group mb-3">
+                    <h6>Add  Sub Category On Exsisting Category</h3>
+                    <label for="name"> Category </label>
+                    
+                   <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    Dropdown button
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item bg-info" href="#">Action</a></li>
+    <li><a class="dropdown-item bg-info" href="#">Another action</a></li>
+    <li><a class="dropdown-item bg-info" href="#">Something else here</a></li>
+  </ul>
+</div>
+                  </div>
+                   <div class="form-group mb-3">
+                    <label for="name">Add Sub Category </label>
+                    
+                    <input name="sub-category"type="text"class="form-control validate"required/>
+                  </div>
+                  
+                 <a class="btn bg-danger">Add</a>
+              <div class="row">
+                <label for="">Category Name</label>
+                <label for=""> Subcategory Name</label>
+              </div>
+              
+                  
+              </div>
+              </div>
+            
+              </div>
+     
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+
+
+  </body>
+</html>

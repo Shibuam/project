@@ -1,0 +1,23 @@
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Number</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">email</th>
+      <th scope="col">status</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each userdata}}
+    <tr>
+      <th scope="row">{{this.index}}</th>
+      <td>{{this.firstname}}</td>
+      <td>{{this.lastname}}</td>
+      <td>{{this.email}}</td>
+       
+       <td>{{<button>block</button>}}</td>
+    </tr>
+    {{/each}}
+    </tbody>
+    </table>

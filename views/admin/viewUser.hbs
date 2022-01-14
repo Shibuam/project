@@ -1,0 +1,45 @@
+<container>
+
+   View User
+
+
+<div class="container">
+
+<table class="table table-dark">
+  <thead>
+ 
+    <tr>
+ 
+      <th scope="col">Name </th>
+      <th scope="col">email</th>
+      <th scope="col">Contact Number</th>
+       <th scope="col">Status</th>
+         <th scope="col">Status</th>
+       
+    </tr>
+  </thead>
+  <tbody>
+      {{#each userdata}}
+    <tr>
+
+    
+      <td>{{this.firstname}}</td>
+      <td>{{this.email}}</td>
+      <td>{{this.phone}}</td>
+      <td> {{#if isblock}}
+      
+       
+     <a href="/admin/unblock/{{this._id}}" class="btn btn-success" href="">Unblock</a></td>
+     {{else}}
+ <a href="/admin/block/{{this._id}}" onclick="" class="btn btn-danger" href="">Block</a></td>
+     {{/if}}
+       <td>
+       
+       
+
+ 
+    </tr>
+    {{/each}}
+    </tbody>
+    </table>
+ </div>
