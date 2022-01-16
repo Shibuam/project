@@ -15,30 +15,36 @@ const client = require("twilio")(ACCOUNT_SID, AUTH_TOKEN)
 /* GET home page. */
 router.get('/', function (req, res, next) {
   let user= req.session.user
-  let data =req.session.data
-
-  usersHelper.viewProduct().then((prod)=>{
-  if(data==true){
-    var msg="Sorry your accout is temporary blocked"
-    res.render('user/login',{msg})
+  if(req.session.status==true){
+    let  status="*Admin Blocked"
+    res.render('user/login',{status})
   }
+  // let blocked=req.session.status
+  usersHelper.viewProduct().then((prod)=>{
+ 
   res.render('user/home',{users:true,user,prod});
  })
    });
 router.get('/login', function (req, res, next) {
-  res.render('user/login',);
+  let error=req.session.error
+  if(req.session.status==true){
+     
+  }
+  res.render('user/login',{error});
 });
 router.post('/home', function (req, res, next) {
   usersHelper.doLogin(req.body).then((response) => {
-    req.session.data =response.user.isblock
-
-    if (response.status) {
-       req.session.loggedIn=true,
+    
+        if (response.status) {
+     req.session.status=response.user.isblock
+            req.session.loggedIn=true,
         req.session.user=response.user
    
       res.redirect("/")
     }
     else {
+      req.session.error="You are not a registererd user Or missmatch password  "
+      
       res.redirect('/login')
     }
   })
@@ -50,7 +56,7 @@ router.get('/signup', function (req, res, next) {
 
 
 router.post('/signup', function (req, res, next) {
-  console.log("hello");
+ 
   usersHelper.doSignUp(req.body).then((response) => {
 
  
@@ -96,6 +102,13 @@ router.post('/otpVerification', (req, res, next) => {
      res.redirect('/otpVerification')
    }
      })
+})
+router.get('/logout',(req,res,next)=>{
+console.log(req.session.loggedIn)
+res.redirect('/')
+})
+router.get('/productList',(req,res,next)=>{
+  res.render('user/Product-list')
 })
  
 

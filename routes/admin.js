@@ -36,18 +36,27 @@ router.get('/viewUser', function(req, res, next) {
   
 });
 router.get('/addProduct',(req,res,next)=>{
-  res.render('admin/AddProduct',{admin:true})
+
+  
+  adminHelper.viewCategory().then((category)=>{
+    adminHelper.viewSubCategory().then((Subcategory)=>{
+      
+  res.render('admin/AddProduct',{admin:true,category,Subcategory})
+})
+})
 })
 router.get('/viewProducts',(req,res,next)=>{
   adminHelper.viewProducts().then((products)=>{
-    res.render('admin/viewProducts',{products,admin:true})
+    
+    res.render('admin/viewProducts',{products,admin:true,})
   })
- 
 })
+ 
+
 router.post('/addProducts',(req,res,next)=>{
  
   adminHelper.addProduct(req.body).then((id)=>{
-    //console.log(req.files.image);
+    console.log(req.body);
     let image = req.files.image;
     id=id.insertedId;
     image.mv('./public/images/proImage/'+id+'.jpg',(err,data)=>{
@@ -97,14 +106,53 @@ router.get('/unblock/:id',(req,res,next)=>{
   })
    })
 router.get('/addEdit-category',(req,res,next)=>{
-  res.render('admin/addEdit-category',{admin:true})
+ // adminHelper.viewSubCategory().then((Subcategory)=>{
+   let Subcategory=req.session.Subcategory
+   
+   adminHelper.viewCategory().then((category)=>{
+
+  res.render('admin/addEdit-category',{admin:true,category,Subcategory})
 })
+})
+//})
 router.post('/addCategory',(req,res,next)=>{
   
   adminHelper.addCategory(req.body).then(()=>{
-    res.send("success")
+    res.redirect('/admin/addEdit-category') 
   })
   
+})
+
+router.post('/addSubCategory',(req,res,next)=>{
+    // adminHelper.addSubCategory(req.body).then(()=>{
+      adminHelper.addingSubCategory(req.body)
+    res.redirect('/admin/addEdit-category')
+  })
+
+router.get('/deleteSubCategory/:id',(req,res,next)=>{
+  let id=req.params.id
+
+    adminHelper.deleteSubCategory(id).then((data)=>{
+     
+    res.redirect('/admin/addEdit-category')
+    })
+  })
+
+router.get('/deleteCategory/:id',(req,res,next)=>{
+  let id=req.params.id
+    adminHelper.deleteCategory(id).then((data)=>{
+    res.redirect('/admin/addEdit-category')
+  })
+})
+
+router.get('/viewSubCategory/:category',(req,res,next)=>{
+  let id=req.params.category
+ 
+  adminHelper.viewSubCategory(id).then((data)=>{
+    req.session.Subcategory=data
+
+    res.redirect('/admin/addEdit-category')
+  })
 })
 
 

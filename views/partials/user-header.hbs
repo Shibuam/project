@@ -35,12 +35,15 @@
    {{#if user}}
             {{user.firstname}}
             {{else}}
-            login
+                Login
             {{/if}}
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="#">Login</a></li>
-  
+    {{#if user}}
+     <li><a class="dropdown-item bg-secondary" href="/logout">LogOut</a></li>
+     {{else}}
+        <li><a class="dropdown-item bg-secondary" href="/login">Login</a></li>
+  {{/if}}
   </ul>
 </div>
       </form>

@@ -1,97 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Add Product - Dashboard HTML Template</title>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
-    />
-    <!-- https://fonts.google.com/specimen/Roboto -->
-    <link rel="stylesheet" href="css/fontawesome.min.css" />
-    <!-- https://fontawesome.com/ -->
-    <link rel="stylesheet" href="jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
-    <!-- http://api.jqueryui.com/datepicker/ -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <!-- https://getbootstrap.com/ -->
-    <link rel="stylesheet" href="css/templatemo-style.css">
-    <!--
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Add Product - Dashboard HTML Template</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
+  <!-- https://fonts.google.com/specimen/Roboto -->
+  <link rel="stylesheet" href="css/fontawesome.min.css" />
+  <!-- https://fontawesome.com/ -->
+  <link rel="stylesheet" href="jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
+  <!-- http://api.jqueryui.com/datepicker/ -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <!-- https://getbootstrap.com/ -->
+  <link rel="stylesheet" href="css/templatemo-style.css">
+  <!--
 	Product Admin CSS Template
 	https://templatemo.com/tm-524-product-admin
 	-->
-  </head>
+</head>
 
-  <body>
- 
-    <div class="container tm-mt-big tm-mb-big">
-      <div class="row">
-        <div >
-          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-            <div class="row">
-              <div class="col-12">
-                <h2 class="tm-block-title d-inline-block">Category Management</h2>
-              </div>
-            </div>
-            <div class="row tm-edit-product-row">
-              <div class="col-xl-6 col-lg-6 col-md-12">
-             <form action="/admin/addCategory" method="post">
-                  <div class="form-group mb-3">
-                    <div class="row"></div>
-                    <label for="name">Add New Category </label>
-                    
-                    <input name="category"type="text"class="form-control validate"required/>
-                  </div>
-                   <div class="form-group mb-3">
-                    <label for="name">Add Sub Category </label>
-                    
-                    <input name="sub-category"type="text"class="form-control validate"required/>
-                  </div>
-                  
-                 <button type="submit" class="btn bg-danger text-white" >Add</button>
-             </form>
-                  <div class="form-group mb-3">
-                    <h6>Add  Sub Category On Exsisting Category</h3>
-                    <label for="name"> Category </label>
-                    
-                   <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-    Dropdown button
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item bg-info" href="#">Action</a></li>
-    <li><a class="dropdown-item bg-info" href="#">Another action</a></li>
-    <li><a class="dropdown-item bg-info" href="#">Something else here</a></li>
-  </ul>
-</div>
-                  </div>
-                   <div class="form-group mb-3">
-                    <label for="name">Add Sub Category </label>
-                    
-                    <input name="sub-category"type="text"class="form-control validate"required/>
-                  </div>
-                  
-                 <a class="btn bg-danger">Add</a>
-              <div class="row">
-                <label for="">Category Name</label>
-                <label for=""> Subcategory Name</label>
-              </div>
-              
-                  
-              </div>
-              </div>
-            
-              </div>
-     
+<body>
+
+  <div class="container tm-mt-big tm-mb-big">
+    <div class="row">
+      <div>
+        <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="tm-block-title d-inline-block">Category Management</h2>
             </div>
           </div>
+          <div class="row tm-edit-product-row">
+            <div class="col-xl-6 col-lg-6 col-md-12">
+              <form action="/admin/addCategory" method="post">
+                <div class="form-group mb-3">
+                  <div class="row"></div>
+                  <label for="name">Add New Category </label>
+
+                  <input name="category" type="text" class="form-control validate " required /><br>
+                  <button type="submit" class="btn mx-4 px-5 bg-danger text-white m-1">Add</button>
+              </form>
+            </div>
+            <div class="form-group mb-3">
+              <form action="/admin/addSubCategory">
+                <label for="cars">Choose Category</label>
+                {{!-- <select name="category" id="">
+                  {{#each category}}
+                  <option value="{{this_id}}">{{this.category}}</option>
+                  {{/each}}
+                </select> --}}
+                {{!-- <br><br> --}}
+
+
+              </form>
+
+            </div>
+
+    
+
+<div class="col-xl-12 col-lg-12 col-md-12">
+              <form action="/admin/addSubCategory" method="post">
+               <select name="category" id=""class="form-select" aria-label="Default select example">
+                <br><br>
+                  {{#each category}}
+                  <option value="{{this.category}}">{{this.category}}</option>
+                  {{/each}}
+                  <br><br>
+                </select>
+                <div class="form-group mb-3">
+                  <div class="row"></div>
+                  <label for="name">Add Sub Category </label>
+
+                  <input name="subCategory" type="text" class="form-control validate " required /><br>
+                  <button type="submit" class="btn bg-danger  mx-4 px-5  text-white m-1">Add</button>
+              </form>
+            </div>
+
+          </div>
         </div>
+
       </div>
+
     </div>
-  
+  </div>
+  </div>
+  </div>
+  </div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+     
+    <table class="table">
+     <thead>
+       <tr>
+         <th scope="col">Category Name</th>
+      <th scope="col">Delete</th>
+      <th scope="col">View Subcategory</th>
+       </tr>
+     </thead>
+      {{#each category}}
+      <tr>
+        <td>{{this.category}}</td>
+        <td><a class="btn bg-danger" href="/admin/deleteCategory/{{this._id}}">Delete</a></td>
+         <td><a class="btn bg-success" href="/admin/viewSubCategory/{{this.category}}">View Subcategory</a></td>
+      </tr>
+      {{/each}}
+    </table>
+    </div>
+   {{#if Subcategory}}
+    <div class="col-sm">
+    
+      <table class="table">
+     <thead>
+       <tr>
+         <th scope="col">Subcategory Name</th>
+      <th scope="col">Delete</th>
+       </tr>
+     </thead>
+      {{#each Subcategory}}
+      <tr>
+        <td class="text-black">{{this.subCategory}}</td>
+        <td><a class="btn bg-danger" href="/admin/deleteSubCategory/{{this._id}}">Delete</a></td>
+      </tr>
+      {{/each}}
+    </table>
+    </div>
+    {{/if}}
+  </div>
+</div>
 
 
+</body>
 
-  </body>
 </html>

@@ -80,7 +80,10 @@ p.last {
     <div class="container">
       <div class="top-header">
         <h3>Welcome back</h3>
-        <p>Enter your credentials to access your account</p>
+    <p class="text-danger">{{error}}</p> 
+     <p class="text-danger">{{status}}</p> 
+
+        <p class="text-info">Enter your credentials to access your account</p>
       </div>
       <form action="/home"  method="post">
         <div class="user">
