@@ -1,180 +1,146 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Add Product - Dashboard HTML Template</title>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
-    />
-    <!-- https://fonts.google.com/specimen/Roboto -->
-    <link rel="stylesheet" href="css/fontawesome.min.css" />
-    <!-- https://fontawesome.com/ -->
-    <link rel="stylesheet" href="jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
-    <!-- http://api.jqueryui.com/datepicker/ -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <!-- https://getbootstrap.com/ -->
-    <link rel="stylesheet" href="css/templatemo-style.css">
-    <!--
-	Product Admin CSS Template
-	https://templatemo.com/tm-524-product-admin
-	-->
-  </head>
+<body>
 
-  <body>
- 
-    <div class="container tm-mt-big tm-mb-big">
-      <div class="row">
-        <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
-          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-            <div class="row">
-              <div class="col-12">
-                <h2 class="tm-block-title d-inline-block">Add Product</h2>
-              </div>
-            </div>
-            <div class="row tm-edit-product-row">
-              <div class="col-xl-6 col-lg-6 col-md-12">
-                <form action="/admin/addProducts" class="tm-edit-product-form" method="post" enctype="multipart/form-data">
-                  {{!-- <div class="form-group mb-3">
-                    <label for="name">Product Name
-                    </label>
-                    <input id="name"name="name"type="text"class="form-control validate"required/>
-                  </div> --}}
-                  <div class="form-group mb-3">
-                   
-                 
-                  </div>
-                  <div class="form-group mb-3">
-               
-                    <label
-                      for="category"
-                      >Category</label
-                    >
-                  
-                     <select name="category" id=""class="form-select" aria-label="Default select example">
-                <br><br>
-                  {{#each category}}
-                  <option value="{{this.category}}">{{this.category}}</option>
-                  {{/each}}
-                </select >
-            {{!-- <a href="/admin/viewSubCategory/{{this.category}}" class="btn bg-danger text-black m-2">Click for Category</a> --}}
-           {{!-- for getting subcategory --}}
-            
-
-             
-                 <label for="category">SubCategory</label >
-                    <select name="SubCategory" id="" class="form-select" aria-label="Default select example">
-                      
-                  {{#each Subcategory}}
-                  <option value="{{this.subCategory}}">{{this.subCategory}}</option>
-                  {{/each}}
-                </select>
-              
-                  </div>
-                     <label
-                            for="expire_date"
-                            >Size
-                          </label>
-                        <select class="form-select" name="size" aria-label="Default select example">
- 
-  <option value="6">6</option>
-  <option value="7">7</option>
-  <option value="8">8</option>
-  <option value="9">9</option>
-  <option value="10">10</option>
-  <option value="11">11</option>
-  <option value="12">12</option>
-</select>
-                  <div class="row">
-                      <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <label
-                            for="expire_date"
-                            >landing cost
-                          </label>
-                          <input
-                            id="expire_date"
-                            name="lanCost"
-                            type="text"
-                            class="form-control validate"
-                            data-large-mode="true"
-                          />
-                        </div>
-                        <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <label
-                            for="stock"
-                            >MRP
-                          </label>
-                          <input
-                            id=""
-                            name="mrp"
-                            type="text"
-                            class="form-control validate"
-                            required
-                          />
-                        </div>
-                  </div>
-                  <div class="row">
-                      <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <label
-                            for="expire_date"
-                            >Brand
-                          </label>
-                          <input
-                            id="expire_date"
-                            name="brand"
-                            type="text"
-                            class="form-control validate"
-                            data-large-mode="true"
-                          />
-                        </div>
-                        <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <label
-                            for="stock"
-                            >QTY
-                          </label>
-                          <input
-                            id="stock"
-                            name="qty"
-                            type="text"
-                            class="form-control validate"
-                            required
-                          />
-                        </div>
-                  </div>
-                  
-              </div>
-              </div>
-              
-              
-              <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-                <div class="tm-product-img-dummy mx-auto">
-                  <i
-                    class="fas fa-cloud-upload-alt tm-upload-icon"
-                    onclick="document.getElementById('fileInput').click();"
-                  ></i>
-                </div>
-                <div class="custom-file mt-3 mb-3">
-           
-                   
-
-                </div>
-              </div>
-              
-              <input type="file" class="m-2" name="image">
-              <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
-              </div>
-            </form>
+  <div class="container tm-mt-big tm-mb-big" style="margin-top: 100px;">
+    <div class="row">
+      <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+        <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="tm-block-title d-inline-block">Add Product</h2>
             </div>
           </div>
+          <div class="row tm-edit-product-row">
+            <div class="col-xl-6 col-lg-6 col-md-12">
+              {{!-- image view on page --}}
+<script>
+  imgInp.onchange = evt => {
+  const [file] = imgInp.files
+  if (file) {
+    blah.src = URL.createObjectURL(file)
+  }
+}
+</script>
+              <form action="/admin/addProducts" id="imgInp" name="myform" class="tm-edit-product-form" method="post"
+                enctype="multipart/form-data" onsubmit="return validation()">
+
+                <div class="form-group mb-3">
+
+
+                </div>
+                <div class="form-group mb-3">
+
+                  <label for="category">Category</label>
+
+                  <select name="category" id="" class="form-select" aria-label="Default select example">
+                    <br><br>
+                    {{#each category}}
+                    <option value="{{this.category}}">{{this.category}}</option>
+                    {{/each}}
+                  </select>
+                  {{!-- <a href="/admin/viewSubCategory/{{this.category}}" class="btn bg-danger text-black m-2">Click
+                    for Category</a> --}}
+                  {{!-- for getting subcategory --}}
+
+
+
+                  <label for="category">SubCategory</label>
+                  <select name="SubCategory" id="" class="form-select" aria-label="Default select example">
+
+                    {{#each Subcategory}}
+                    <option value="{{this.subCategory}}">{{this.subCategory}}</option>
+                    {{/each}}
+                  </select>
+
+                </div>
+                <label for="expire_date">Size
+                </label>
+                <select class="form-select" name="size" aria-label="Default select example">
+
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+                <div class="row">
+                  <div class="form-group mb-3 col-xs-12 col-sm-6">
+                    <label for="expire_date">landing cost
+                    </label>
+                    <input id="expire_date" name="lanCost" type="text" class="form-control validate"
+                      data-large-mode="true" />
+                  </div>
+                  <div class="form-group mb-3 col-xs-12 col-sm-6">
+                    <label for="stock">MRP
+                    </label>
+                    <input id="" name="mrp" type="text" class="form-control validate" required />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group mb-3 col-xs-12 col-sm-6">
+                    <label for="expire_date">Brand
+                    </label>
+                    <input id="expire_date" name="brand" type="text" class="form-control validate"
+                      data-large-mode="true" />
+                  </div>
+                  <div class="form-group mb-3 col-xs-12 col-sm-6">
+                    <label for="stock">QTY
+                    </label>
+                    <input id="stock" name="qty" type="text" class="form-control validate" required />
+                  </div>
+                </div>
+
+            </div>
+          </div>
+
+
+          {{!-- <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+            <div class="tm-product-img-dummy mx-auto">
+              <i class="fas fa-cloud-upload-alt tm-upload-icon"
+                onclick="document.getElementById('fileInput').click();"></i>
+            </div>
+         
+          </div> --}}
+
+          <input type="file"onchange="document.getElementById('thisImageId').src = window.URL.createObjectURL(this.files[0])" class="m-1" name="image"><img id="thisImageId" alt="your image" width="100" height="100" />
+<br>
+          <input type="file"onchange="document.getElementById('thisImageId2').src = window.URL.createObjectURL(this.files[0])" class="m-1" name="image2"><img id="thisImageId2" alt="your image" width="100" height="100" /><br>
+          <input type="file"onchange="document.getElementById('thisImageId3').src = window.URL.createObjectURL(this.files[0])"class="m-1" name="image3"><img id="thisImageId3" alt="your image" width="100" height="100" />
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Add Product Now</button>
+          </div>
+          </form>
         </div>
       </div>
     </div>
-  
+  </div>
+  </div>
+
+{{!-- image validation --}}
+
+<script>
+var img=document.forms['myform']['image']
+var img2=document.forms['myform']['image2']
+var img3=document.forms['myform']['image3']
+var valExt=['jpg']
+
+function validation(){
+
+  if(img.value!=''&&img2.value!=''&&img3.value!=''){
+
+    var pos_of_dot=img.value.lastIndexOf('.')+1
+    var img_ext_of=img.value(pos_of_dot)
+    console.log(img_ext_of)
+  }
+  else{
+    alert("Please upload three images")
+    return false;
+  }
+}
+</script>
 
 
+</body>
 
-  </body>
 </html>

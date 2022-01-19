@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg  text-danger bg-dark">
+{{!-- <nav class="navbar navbar-expand-lg  text-danger bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">User</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,4 +49,362 @@
       </form>
     </div>
   </div>
-</nav>
+</nav> --}}
+    <div class="header-top bg-black sticky-header">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-3 md-custom-12">
+                                <!-- logo start -->
+                                <div class="logo">
+                                    <a href="index.html"><img src="img/logo/logo-2.png" alt=""></a>
+                                </div>
+                                <!-- logo end -->
+                            </div>
+                            <div class="col-lg-10 col-md-9 md-custom-12">
+                                <div class="row">
+                                    <div class="col-lg-7 d-none d-lg-block">
+                                        <!-- main-menu-area start -->
+                                        <div class="main-menu-area">
+                                            <nav>
+                                                <ul>
+                                                    <li class="active"><a href="index.html">Home <i class="ion-ios-arrow-down"></i></a>
+                                                        <ul class="dropdown_menu">
+                                                            <li><a href="index.html">Home Page 1</a></li>
+                                                            <li><a href="index-2.html">Home Page 2</a></li>
+                                                            <li><a href="index-3.html">Home Page 3</a></li>
+                                                            <li><a href="index-4.html">Home Page 4</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="#">Features<i class="ion-ios-arrow-down"></i></a>
+                                                        <ul class="mega-menu">
+                                                            <li><a href="#">Shop Page</a>
+                                                                <ul>
+                                                                    <li><a href="shop.html">Shop Left</a></li>
+                                                                    <li><a href="shop-right.html">Shop Right</a></li>
+                                                                    <li><a href="shop-fullwidth.html">Shop Full Width</a></li>
+                                                                    <li><a href="single-product.html">Single Product</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a href="#">Blog Page</a>
+                                                                <ul>
+                                                                    <li><a href="blog.html">Blog Left</a></li>
+                                                                    <li><a href="blog-right.html">Blog Right</a></li>
+                                                                    <li><a href="blog-fullwidth.html">Blog Full Width</a></li>
+                                                                     <li><a href="blog-details.html">Blog Details</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a href="#">Pages</a>
+                                                                <ul>
+                                                                    <li><a  href="my-account.html">My Account</a></li>
+                                                                    <li><a href="frequently-question.html">FAQ</a></li>
+                                                                    {{#if user}}
+                                                                    <li><a class="text-black" href="/logout">LogOut</a></li>
+                                                                    {{else}}
+                                                                    <li><a class="text-black" href="/login">Login & Register</a></li>
+                                                                    {{/if}}
+                                                                    <li><a href="error404.html">Error 404</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a href="#">Column</a>
+                                                                <ul>
+                                                                    <li><a href="about-us.html">About Us</a></li>
+                                                                    <li><a href="checkout.html">Checkout</a></li>
+                                                                    <li><a href="cart.html">Cart Page</a></li>
+                                                                    <li><a href="wishlist.html">Wish List</a></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="#">For women <i class="ion-ios-arrow-down"></i></a>
+                                                        <ul class="mega-menu mega-menu-2">
+                                                            <li><a href="#">Jackets</a>
+                                                                <ul>
+                                                                    <li><a href="#">Florals</a></li>
+                                                                    <li><a href="#">Shirts</a></li>
+                                                                    <li><a href="#">Shorts</a></li>
+                                                                    <li><a href="#">Stripes</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a href="#">Jeans</a>
+                                                                <ul>
+                                                                    <li><a href="#">Hoodies</a></li>
+                                                                    <li><a href="#">Sweaters</a></li>
+                                                                    <li><a href="#">Vests</a></li>
+                                                                    <li><a href="#">Wedges</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a href="#">Men</a>
+                                                                <ul>
+                                                                    <li><a href="#">Crochet</a></li>
+                                                                    <li><a href="#">Dresses</a></li>
+                                                                    <li><a href="#">Jeans</a></li>
+                                                                    <li><a href="#">Trousers</a></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="shop.html">Shop</a></li>
+                                                    <li><a href="blog.html">Blog</a></li>
+                                                    <li><a href="contact.html">Contact</a></li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                        <!-- main-menu-area end -->
+                                    </div>
+                                    <div class="col-lg-5 col-md-12">
+                                        <!-- full-setting-area start -->
+                                        <div class="full-setting-area setting-style-3">
+                                            <div class="top-dropdown">
+                                                <ul>
+                                                    {{!-- <li class="drodown-show"><a href="#">USD <i class="fa fa-angle-down"></i></a> --}}
+                                                        {{!-- <ul class="open-dropdown">
+                                                            <li><a href="#">EUR €</a></li>
+                                                            <li><a href="#">USD $</a></li>
+                                                        </ul> --}}
+                                                    </li>
+                                                     {{#if user}}
+                                                    <li class="drodown-show"><a href="#"> {{user.firstname}}</a>
+                                                    {{else}}
+                                                     <li class="drodown-show"> Guest</li>
+                                                    
+                                                             {{/if}}
+                                                            {{!-- <li><a href="#"><img src="img/icon/p-2.jpg" alt=""> Français</a></li> --}}
+                                                           
+                                                        </ul>
+                                                    </li>
+                                                    <li class="drodown-show"><a href="#"> Setting <i class="fa fa-angle-down"></i></a>
+                                                        <ul class="open-dropdown setting">
+                                                            <li><a href="my-account.html">My account</a></li>
+                                                            <li><a href="checkout.html">Checkout</a></li>
+                                                            {{#if user}}
+                                                             <li><a class="text-black bg-danger" href="/logout">SignOut</a></li>
+                                                             {{else}}
+                                                            <li><a class="text-black bg-danger" href="/login">Sign in</a></li>
+                                                            {{/if}}
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- full-setting-area end -->
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                         <div class="mobile-menu-style-2 row">
+                            <div class="col-lg-12 d-block d-lg-none">
+                                <!-- Mobile Menu Area Start -->
+                                <div class="mobile-menu-area">
+                                    <div class="mobile-menu">
+                                        <nav id="mobile-menu-active">
+                                            <ul>
+                                                <li class="active"><a href="#">Home</a>
+                                                    <ul class="dropdown_menu">
+                                                        <li><a href="index.html">Home Page 1</a></li>
+                                                        <li><a href="index-2.html">Home Page 2</a></li>
+                                                        <li><a href="index-3.html">Home Page 3</a></li>
+                                                        <li><a href="index-4.html">Home Page 4</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="#">Features</a>
+                                                    <ul class="mega-menu">
+                                                        <li><a href="#">Shop Page</a>
+                                                            <ul>
+                                                                <li><a href="shop.html">Shop Left</a></li>
+                                                                <li><a href="shop-right.html">Shop Right</a></li>
+                                                                <li><a href="shop-fullwidth.html">Shop Full Width</a></li>
+                                                                <li><a href="single-product.html">Single Product</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><a href="#">Blog Page</a>
+                                                            <ul>
+                                                                <li><a href="blog.html">Blog Left</a></li>
+                                                                <li><a href="blog-right.html">Blog Right</a></li>
+                                                                <li><a href="blog-fullwidth.html">Blog Full Width</a></li>
+                                                                <li><a href="blog-details.html">Blog Details</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><a href="#">Pages</a>
+                                                            <ul>
+                                                                <li><a href="my-account.html">My Account</a></li>
+                                                                <li><a href="frequently-question.html">FAQ</a></li>
+                                                                <li><a href="login-register.html">Login & Register</a></li>
+                                                                <li><a href="error404.html">Error 404</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><a href="#">Column</a>
+                                                            <ul>
+                                                                <li><a href="about-us.html">About Us</a></li>
+                                                                <li><a href="checkout.html">Checkout</a></li>
+                                                                <li><a href="cart.html">Cart Page</a></li>
+                                                                <li><a href="wishlist.html">Wish List</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="#">For women</a>
+                                                    <ul class="mega-menu mega-menu-2">
+                                                        <li><a href="#">Jackets</a>
+                                                            <ul>
+                                                                <li><a href="#">Florals</a></li>
+                                                                <li><a href="#">Shirts</a></li>
+                                                                <li><a href="#">Shorts</a></li>
+                                                                <li><a href="#">Stripes</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><a href="#">Jeans</a>
+                                                            <ul>
+                                                                <li><a href="#">Hoodies</a></li>
+                                                                <li><a href="#">Sweaters</a></li>
+                                                                <li><a href="#">Vests</a></li>
+                                                                <li><a href="#">Wedges</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><a href="#">Men</a>
+                                                            <ul>
+                                                                <li><a href="#">Crochet</a></li>
+                                                                <li><a href="#">Dresses</a></li>
+                                                                <li><a href="#">Jeans</a></li>
+                                                                <li><a href="#">Trousers</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="shop.html">Shop</a></li>
+                                                <li><a href="blog.html">Blog</a></li>
+                                                <li><a href="contact.html">Contact</a></li>
+                                            </ul>
+                                        </nav>							
+                                    </div>
+                                </div>
+                                <!-- Mobile Menu Area End -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- header-top end -->
+                <!-- header-mid-area start -->
+                <div class="header-mid-area header-mid-style-3 bg-black">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <!-- hot-line-area start -->
+                                <div class="hot-line-area">
+                                    <div class="phone">
+                                        Customer Support: <span>(012) 800 456 789-987 </span>
+                                    </div>
+                                </div>
+                                <!-- hot-line-area end -->
+                                
+                                <!-- shopping-cart-box start -->
+                                <div class="shopping-cart-box white-cart-box">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <span class="item-cart-inner">
+                                                    <span class="item-cont">2</span> 
+                                                    My Cart
+                                                </span>
+                                                <div class="item-total">$237.00</div>
+                                            </a>
+                                            <ul class="shopping-cart-wrapper">
+                                                <li>
+                                                    <div class="shoping-cart-image">
+                                                        <a href="#">
+                                                            <img src="img/small-product/1.jpg" alt="">
+                                                            <span class="product-quantity">1x</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="shoping-product-details">
+                                                        <h3><a href="#">brand Free RN 2018</a></h3>
+                                                        <div class="price-box">
+                                                            <span>$230.00</span>
+                                                        </div>
+                                                        <div class="sizeandcolor">
+                                                            <span>Size: S</span>
+                                                            <span>Color: Orange</span>
+                                                        </div>
+                                                        <div class="remove">
+                                                            <button title="Remove"><i class="ion-android-delete"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="shoping-cart-image">
+                                                        <a href="#">
+                                                            <img src="img/small-product/2.jpg" alt="">
+                                                            <span class="product-quantity">1x</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="shoping-product-details">
+                                                        <h3><a href="#">Product Free RN 2018</a></h3>
+                                                        <div class="price-box">
+                                                            <span>$230.00</span>
+                                                        </div>
+                                                        <div class="sizeandcolor">
+                                                            <span>Size: S</span>
+                                                            <span>Color: Orange</span>
+                                                        </div>
+                                                        <div class="remove">
+                                                            <button title="Remove"><i class="ion-android-delete"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="cart-subtotals">
+                                                        <h5>Subtotal<span class="float-right">$698.00</span></h5>
+                                                        <h5>Shipping<span class="float-right"> $7.00 </span></h5>
+                                                        <h5>Taxes<span class="float-right">$0.00</span></h5>
+                                                        <h5> Total<span class="float-right">$705.00</span></h5>
+                                                    </div>
+                                                </li>
+                                                <li class="shoping-cart-btn">
+                                                    <a class="checkout-btn" href="checkout.html">checkout</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- shopping-cart-box start -->
+                                
+                                <!-- searchbox start -->
+                                <div class="searchbox">
+                                    <form action="#">
+                                        <div class="search-form-input">
+                                            <select id="select" name="select" class="nice-select">
+                                                <option value="">All Categories</option>
+                                                <option value="12">Uncategorized</option>
+                                                <option value="22">Electronics</option>
+                                                <option value="26">Accessories</option>
+                                                <option value="27">Cap HDMI</option>
+                                                <option value="28">Headphone</option>
+                                                <option value="29">Keyboard</option>
+                                                <option value="23">Mouse</option>
+                                                <option value="30">Laptops & Tablets</option>
+                                                <option value="31">Laptop</option>
+                                                <option value="31">Macbook</option>
+                                                <option value="31">Smartphone</option>
+                                                <option value="31">Tablets</option>
+                                                <option value="32">Tvs & Audios</option>
+                                                <option value="33">Amply</option>
+                                                <option value="24">Smart TV</option>
+                                                <option value="34">Speaker</option>
+                                                <option value="35">TV</option>
+                                                <option value="36">Fashion & Jewelry</option>
+                                                <option value="37">Accessories</option>
+                                                <option value="25">Rings</option>
+                                                <option value="38">Watches</option>
+                                            </select>
+                                            <input type="text" placeholder="Enter your search key ... ">
+                                            <button class="top-search-btn" type="submit">Search</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- searchbox end -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- header-mid-area end -->
+            </header>

@@ -80,9 +80,9 @@ module.exports = {
             })  
         })
     },
-    viewSubCategory: () => {
+    viewSubCategory: (id) => {
         return new Promise(async (resolve, reject) => {
-            let Subcategory = await db.get().collection(collection.SUB_CATEGORY_COLLECTION).find().toArray()
+            let Subcategory = await db.get().collection(collection.SUB_CATEGORY_COLLECTION).find({category:id}).toArray()
             resolve(Subcategory)
 
         })

@@ -1,10 +1,13 @@
 var express = require('express');
 const res = require('express/lib/response');
+const { TaskRouterGrant } = require('twilio/lib/jwt/AccessToken');
 const { validateRequestWithBody } = require('twilio/lib/webhooks/webhooks');
 const { response } = require('../app');
+const adminHelper = require('../helpers/adminHelper');
 const userHelper = require('../helpers/userHelper');
 var router = express.Router();
-var usersHelper = require('../helpers/userHelper')
+var usersHelper = require('../helpers/userHelper');
+const { route } = require('./admin');
 
 // Otp verification
 const SERVICE_ID = "VA8cb715309d028270bf78e01cb99b48d4"
@@ -14,23 +17,26 @@ const client = require("twilio")(ACCOUNT_SID, AUTH_TOKEN)
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+  adminHelper.viewProducts().then((products)=>{
+
   let user= req.session.user
   if(req.session.status==true){
     let  status="*Admin Blocked"
     res.render('user/login',{status})
+  
   }
   // let blocked=req.session.status
-  usersHelper.viewProduct().then((prod)=>{
+ // usersHelper.viewProduct().then((prod)=>{
  
-  res.render('user/home',{users:true,user,prod});
+  res.render('user/home',{users:true,user,products});
  })
    });
 router.get('/login', function (req, res, next) {
   let error=req.session.error
-  if(req.session.status==true){
-     
-  }
-  res.render('user/login',{error});
+  // if(req.session.status==true){
+  //   console.log(req.session.status);
+  // }
+  res.render('user/login',{error,users:true});
 });
 router.post('/home', function (req, res, next) {
   usersHelper.doLogin(req.body).then((response) => {
@@ -51,23 +57,55 @@ router.post('/home', function (req, res, next) {
 
 });
 router.get('/signup', function (req, res, next) {
-  res.render('user/signup');
+  let alreadyExist= req.session.userAlreadyExist
+  res.render('user/signup',{alreadyExist,users:true});
 });    
 
 
 router.post('/signup', function (req, res, next) {
- 
-  usersHelper.doSignUp(req.body).then((response) => {
-
- 
-    res.redirect('/')
+ userHelper.doLogin(req.body).then((response)=>{
+      if(response.status){
+       // req.session.userAlreadyExist=response.status
+    res.send('already exist')
+          }
+ else{
+   req.session.userdetails=req.body
+   req.session.contact=req.body.phone
+   client.verify.services(SERVICE_ID).verifications.create({
+     to: `+91${req.body.phone}`,
+     channel: "sms"
+    })
+    console.log(req.session.userdetails)
+    let userdetails=req.session.userdetails
+    res.render('user/otpVerifyForUserSignUP')   
+ }
+   
   })
 });
+router.post('/otpVerificationForUserSignUp', (req, res, next) => {
+  
+  const { otp} = req.body;
+  var userData=req.session.contact
+  client.verify.services(SERVICE_ID).verificationChecks.create({
+    to: `+91${userData}`,
+    code: otp
+  }).then((data)=>{
+    if(data.status=='approved')
+   {
+    res.redirect('/')
+   }
+   else{
+     res.redirect('/otpVerification')
+   }
+     })
+})
+
 router.get('/contact',(req,res,next)=>{
 res.render('user/contact')
 })
 router.post('/numberChecking',(req,res,next)=>{
 userHelper.findContact(req.body).then((number)=>{
+  
 if(number){
   
   req.session.contact=number.phone
@@ -104,12 +142,28 @@ router.post('/otpVerification', (req, res, next) => {
      })
 })
 router.get('/logout',(req,res,next)=>{
-console.log(req.session.loggedIn)
+req.session.user=null
 res.redirect('/')
 })
-router.get('/productList',(req,res,next)=>{
-  res.render('user/Product-list')
+
+ router.get('/product-details',(req,res,next)=>{
+  adminHelper.viewProducts().then((products)=>{
+    adminHelper.viewProductsMen().then((men))
+    let user=req.session.user
+   res.render('user/view-product-with-image-zoo',{users:true,products,user,men})
+ })
 })
- 
+router.get('/numberVerification',(req,res,next)=>{
+  client.verify.services(SERVICE_ID).verifications.create({
+    to: `+91${req.body.phone}`,
+    channel: "sms"
+  })
+  res.render('user/otpverify')
+})
+router.get('/cart',(req,res,next)=>{
+  res.render('user/cart',{users:true})
+})
+
 
 module.exports = router;
+

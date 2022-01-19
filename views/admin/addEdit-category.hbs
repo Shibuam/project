@@ -23,24 +23,25 @@
 
 <body>
 
-  <div class="container tm-mt-big tm-mb-big">
+  <div class="container tm-mt-big tm-mb-big " style="margin-top: 100px;">
     <div class="row">
       <div>
         <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
           <div class="row">
-            <div class="col-12">
+            <div class="col-12 text-center">
               <h2 class="tm-block-title d-inline-block">Category Management</h2>
             </div>
           </div>
-          <div class="row tm-edit-product-row">
+          <div class="row tm-edit-product-row text-center" width="50px">
             <div class="col-xl-6 col-lg-6 col-md-12">
               <form action="/admin/addCategory" method="post">
                 <div class="form-group mb-3">
-                  <div class="row"></div>
+                  <div class="text-center">
                   <label for="name">Add New Category </label>
 
                   <input name="category" type="text" class="form-control validate " required /><br>
                   <button type="submit" class="btn mx-4 px-5 bg-danger text-white m-1">Add</button>
+                </div>
               </form>
             </div>
             <div class="form-group mb-3">

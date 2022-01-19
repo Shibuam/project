@@ -79,4 +79,11 @@ module.exports={
                 
             })
         },
+        viewProductMen:()=>{
+            return new Promise((resolve,reject)=>{
+                let productsMen=db.get().collection(collection.PRODUCTS).find({category:"Men Shoes"}).toArray()
+                resolve(productsMen)
+            })
+            
+        },
   }
