@@ -105,5 +105,6 @@ module.exports = {
         return new Promise((resolve,reject)=>{
                 db.get().collection(collection.SUB_CATEGORY_COLLECTION).insertOne(addingSubCat)
         })
-    }
+    },
+   
 }

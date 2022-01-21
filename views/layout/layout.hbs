@@ -25,6 +25,12 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
 
+    {{!-- admin-sidebar --}}
+
+
+
+    
+
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
   {{!-- jquery validater --}}
@@ -94,9 +100,23 @@
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
     <!-- END Custom CSS-->
+
+
+
+    <!--Container Main start-->
+    {{!-- <div class="height-100 bg-light">
+        <h4>Main Components</h4>
+    </div> --}}
+    <!--Container Main end-->
+
+
+    
 </head>
 
 <body>
+
+
+  
   {{#if admin}}
   {{>admin-header}}
   {{else if users}}
@@ -138,7 +158,8 @@ $(document).ready(function(){
                  }
         })
     })
-    </script>
+  {{!-- link for count cart--}}
+  <s
 </body>
 
 </html>

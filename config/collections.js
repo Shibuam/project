@@ -3,5 +3,7 @@ module.exports={
     PRODUCTS:'products',
     ADMIN:'admin',
     CATEGORY_COLLECTION:'category',
-    SUB_CATEGORY_COLLECTION:'subCategory'
+    SUB_CATEGORY_COLLECTION:'subCategory',
+    CART_COLLECTION:'cart'
+    
 }

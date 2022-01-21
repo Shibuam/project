@@ -4,6 +4,7 @@ var router = express.Router();
 var userHelper=require('../helpers/userHelper')
 var adminHelper=require('../helpers/adminHelper');
 const async = require('hbs/lib/async');
+const { localsAsTemplateData } = require('hbs');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -48,9 +49,10 @@ router.get('/addProduct',(req,res,next)=>{
 })
 })
 router.get('/viewProducts',(req,res,next)=>{
+  //let search=req.session.search
   adminHelper.viewProducts().then((products)=>{
     
-    res.render('admin/viewProducts',{products,admin:true,})
+    res.render('admin/viewProducts',{products,admin:true})
   })
 })
  
@@ -175,9 +177,15 @@ router.get('/logout',(req,res,next)=>{
   req.session.admin=null
   res.redirect('/admin')
 })
-router.get('/in',(req,res,next)=>{
-res.render('admin/index')
-})
+// router.post('/search',(req,res,next)=>{
+  
+//    adminHelper.search(req.body.searching).then((data)=>{
+//      console.log("njan data an*******",data);
+//     req.session.search= data
+//     res.redirect('/admin/viewProducts')
+//   })
+
+// })
 
 
 module.exports = router;

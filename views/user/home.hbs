@@ -163,7 +163,8 @@
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart"><a href="/cart" class="text-dark"><i class="ion-android-cart"></i> Add to cart</a></li>
+                                                        
+                                                        <li class="add-cart"><button onclick="addToCart('{{this._id}}')" class="text-dark"><i class="ion-android-cart"></i> Add to cart</button></li>
                                                         <li><a class="text-dark" class="quick-view" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" href="#"><i class="ion-android-open"></i></a></li>
                                                         <li><a class="text-dark" class="links-details" href="single-product.html"><i class="ion-clipboard"></i></a></li>
                                                     </ul>
@@ -2827,7 +2828,27 @@
             </div>   
             <!-- Modal end-->
         </div>   
+        {{!-- ajax for add to cart --}}
+        {{!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+
+           <script>
+
+               function addToCart(proId){
+    $.ajax({
+        url:'/cart/'+proId,
+        method:'get',
+        success:(Response)=>{
+            if(Response.status){
+                let count=$('#cart-count').html()
+                count=parseInt(count)+1
+                $('#cart-count').html(count)
+            }
            
+        }
+    })
+   }
+           </script>
+
         
 		<!-- jQuery JS -->
         <script src="js/vendor/jquery-3.5.1.min.js"></script>

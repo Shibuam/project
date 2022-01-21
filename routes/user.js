@@ -1,5 +1,7 @@
 var express = require('express');
+const session = require('express-session');
 const res = require('express/lib/response');
+const async = require('hbs/lib/async');
 const { TaskRouterGrant } = require('twilio/lib/jwt/AccessToken');
 const { validateRequestWithBody } = require('twilio/lib/webhooks/webhooks');
 const { response } = require('../app');
@@ -9,6 +11,15 @@ var router = express.Router();
 var usersHelper = require('../helpers/userHelper');
 const { route } = require('./admin');
 
+const verifyLogin=(req,res,next)=>{
+  if(req.session.loggedIn){
+    next()
+  }else{
+  
+    res.redirect('/login')
+  }
+}
+
 // Otp verification
 const SERVICE_ID = "VA8cb715309d028270bf78e01cb99b48d4"
 const ACCOUNT_SID = "AC0cf099a40e0127b5f6bc9832b90bdbee"
@@ -16,19 +27,25 @@ const AUTH_TOKEN = "af35724e003c285813622ec44122505b"
 const client = require("twilio")(ACCOUNT_SID, AUTH_TOKEN)
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', async (req, res, next) =>{
+  let user= req.session.user
+  let cartCount=null
+  if(user){
+    cartCount=await userHelper.cartCount(user._id)
+    console.log(cartCount)
+   }
   adminHelper.viewProducts().then((products)=>{
 
-  let user= req.session.user
+  
+ 
   if(req.session.status==true){
     let  status="*Admin Blocked"
-    res.render('user/login',{status})
+    res.render('user/login',{status,})
   
   }
-  // let blocked=req.session.status
- // usersHelper.viewProduct().then((prod)=>{
+
  
-  res.render('user/home',{users:true,user,products});
+  res.render('user/home',{users:true,user,products,cartCount});
  })
    });
 router.get('/login', function (req, res, next) {
@@ -75,7 +92,7 @@ router.post('/signup', function (req, res, next) {
      to: `+91${req.body.phone}`,
      channel: "sms"
     })
-    console.log(req.session.userdetails)
+   
     let userdetails=req.session.userdetails
     res.render('user/otpVerifyForUserSignUP')   
  }
@@ -160,9 +177,22 @@ router.get('/numberVerification',(req,res,next)=>{
   })
   res.render('user/otpverify')
 })
-router.get('/cart',(req,res,next)=>{
-  res.render('user/cart',{users:true})
+router.get('/viewCart',verifyLogin,async(req,res,next)=>{
+  let products=await userHelper.viewToCart(req.session.user._id)
+ console.log(products)
+  let user= req.session.user
+ res.render('user/cart',{users:true,products,user})
 })
+router.get('/cart/:id',verifyLogin,(req,res,next)=>{
+  
+
+  userHelper.addToCart(req.params.id,req.session.user._id).then((data)=>{
+    
+    res.json({status:true})
+  })
+
+})
+
 
 
 module.exports = router;
