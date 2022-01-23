@@ -432,7 +432,7 @@
                                 <h3>Login</h3>
                                 <div class="login-Register-info">
                                   
-                                  <form action="/home" id="myform" method="post">
+                                  <form action="/home" id="myform" method="post" enctype="multipart/form-data">
                                   
                                        
                                               <p class="text-danger">{{error}}</p>
@@ -667,7 +667,7 @@
                                                 </div>
                                             </div>
                                             <div class="quick-add-to-cart">
-                                                <form class="modal-cart">
+                                                <form class="modal-cart" >
                                                     <div class="quantity">
                                                         <label>Quantity</label>
                                                         <div class="cart-plus-minus">
@@ -694,8 +694,7 @@
            
         
 		<!-- jQuery JS -->
-        <script src="js/vendor/jquery-3.5.1.min.js"></script>
-        <script src="js/vendor/jquery-migrate-3.3.0.min.js"></script>
+
 		<!-- all plugins JS hear -->		
         <script src="js/popper.min.js"></script>	
         <script src="js/bootstrap.min.js"></script>	
@@ -705,10 +704,10 @@
         <script src="js/plugins.js"></script>
 		<!-- main JS -->		
         <script src="js/main.js"></script>
-    </body>
+    
 
 <!-- Mirrored from template.hasthemes.com/juta/juta-v1/login-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jan 2022 12:57:06 GMT -->
-</html>
+
   {{!-- ending template --}}
 
   {{!-- signup --}}
@@ -731,3 +730,26 @@
     </form>      
   </div>
 </div> --}}
+
+
+
+<script>
+    $(document).ready(function () {
+      $("#login").validate({
+        rules: {
+          email: {
+            required: true,
+            minlength: 3,
+            email: true
+          },
+          password: {
+            required: true,
+            minlength: 3,
+            maxlength: 10
+          }
+          }
+          })
+          })
+          </script>
+    </body>
+    </html>

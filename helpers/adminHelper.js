@@ -8,6 +8,7 @@ const { ObjectId } = require('mongodb')
 const res = require('express/lib/response')
 module.exports = {
     addProduct: (proDetails) => {
+        proDetails.mrp = parseInt(proDetails.mrp)
         return new Promise((resolve, reject) => {
             db.get().collection(collection.PRODUCTS).insertOne(proDetails).then((dataId) => {
                 resolve(dataId)

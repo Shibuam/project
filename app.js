@@ -3,14 +3,14 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var db=require('./config/connection')
+var db = require('./config/connection')
 const fileUpload = require('express-fileupload');
-var { create } = require ('express-handlebars');
- const { handlebars } = require('hbs');
- var session=require('express-session')
+var { create } = require('express-handlebars');
+const { handlebars } = require('hbs');
+var session = require('express-session')
 
-db.connection((err)=>{
-  if(err){
+db.connection((err) => {
+  if (err) {
     console.log("data base connection error")
   }
   console.log("data base connected")
@@ -41,18 +41,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload())
-app.use(session({secret:'key',cookie:{maxAge:600000}}))
+app.use(session({ secret: 'key', cookie: { maxAge: 600000 } }))
 
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

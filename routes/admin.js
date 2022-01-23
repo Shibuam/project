@@ -49,7 +49,7 @@ router.get('/addProduct',(req,res,next)=>{
 })
 })
 router.get('/viewProducts',(req,res,next)=>{
-  //let search=req.session.search
+ 
   adminHelper.viewProducts().then((products)=>{
     
     res.render('admin/viewProducts',{products,admin:true})
@@ -58,6 +58,7 @@ router.get('/viewProducts',(req,res,next)=>{
  
 
 router.post('/addProducts',(req,res,next)=>{
+  req.body.mrp = parseInt(req.body.mrp)
  
   adminHelper.addProduct(req.body).then((id)=>{
    
@@ -83,16 +84,16 @@ if(!err){
        })
 })
 router.get('/editProduct/',async(req,res,next)=>{
-  console.log(req.query.id);
+ 
  let product =await adminHelper.editProducts(req.query.id)
-  console.log(product)
+
   
   res.render('admin/editProduct',{product,admin:true})
   });
 
 
   router.post('/editProducts/:id',(req,res,next)=>{
-    
+    req.body.mrp = parseInt(req.body.mrp)
     adminHelper.updateProduct(req.params.id,req.body).then((id)=>{
               if(req.files.image){
         let image=req.files.image
@@ -125,7 +126,7 @@ router.get('/unblock/:id',(req,res,next)=>{
   })
    })
 router.get('/addEdit-category',(req,res,next)=>{
- // adminHelper.viewSubCategory().then((Subcategory)=>{
+
    let Subcategory=req.session.Subcategory
    
    adminHelper.viewCategory().then((category)=>{
@@ -143,7 +144,7 @@ router.post('/addCategory',(req,res,next)=>{
 })
 
 router.post('/addSubCategory',(req,res,next)=>{
-    // adminHelper.addSubCategory(req.body).then(()=>{
+  
       adminHelper.addingSubCategory(req.body)
     res.redirect('/admin/addEdit-category')
   })
@@ -177,15 +178,7 @@ router.get('/logout',(req,res,next)=>{
   req.session.admin=null
   res.redirect('/admin')
 })
-// router.post('/search',(req,res,next)=>{
-  
-//    adminHelper.search(req.body.searching).then((data)=>{
-//      console.log("njan data an*******",data);
-//     req.session.search= data
-//     res.redirect('/admin/viewProducts')
-//   })
 
-// })
 
 
 module.exports = router;
