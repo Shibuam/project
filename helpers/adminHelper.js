@@ -107,5 +107,10 @@ module.exports = {
                 db.get().collection(collection.SUB_CATEGORY_COLLECTION).insertOne(addingSubCat)
         })
     },
-   
+    viewProductsDetails:(ProId)=>{
+        return new Promise((resolve,reject)=>{
+         let   proDetails=db.get().collection(collection.PRODUCTS).findOne({_id:ObjectId(ProId)})
+         resolve(proDetails)
+        })
+    }
 }

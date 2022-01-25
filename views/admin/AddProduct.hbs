@@ -140,7 +140,34 @@ function validation(){
 }
 </script>
 
+<script>
+    $(document).ready(function () {
+      $("#myform").validate({
+        rules: {
+          lanCost: {
+            required: true,
+          
+          },
+          mrp: {
+            required: true,
+         },
+       brand  : {
+            required: true,
+         },
+         qty  : {
+            required: true,
+         },
 
+          password: {
+            required: true,
+            minlength: 3,
+            maxlength: 10
+          }
+   
+        }
+      })
+    })
+  </script>
 </body>
 
 </html>

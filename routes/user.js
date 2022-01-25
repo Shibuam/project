@@ -1,6 +1,7 @@
 var express = require('express');
 const session = require('express-session');
 const res = require('express/lib/response');
+const { log } = require('handlebars');
 const async = require('hbs/lib/async');
 const { TaskRouterGrant } = require('twilio/lib/jwt/AccessToken');
 const { validateRequestWithBody } = require('twilio/lib/webhooks/webhooks');
@@ -163,12 +164,14 @@ router.get('/logout', (req, res, next) => {
   res.redirect('/')
 })
 
-router.get('/product-details', (req, res, next) => {
-  adminHelper.viewProducts().then((products) => {
-    adminHelper.viewProductsMen().then((men))
-    let user = req.session.user
-    res.render('user/view-product-with-image-zoo', { users: true, products, user, men })
-  })
+router.get('/product-details',async (req, res, next) => {
+  // console.log(req.query.id)
+
+ let productDetails= await adminHelper.viewProductsDetails(req.query.id)
+  
+
+    res.render('user/singleProduct', { users: true, productDetails})
+  
 })
 router.get('/numberVerification', (req, res, next) => {
   client.verify.services(SERVICE_ID).verifications.create({
@@ -180,6 +183,7 @@ router.get('/numberVerification', (req, res, next) => {
 
 router.get('/viewCart', verifyLogin, async (req, res, next) => {
   let products = await userHelper.viewToCart(req.session.user._id)
+  req.session.products=products
   let user = req.session.user
   let total = await userHelper.getTotal(user._id)
  let cartCount=req.session.cartCount
@@ -208,11 +212,34 @@ router.post('/removeProductFromCart', (req, res, next) => {
  })
  
 })
-router.get('/checkOut', verifyLogin, async (req, res, next) => {
+router.get('/placeOrder', verifyLogin, async (req, res, next) => {
   let user = req.session.user
-  let total = await userHelper.getTotal(user._id)
-  console.log(total);
-  res.render('user/checkOut', { users: true, user, total })
+    let total = await userHelper.getTotal(user._id)
+  let  products =req.session.products
+  res.render('user/checkOut', { users: true, user, total,products })
+})
+router.post('/placeOrder',async(req,res,next)=>{
+  let cartProd=await userHelper.cartProducts(req.body.userId)
+  let total = await userHelper.getTotal(req.body.userId)
+userHelper.placeOrder(req.body,cartProd,total).then((response)=>{
+  res.json({status:true})
+})
+})
+router.get('/orderSuccess',(req,res,next)=>{
+  let user = req.session.user
+  res.render('user/orderSuccess',{users:true,user})
+})
+router.get('/order',async(req,res,next)=>{
+    let user = req.session.user
+    let orders=await userHelper.getuserOrders(user._id)
+  res.render('user/order',{users:true,user,orders})
+})
+router.get('/viewOrderProducts/:id',async(req,res,next)=>{
+  let user = req.session.user
+let viewProOrderlist=await userHelper.getOrderProducts(req.params.id)
+console.log(viewProOrderlist)
+
+ res.render('user/viewOrderProductList',{viewProOrderlist,user,users:true})
 })
 
 

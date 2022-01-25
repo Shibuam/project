@@ -39,7 +39,7 @@
                                     <div id="checkout-login" class="coupon-content">
                                         <div class="coupon-info">
                                             <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new customer, please proceed to the Billing & Shipping section.</p>
-                                            <form action="#"> 
+                                            <form action="#"id="" method="post"> 
                                                 <p class="coupon-input form-row-first">
                                                     <label>Username or email <span class="required">*</span></label>
                                                     <input type="text" name="email">
@@ -83,85 +83,62 @@
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-6 offset-xl-1 col-xl-5 col-sm-12">
-                                        <form action="#">
+                                         <form action="#" id="checkOutForm" method="post"> 
                                             <div class="checkbox-form">
                                                 <h3 class="shoping-checkboxt-title">Billing Details</h3>
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <p class="single-form-row">
                                                             <label>First name <span class="required">*</span></label>
-                                                            <input type="text" name="First name">
+                                                            <input type="text" name="firstname" value="{{this.user.firstname}}">
                                                         </p>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <p class="single-form-row">
-                                                            <label>Username or email <span class="required">*</span></label>
-                                                            <input type="text" name="Last name ">
+                                                            <label> Last Name<span class="required">*</span></label>
+                                                            <input type="text" name="lastname" value="{{this.user.lastname}}">
+                                                        </p>
+                                                    </div>
+                                               
+                                                      <div class="col-lg-6">
+                                                        <p class="single-form-row">
+                                                            <label> email<span class="required">*</span></label>
+                                                            <input type="text" name="email" value="{{this.user.email}}">
                                                         </p>
                                                     </div>
                                                     <div class="col-lg-12">
                                                         <p class="single-form-row">
-                                                            <label>Company name</label>
-                                                            <input type="text" name="email">
+                                                            <label>Street name <span class="required">*</span></label>
+                                                            <input type="text" name="streetName" placeholder=" street name">
                                                         </p>
                                                     </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="single-form-row">
-                                                           <label>Country <span class="required">*</span></label>
-                                                           <div class="nice-select wide">
-                                                              <select>
-                                                                    <option>Select Country...</option>
-                                                                    <option>Albania</option>
-                                                                    <option>Angola</option>
-                                                                    <option>Argentina</option>
-                                                                    <option>Austria</option>
-                                                                    <option>Azerbaijan</option>
-                                                                    <option>Bangladesh</option>
-                                                              </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <p class="single-form-row">
-                                                            <label>Street address <span class="required">*</span></label>
-                                                            <input type="text" name="address" placeholder="House number and street name">
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <p class="single-form-row">
-                                                            <input type="text" name="address" placeholder="Apartment, suite, unit etc. (optional)">
-                                                        </p>
-                                                    </div>
+                                                
                                                     <div class="col-lg-12">
                                                         <p class="single-form-row">
                                                             <label>Town / City <span class="required">*</span></label>
-                                                            <input type="text" name="address">
+                                                            <input type="text" name="city">
+                                                            <input type="text" name="userId" value="{{this.user._id}}" hidden>
                                                         </p>
                                                     </div>
                                                     <div class="col-lg-12">
                                                         <p class="single-form-row">
-                                                            <label>State / County</label>
-                                                            <input type="text" name="address">
+                                                            <label>State </label>
+                                                            <input type="text" name="state">
                                                         </p>
                                                     </div>
                                                     <div class="col-lg-12">
                                                         <p class="single-form-row">
                                                             <label>Postcode / ZIP <span class="required">*</span></label>
-                                                            <input type="text" name="address">
+                                                            <input type="text" name="postcode">
                                                         </p>
                                                     </div>
                                                     <div class="col-lg-12">
                                                         <p class="single-form-row">
                                                             <label>Phone</label>
-                                                            <input type="text" name="address">
+                                                            <input type="text" name="phone" value="{{this.user.phone}}">
                                                         </p>
                                                     </div>
-                                                    <div class="col-lg-12">
-                                                        <p class="single-form-row">
-                                                            <label>Email address <span class="required">*</span></label>
-                                                            <input type="text" name="Email address ">
-                                                        </p>
-                                                    </div>
+                                               
                                                     <div class="col-lg-12">
                                                         <div class="single-form-row checkout-area">
                                                             <label><input type="checkbox" id="chekout-box"> Create an account?</label>
@@ -179,7 +156,7 @@
                                                                     <div class="col-lg-6">
                                                                         <p class="single-form-row">
                                                                             <label>First name <span class="required">*</span></label>
-                                                                            <input type="text" name="First name">
+                                                                            <input type="text" name="Firstname" >
                                                                         </p>
                                                                     </div>
                                                                     <div class="col-lg-6">
@@ -251,11 +228,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
+                                    
                                     </div>
                                     <div class="col-lg-6  col-xl-5 col-sm-12">
                                         <div class="checkout-review-order">
-                                            <form action="#">
+                                           
                                                 <h3 class="shoping-checkboxt-title">Your order</h3>
                                                 <table class="checkout-review-order-table">
                                                     <thead>
@@ -265,16 +242,19 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                          {{#each products}}
                                                         <tr class="cart_item">
-                                                            <td class="t-product-name">Natus erro<strong class="product-quantity">× 1</strong></td>
-                                                             <td class="t-product-price"><span>$97.20</span></td>
+                                                          
+                                                            <td class="t-product-name">{{this.product.SubCategory}}</td>
+                                                              
+                                                                     
+                                                        <td>   <span>    <strong class="product-quantity">{{this.quantity}}</strong></span></td>
+                                                     
+                                                             {{/each}}
                                                         </tr>
                                                     </tbody>
                                                     <tfoot>
-                                                        <tr class="cart-subtotal">
-                                                            <th>Subtotal</th>
-                                                            <td><span>$97.00</span></td>
-                                                        </tr>
+                                                     
                                                         <tr class="shipping">
                                                             <th>Shipping</th>
                                                             <td>Free shipping</td>
@@ -287,8 +267,9 @@
                                                 </table>
                                                 <div class="checkout-payment">
                                                     <div class="payment_methods">
-                                                        <p><label>PayPal Express Checkout <a href="#"><img src="img/icon/pp-acceptance-small.png" alt=""></a></label></p>
-                                                        <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
+                                                        <p>Payment Method</p>
+                                                        <p><input type="radio"  name="method" value="COD" checked>COD</p>
+                                                           <p><input type="radio" name="method"value="Online Payment">Online Payment</p>
                                                     </div>
                                                     <button class="button-continue-payment" type="submit">Continue to payment</button>
                                                 </div>
@@ -509,6 +490,28 @@
             </div>   
             <!-- Modal end-->
         </div>   
+        {{!-- jQuery for checkOut --}}
+      <script>
+          $("#checkOutForm").submit((e)=>{
+   console.log("wrkinggggggggg");
+
+     e.preventDefault()
+    $.ajax({
+        url:'/placeOrder',
+        method:'post',
+        data:$('#checkOutForm').serialize(),
+        success:(response)=>{
+             alert(response)
+            if(response.status){
+                location.href='/orderSuccess'
+            }
+            
+
+        }
+    })
+})
+
+      </script>
            
         
 		<!-- jQuery JS -->

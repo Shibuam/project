@@ -32,73 +32,43 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <form action="#" class="cart-table">
+                           
                                 <div class="table-content table-responsive">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th class="plantmore-product-remove">Product Name</th>
-                                                <th class="plantmore-product-thumbnail">images</th>
-                                                <th class="plantmore-product-price">Unit Price</th>
-                                                <th class="cart-product-name">Size</th>
+                                                <th class="plantmore-product-remove">Date</th>
+                                                <th class="plantmore-product-thumbnail">Pincode</th>
+                                                <th class="plantmore-product-price">Mobile</th>
+                                                <th class="cart-product-name">Amount</th>
+                                                 <th class="cart-product-name">Payment</th>
+                                                  <th class="cart-product-name">Status</th>
+                                                   <th class="cart-product-name">View Products</th>
                                                
-                                                <th >Quantity</th>
-                                                <th class="plantmore-product-subtotal">Total</th>
-                                                  <th class="plantmore-product-remove">Remove</th>
+                                               
+                                               
                                             </tr>
                                         </thead>
                                         <tbody>
-                                             {{#each products}}
+                                             {{#each orders}}
                                             <tr>
                                                
-                                              
-                                                 <td class="plantmore-product-name">{{this.product.SubCategory}}</td> 
-                                             
-                                                <td class="plantmore-product-thumbnail"><img src="/images/proImage/{{this.product._id}}image.jpg" alt=""></td>
-                                               <td class="plantmore-product-price"><span class="amount">{{this.product.mrp}}</span></td>
-                                             <td class="plantmore-product-price"><span class="amount">{{this.product.size}}</span></td>
-                                       
-                                               
-                                                 
-                                                <td >
-                                                
-                                         <button  onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)">-</button> 
-                                               <span id="{{this.product._id}}">{{this.quantity}}</span>
-                                                <button  onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)">+</button> </td>
-                                                <td class="product-subtotal"><span class="amount">$70.00</span></td>
-                                                <td><button onclick="removeProductFromCart('{{this._id}}','{{this.product._id}}')"class="btn btn-danger">Remove</a></td>
+                                              <td class="plantmore-product-remove">{{this.date}}</td>
+                                                <td class="plantmore-product-thumbnail">{{this.deliveryDetails.pincode}}</td>
+                                                <td class="plantmore-product-price">{{this.deliveryDetails.mobile}}</td>
+                                                <td class="cart-product-name">{{this.total}}</td>
+                                                 <td class="cart-product-name">{{this.method}}</td>
+                                                  <td class="cart-product-name">{{this.status}}</td>
+                                                   <td class="cart-product-name"><a href="/viewOrderProducts/{{this._id}}" class="btn btn-secondary">View Products</a></td>
                                             </tr>
                                             {{/each}}
                                        
                                         </tbody>
                                     </table>
                                 </div>
-                                {{!-- <div class="row">
-                                    <div class="col-12">
-                                        <div class="coupon-all">
-                                            <div class="coupon">
-                                          <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
-                                                <input class="button" name="apply_coupon" value="Apply coupon" type="submit">
-                                            </div>
-                                            <div class="coupon2">
-                                                <input class="button" name="update_cart" value="Update cart" type="submit">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
-                                <div class="row">
-                                    <div class="col-md-5 ml-auto">
-                                        <div class="cart-page-total">
-                                            <h2>Cart totals</h2>
-                                            <ul>
-                                                <li>Subtotal <span>$170.00</span></li>
-                                                <li>Total <span>{{total}}</span></li>
-                                            </ul>
-                                            <a href="/placeOrder">Proceed to checkout</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                               
+                               
+                          
                         </div>
                     </div>
                 </div>
@@ -313,7 +283,7 @@
         </div>  
     
         
-        <script>
+        {{!-- <script>
             function  removeProductFromCart(cartId,proId){
    
      $.ajax({
@@ -333,7 +303,7 @@
         } 
     }) 
 }
-        </script>
+        </script> --}}
 		<!-- jQuery JS -->
         <script src="js/vendor/jquery-3.5.1.min.js"></script>
         <script src="js/vendor/jquery-migrate-3.3.0.min.js"></script>

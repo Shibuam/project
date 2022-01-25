@@ -34,12 +34,12 @@
           </div>
           <div class="row tm-edit-product-row text-center" width="50px">
             <div class="col-xl-6 col-lg-6 col-md-12">
-              <form action="/admin/addCategory" method="post">
+              <form action="/admin/addCategory" id="category" method="post">
                 <div class="form-group mb-3">
                   <div class="text-center">
                   <label for="name">Add New Category </label>
 
-                  <input name="category" type="text" class="form-control validate " required /><br>
+                  <input  name="cat" type="text" class="form-control validate " ><br>
                   <button type="submit" class="btn mx-4 px-5 bg-danger text-white m-1">Add</button>
                 </div>
               </form>
@@ -62,7 +62,7 @@
     
 
 <div class="col-xl-12 col-lg-12 col-md-12">
-              <form action="/admin/addSubCategory" method="post">
+              <form action="/admin/addSubCategory"id="sub" method="post">
                <select name="category" id=""class="form-select" aria-label="Default select example">
                 <br><br>
                   {{#each category}}
@@ -74,7 +74,7 @@
                   <div class="row"></div>
                   <label for="name">Add Sub Category </label>
 
-                  <input name="subCategory" type="text" class="form-control validate " required /><br>
+                  <input name="subCategory" type="text" class="form-control validate " ><br>
                   <button type="submit" class="btn bg-danger  mx-4 px-5  text-white m-1">Add</button>
               </form>
             </div>
@@ -132,7 +132,40 @@
   </div>
 </div>
 
+<script>
+    $(document).ready(function () {
+      $("#category").validate({
+        rules: {
+           cat: {
+            required: true,
+            minlength: 3,
+           
+          },
+   
+          
+         
+   
+        }
+      })
+    })
+  </script>
 
+<script>
+    $(document).ready(function () {
+      $("#sub").validate({
+        rules: {
+           
+          
+          subCategory: {
+            required: true,
+            minlength: 3,
+           
+          }
+   
+        }
+      })
+    })
+  </script>  
 </body>
 
 </html>

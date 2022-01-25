@@ -138,5 +138,23 @@ form .button:active {
  <input type="submit"  class="button" value="Log In" />
 
 </form>
-
+ <script>
+    $(document).ready(function () {
+      $("#myform").validate({
+        rules: {
+          name: {
+            required: true,
+            minlength: 3,
+           
+          },
+          password: {
+            required: true,
+            minlength: 3,
+            maxlength: 10
+          }
+   
+        }
+      })
+    })
+  </script>
 </body>  

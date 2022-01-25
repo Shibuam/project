@@ -1,9 +1,8 @@
-<!doctype html>
-<html class="no-js" lang="en">
+
     
 <!-- Mirrored from template.hasthemes.com/juta/juta-v1/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jan 2022 12:56:32 GMT -->
 
-    <body>
+ 
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience. Thanks</p>
         <![endif]-->
@@ -32,23 +31,23 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <form action="#" class="cart-table">
+                          
                                 <div class="table-content table-responsive">
                                     <table class="table">
                                         <thead>
                                             <tr>
                                                 <th class="plantmore-product-remove">Product Name</th>
-                                                <th class="plantmore-product-thumbnail">images</th>
+                                                <th class="plantmore-product-thumbnail">Images</th>
                                                 <th class="plantmore-product-price">Unit Price</th>
                                                 <th class="cart-product-name">Size</th>
                                                
                                                 <th >Quantity</th>
-                                                <th class="plantmore-product-subtotal">Total</th>
-                                                  <th class="plantmore-product-remove">Remove</th>
+                                                {{!-- <th class="plantmore-product-subtotal">Total</th> --}}
+                                                  <th class="plantmore-product-remove">Cancel</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                             {{#each products}}
+                                             {{#each viewProOrderlist}}
                                             <tr>
                                                
                                               
@@ -58,47 +57,20 @@
                                                <td class="plantmore-product-price"><span class="amount">{{this.product.mrp}}</span></td>
                                              <td class="plantmore-product-price"><span class="amount">{{this.product.size}}</span></td>
                                        
-                                               
+                                                 <td class="plantmore-product-price"><span class="amount">{{this.quantity}}</span></td>
                                                  
-                                                <td >
+                                           
                                                 
-                                         <button  onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)">-</button> 
-                                               <span id="{{this.product._id}}">{{this.quantity}}</span>
-                                                <button  onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)">+</button> </td>
-                                                <td class="product-subtotal"><span class="amount">$70.00</span></td>
-                                                <td><button onclick="removeProductFromCart('{{this._id}}','{{this.product._id}}')"class="btn btn-danger">Remove</a></td>
+                                        
+                                                {{!-- <td class="product-subtotal"><span class="amount">$70.00</span></td> --}}
                                             </tr>
                                             {{/each}}
                                        
                                         </tbody>
                                     </table>
                                 </div>
-                                {{!-- <div class="row">
-                                    <div class="col-12">
-                                        <div class="coupon-all">
-                                            <div class="coupon">
-                                          <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
-                                                <input class="button" name="apply_coupon" value="Apply coupon" type="submit">
-                                            </div>
-                                            <div class="coupon2">
-                                                <input class="button" name="update_cart" value="Update cart" type="submit">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
-                                <div class="row">
-                                    <div class="col-md-5 ml-auto">
-                                        <div class="cart-page-total">
-                                            <h2>Cart totals</h2>
-                                            <ul>
-                                                <li>Subtotal <span>$170.00</span></li>
-                                                <li>Total <span>{{total}}</span></li>
-                                            </ul>
-                                            <a href="/placeOrder">Proceed to checkout</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                               
+                               
                         </div>
                     </div>
                 </div>
@@ -313,27 +285,7 @@
         </div>  
     
         
-        <script>
-            function  removeProductFromCart(cartId,proId){
-   
-     $.ajax({
-        url:'/removeProductFromCart',
-            
-        data:{
-            cart:cartId,
-            product:proId,
-           
-        },
-        method:'post',
-         success:(response)=>{
-            if(response.removeProduct){
-                alert("Product removed from cart")
-                 location.reload()
-            }
-        } 
-    }) 
-}
-        </script>
+      
 		<!-- jQuery JS -->
         <script src="js/vendor/jquery-3.5.1.min.js"></script>
         <script src="js/vendor/jquery-migrate-3.3.0.min.js"></script>
@@ -346,7 +298,6 @@
         <script src="js/plugins.js"></script>
 		<!-- main JS -->		
         <script src="js/main.js"></script>
-    </body>
+
 
 <!-- Mirrored from template.hasthemes.com/juta/juta-v1/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jan 2022 12:56:35 GMT -->
-</html>
