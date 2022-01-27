@@ -112,5 +112,11 @@ module.exports = {
          let   proDetails=db.get().collection(collection.PRODUCTS).findOne({_id:ObjectId(ProId)})
          resolve(proDetails)
         })
+    },
+    orderMng:()=>{
+        return new Promise(async(resolve,reject)=>{
+          let  orderList=await db.get().collection(collection.ORDER_COLLECTION).find().toArray()
+            resolve(orderList)
+        })
     }
 }

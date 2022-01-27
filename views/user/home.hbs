@@ -1,11 +1,8 @@
-<!doctype html>
-<html class="no-js" lang="en">
+
     
 <!-- Mirrored from template.hasthemes.com/juta/juta-v1/index-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jan 2022 12:56:19 GMT -->
-<head>
-       
-    </head>
-    <body>
+
+
        
             
             <!-- slider-main-area start -->
@@ -137,7 +134,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="/product-details/?={{productDetails._id}}">
+                                                <a href="/product-details/?id={{this._id}}">
                                                     <img class="primary-image" src="/images/proImage/{{this._id}}image.jpg" alt="">
                                                     {{!-- <img class="secondary-image" src="img/product/2.jpg" alt=""> --}}
                                                 </a>
@@ -367,7 +364,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="">
                                                     <img class="primary-image" src="img/product/7.jpg" alt="">
                                                 </a>
                                             </div>
@@ -2834,8 +2831,7 @@
            <script>
 
                function addToCart(proId){
-               console.log("hiiiiiiiiiiiiiiiiiii")
-
+             
     $.ajax({
         url:'/cart/'+proId,
         method:'get',
@@ -2853,21 +2849,10 @@
 
         
 		<!-- jQuery JS -->
-        <script src="js/vendor/jquery-3.5.1.min.js"></script>
-        <script src="js/vendor/jquery-migrate-3.3.0.min.js"></script>
-		<!-- all plugins JS hear -->		
-        <script src="js/popper.min.js"></script>	
-        <script src="js/bootstrap.min.js"></script>	
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.mainmenu.js"></script>	
-        <script src="js/ajax-email.js"></script>
-        <script src="js/plugins.js"></script>
-		<!-- main JS -->		
-        <script src="js/main.js"></script>
-    </body>
+       
 
 <!-- Mirrored from template.hasthemes.com/juta/juta-v1/index-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jan 2022 12:56:21 GMT -->
-</html>
+
 {{!-- old home page --}}
  {{!-- {{#each products}}
   <figure>

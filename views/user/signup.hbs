@@ -1,234 +1,4 @@
-{{!-- <style>
-    /* 
-   Layout: Primary
-*/
-body {
-  background-color: #3c4c55;
-  font-family: "Oxygen", sans-serif;
-  line-height: normal;
-}
 
-.container {
-  max-width: 50rem;
-  margin: 2.5rem auto;
-  padding: 0 0.8em;
-}
-@media (min-width: 28.75rem) {
-  .container {
-    margin: 4.5rem auto;
-  }
-}
-
-.signup {
-  max-width: 37.5rem;
-  margin: 0 auto;
-  overflow: hidden;
-}
-.signup__message {
-  color: #fff;
-  font-size: 13px;
-  padding: 12px 0;
-}
-.signup__message--center {
-  text-align: center;
-  color: #637077;
-}
-.signup__link {
-  color: #00b0df;
-  transition-property: color;
-  transition-duration: 0.1s;
-  transition-timing-function: ease-in-out;
-}
-.signup__link:hover {
-  color: #13cdff;
-}
-
-.social {
-  text-align: center;
-}
-.social__button {
-  display: block;
-  color: #fff;
-  width: 100%;
-  padding: 9px 0;
-  transition-property: background;
-  transition-duration: 0.1s;
-  transition-timing-function: ease-in-out;
-}
-.social__button--facebook {
-  background-color: #3b5998;
-  margin-bottom: 10px;
-}
-.social__button--facebook:hover {
-  background: #466ab5;
-}
-.social__button--facebook:active {
-  background: #2d4373;
-}
-.social__button--twitter {
-  background-color: #55acee;
-}
-.social__button--twitter:hover {
-  background: #7abef2;
-}
-.social__button--twitter:active {
-  background: #2795e9;
-}
-@media (min-width: 28.75rem) {
-  .social__button {
-    width: 50%;
-    float: left;
-  }
-  .social__button--facebook {
-    margin-bottom: 0;
-  }
-}
-
-.input {
-  width: 100%;
-  border: none;
-  margin-bottom: 10px;
-  padding: 9px 10px;
-  color: #666;
-  line-height: 33px;
-  border-left: 4px solid transparent;
-  transition: border 0.1s ease-in;
-}
-@media (min-width: 28.75rem) {
-  .input--small {
-    width: 49.2%;
-    float: left;
-  }
-  .input--small:first-child {
-    margin-right: 1.6%;
-  }
-}
-.input:last-of-type {
-  margin-bottom: 0;
-}
-.input:focus {
-  border-left: 4px solid #40a46f;
-  outline: none;
-}
-
-.button {
-  font-size: 1rem;
-  text-align: center;
-  display: inline-block;
-  transition-property: background;
-  transition-duration: 0.1s;
-  transition-timing-function: ease-in-out;
-}
-.button--submit {
-  padding: 9px;
-  width: 100%;
-  background-color: #40a46f;
-  color: #fff;
-}
-.button--submit:hover {
-  background: #52bb83;
-}
-.button--submit:active {
-  background: #327f56;
-}
-
-.fa {
-  margin-right: 15px;
-  font-size: 1.5rem;
-}
-
-/* 
-	Helper classes and reset
-*/
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-.clearfix::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-button {
-  margin: 0;
-  padding: 0;
-  color: inherit;
-  font-family: inherit;
-  font-size: inherit;
-  line-height: normal;
-  background: none;
-  border: none;
-  border-radius: none;
-  box-shadow: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  outline: none;
-  cursor: pointer;
-}
-
-a {
-  text-decoration: none;
-}
-
-/* 
-	Layout: Secondary
-	All non-project related stuff, for example, footer 		credits.
-*/
-.footer {
-  max-width: 37.5rem;
-  padding-bottom: 1rem;
-  width: 100%;
-  margin: 0 auto;
-  color: #fff;
-  font-size: 0.8em;
-}
-.footer a {
-  color: #00b0df;
-}
-.footer a:hover {
-  color: #13cdff;
-}
-.footer P {
-  margin: 0;
-}
-
-/* 
-	Sticky footer using flex 
-*/
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.container {
-  flex: 1;
-}
-</style>
-
-<div class="container">
-  <div class="signup">
-  
-
-
-    <form class="signup__form" id="myform" action="/signup" method="post">
-      <input class="input input--small" type="text"  name="firstname" placeholder="First name">
-      <input class="input input--small" type="text" name="lastname"  placeholder="Last name">
-      <input class="input" type="text" name="email"  placeholder="your@email.com">
-      <input class="input" type="text" name="phone"  placeholder="Contact Number">
-      <input class="input" type="password" name="password"  placeholder="password">
-    
-      <div class="signup__message">
-        <span class="">Do you have an account? <a class="signup__link" href="./login">click here</a></span>
-      </div>
-      <button class="button button--submit" type="submit" value="Submit">Create account</button>
-    </form>      
-  </div>
-</div> --}}
 
 <!doctype html>
 <html class="no-js" lang="en">
@@ -673,32 +443,23 @@ body {
                             <div class="customer-login-register">
                                 <h3>Register</h3>
                                 <div class="login-Register-info">
-                                    {{!-- <form action="#"> 
-                                        <p class="coupon-input form-row-first">
-                                            <label>Username or email <span class="required">*</span></label>
-                                            <input type="text" name="email">
-                                        </p>
-                                        <p class="coupon-input form-row-last">
-                                            <label>password <span class="required">*</span></label>
-                                            <input type="password" name="password">
-                                        </p>
-                                       <div class="clear"></div>
-                                        <p>
-                                            <button class="button-login" type="submit">Register</button>
-                                        </p>
-                                    </form> --}}
-      <form class="signup__form" id="myform" action="/signup" method="post">
+           <div class="text-danger" id="error"></div>  
+           <div class="text-danger">{{alreadyExist}}</div>                      
+      <form class="signup__form" id="signup" action="/signup" method="post">
        <p class="coupon-input form-row-first">  
-      <input class="input input--small" type="text"  name="firstname" placeholder="First name"></p>
+      <input class="input input--small" type="text" id="firstname" name="firstname" placeholder="First name"></p>
        <p class="coupon-input form-row-first">  
-      <input class="input input--small" type="text" name="lastname"  placeholder="Last name"></p>
+
+      <input class="input input--small" type="text" id="lastname" name="lastname"  placeholder="Last name"></p>
        <p class="coupon-input form-row-first">  
-      <input class="input" type="text" name="email"  placeholder="your@email.com"></p>
+
+      <input class="input" type="text" name="email" id="email" placeholder="your@email.com"></p>
        <p class="coupon-input form-row-first">  
-      <input class="input" type="text" name="phone"  placeholder="Contact Number"></p>
+
+      <input class="input" type="text" name="phone" id="phone" placeholder="Contact Number"></p>
       {{!-- <a class="text-black btn bg-danger m-1" href="/numberVerification">confirm phone number</a> --}}
        <p class="coupon-input form-row-first">  
-      <input class="input" type="password" name="password"  placeholder="password"></p>
+      <input class="input" type="password" name="password" id="password" placeholder="password"></p>
        <div class="signup__message">
         <span class="">Do you have an account? <a class="text-danger" href="./login">click here</a></span>
       </div>
@@ -919,19 +680,46 @@ body {
         </div>   
            
         
-		{{!-- <!-- jQuery JS -->
-        <script src="js/vendor/jquery-3.5.1.min.js"></script>
-        <script src="js/vendor/jquery-migrate-3.3.0.min.js"></script>
-		<!-- all plugins JS hear -->		
-        <script src="js/popper.min.js"></script>	
-        <script src="js/bootstrap.min.js"></script>	
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.mainmenu.js"></script>	
-        <script src="js/ajax-email.js"></script>
-        <script src="js/plugins.js"></script>
-		<!-- main JS -->		
-        <script src="js/main.js"></script>
-    </body> --}}
+		{{!-- validation --}}
+        <script>
+  const firstname=document.getElementById("firstname")
+  const lastname=document.getElementById("lastname")
+   const password=document.getElementById("password")
+     const phone=document.getElementById("phone")
+        const email=document.getElementById("email")
 
-<!-- Mirrored from template.hasthemes.com/juta/juta-v1/login-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jan 2022 12:57:06 GMT -->
-</html>
+ 
+      const signup=document.getElementById("signup")
+      const errorElement=document.getElementById('error')
+
+      signup.addEventListener('submit',(e)=>{
+           
+                      let messages=[]
+         if(firstname.value==''||firstname.value==null){
+              messages.push('firstname is required')
+          e.preventDefault()
+      }
+      if(lastname.value==''||lasttname.value==null){
+              messages.push('lastname is required')
+            e.preventDefault()
+      }
+      if(password.value.length<3||password.value==null){
+              messages.push('password required minimum 3 charactors')
+          e.preventDefault()
+      }
+      if(phone.value.length!=10||phone.value==null){
+              messages.push('phone number must be ten digits')
+           e.preventDefault()
+      }
+      
+      
+          if(messages.length>0){
+                 e.preventDefault()
+                 errorElement.innerText=messages.join(',')
+                 console.log(messages.length)
+          }
+         
+      })
+
+  
+          </script>

@@ -1,0 +1,46 @@
+
+
+<div class="container-fluid">
+
+<table class="table table-dark">
+  <thead>
+ 
+    <tr>
+ 
+      <th scope="col">Order Id </th>
+      <th scope="col">Order Item</th>
+      <th scope="col">User Name</th>
+        <th scope="col">Order Date</th>
+       <th scope="col">Order Status</th>
+        
+       
+    </tr>
+  </thead>
+  <tbody>
+      {{#each orderList}}
+    <tr>
+
+    <td>{{this._id}}</td>
+    <td>{{this.products.item}}</td>
+    <td>{{this.userId}}</td>
+    <td>{{this.date}}</td>
+    <td> <select class="form-select" name="status" aria-label="Default select example">
+
+                  <option value="{{this.status}}">{{this.status}}</option>
+                  <option value="Packed">Packed</option>
+                  <option value="Shipped">Shipped</option>
+                  <option value="Delivered">Deliverd</option>
+                  <option value="Canceled">Canceled</option>
+                  <option value="Canceled">Pending</option>
+              
+                </select></td>
+    {{!-- <td>{{this.status}}</td> --}}
+
+       
+
+ 
+    </tr>
+    {{/each}}
+    </tbody>
+    </table>
+ </div>

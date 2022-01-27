@@ -82,10 +82,11 @@ p.last {
         <h3>Welcome back</h3>
         <p>Enter your Phone number</p>
       </div>
-      <form action="/numberChecking"  method="post">
+      <div  class="text-danger" id="error"></div>
+      <form action="/numberChecking" id="otp" method="post">
         <div class="user">
           <i class="bx bxs-user-circle"></i>
-          <input type='text' name='phone' placeholder="Enter your Contact Number" />
+          <input type='text' id="phone" name='phone' placeholder="Enter your Contact Number" />
         </div>
         
      
@@ -95,3 +96,27 @@ p.last {
     </div>
     
    </form>
+   <script>
+const otp=document.getElementById("otp")
+  const phone=document.getElementById("phone")
+   const errorElement=document.getElementById("error")
+
+      otp.addEventListener('submit',(e)=>{
+           
+                      let messages=[]
+       
+      if(phone.value.length!=10||phone.value.length==''){
+              messages.push('* required ten digits')
+              console.log(messages)
+      }
+      
+      
+          if(messages.length>0){
+                 e.preventDefault()
+                 errorElement.innerText=messages.join(',')
+          }
+         
+      })
+
+  
+          </script>

@@ -43,7 +43,7 @@
                                                 <th class="cart-product-name">Size</th>
                                                
                                                 <th >Quantity</th>
-                                                <th class="plantmore-product-subtotal">Total</th>
+                                              
                                                   <th class="plantmore-product-remove">Remove</th>
                                             </tr>
                                         </thead>
@@ -65,7 +65,7 @@
                                          <button  onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)">-</button> 
                                                <span id="{{this.product._id}}">{{this.quantity}}</span>
                                                 <button  onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)">+</button> </td>
-                                                <td class="product-subtotal"><span class="amount">$70.00</span></td>
+                                               
                                                 <td><button onclick="removeProductFromCart('{{this._id}}','{{this.product._id}}')"class="btn btn-danger">Remove</a></td>
                                             </tr>
                                             {{/each}}
@@ -91,7 +91,7 @@
                                         <div class="cart-page-total">
                                             <h2>Cart totals</h2>
                                             <ul>
-                                                <li>Subtotal <span>$170.00</span></li>
+                                               
                                                 <li>Total <span>{{total}}</span></li>
                                             </ul>
                                             <a href="/placeOrder">Proceed to checkout</a>

@@ -31,7 +31,7 @@
 
                   <label for="category">Category</label>
 
-                  <select name="category" id="" class="form-select" aria-label="Default select example">
+                  <select name="category" id="" onclick="sel()" class="form-select" aria-label="Default select example">
                     <br><br>
                     {{#each category}}
                     <option value="{{this.category}}">{{this.category}}</option>
@@ -44,7 +44,7 @@
 
 
                   <label for="category">SubCategory</label>
-                  <select name="SubCategory" id="" class="form-select" aria-label="Default select example">
+                  <select name="SubCategory"   id="" class="form-select" aria-label="Default select example">
 
                     {{#each Subcategory}}
                     <option value="{{this.subCategory}}">{{this.subCategory}}</option>
@@ -167,6 +167,21 @@ function validation(){
         }
       })
     })
+  </script>
+
+
+  {{!-- for display text box --}}
+  <script>
+    $('#sel').change(function() {
+      console.log('...............................................')
+    var selected = $(this).val();
+    if(selected == 'Other'){
+      $('#other').show();
+    }
+    else{
+      $('#other').hide();
+    }
+});
   </script>
 </body>
 

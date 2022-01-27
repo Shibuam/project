@@ -15,7 +15,7 @@ html body
 }
 html body.fixed-navbar
 {
-    padding-top: 5rem;
+    padding-top: 0rem;
 }
 html body a
 {

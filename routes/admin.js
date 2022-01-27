@@ -178,6 +178,11 @@ router.get('/logout',(req,res,next)=>{
   req.session.admin=null
   res.redirect('/admin')
 })
+router.get('/orderManage',async(req,res,next)=>{
+ let orderList=await adminHelper.orderMng()
+ console.log(orderList)
+ res.render('admin/orderManagement',{orderList,admin:true})
+})
 
 
 

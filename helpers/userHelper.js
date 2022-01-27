@@ -2,7 +2,8 @@ var db = require('../config/connection')
 var collection = require('../config/collections')
 const bcrypt = require('bcrypt')
 const async = require('hbs/lib/async')
-const { ObjectId } = require('mongodb')
+
+ const { ObjectId } = require('mongodb')
 const { reject, promise } = require('bcrypt/promises')
 const { response } = require('express')
 module.exports = {
@@ -302,11 +303,14 @@ module.exports = {
              resolve(orderItems)
          })
      },
-     getOrderProducts:(orderId)=>{
+     getOrderPro:(orderId)=>{
+         
+        
+
          return new Promise(async(resolve,reject)=>{
             let orderItems = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
                 {
-                    $match: { _id: ObjectId(orderId) }
+                    $match: {_id:ObjectId(orderId)}
                 },
                 {
                     $unwind: '$products'
@@ -335,6 +339,11 @@ module.exports = {
 
             resolve(orderItems)
 
+         })
+     },
+     cancelOrder:(orderId)=>{
+         return new Promise((resolve,reject)=>{
+             db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:ObjectId(orderId)},{$set:{status:"Canceled"}})
          })
      }
 }

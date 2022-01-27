@@ -423,14 +423,14 @@
             <!-- breadcrumb-area end -->
             
             <!-- content-wraper start -->
-            <div class="content-wraper mt-95">
+            <div class="content-wraper ">
                 <div class="container-fluid">
-                    <div class="row">
+                    <div class="row mx-auto">
                         <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="customer-login-register">
+                            <div class="customer-login-register" >
                                 <h3>Login</h3>
                                 <div class="login-Register-info">
-                                  
+                                  <div class="text-danger" id="error"></div>
                                   <form action="/home" id="login" method="post" enctype="multipart/form-data">
                                   
                                        
@@ -438,15 +438,15 @@
                                          <p class="text-danger">{{status}}</p> 
                                           <p class="coupon-input form-row-first">
                                             <label> email <span class="required">*</span></label>
-                                            <input type="text" name="email">
+                                            <input type="text"id="email" name="email">
                                         </p>
                                         <p class="coupon-input form-row-last">
                                             <label>password <span class="required">*</span></label>
-                                            <input type="password" name="password">
+                                            <input  type="password" id="password" name="password">
                                         </p>
                                        <div class="clear"></div>
                                         <p>
-                                            <button value="Login" name="login" class="button-login" type="submit">Login</button>
+                                            <button value="Login" name="submit" class="button-login" type="submit">Login</button>
                                             {{!-- <label><input type="checkbox" value="1"><span>Remember me</span></label>
                                             <a href="#" class="lost-password">Lost your password?</a> --}}
                                              <a href="/signup" class=' btn text-danger' >For signup click here</a> 
@@ -730,24 +730,33 @@
   </div>
 </div> --}}
 
-
+{{!-- validation --}}
 
 <script>
-    $(document).ready(function () {
-      $("#login").validate({
-        rules: {
-          email: {
-            required: true,
-            minlength: 3,
-            email: true
-          },
-          password: {
-            required: true,
-            minlength: 3,
-            maxlength: 10
+  const name=document.getElementById("email")
+   const password=document.getElementById("password")
+      const login=document.getElementById("login")
+      const errorElement=document.getElementById('error')
+
+      login.addEventListener('submit',(e)=>{
+           
+                      let messages=[]
+         if(name.value==''||name.value==null){
+              messages.push('email is required')
+              console.log(messages)
+      }
+      if(password.length<3||password.value==''){
+              messages.push('password required minimum 3 charactors')
+              console.log(messages)
+      }
+      
+      
+          if(messages.length>0){
+                 e.preventDefault()
+                 errorElement.innerText=messages.join(',')
           }
-          }
-          })
-          })
+         
+      })
+
+  
           </script>
-   

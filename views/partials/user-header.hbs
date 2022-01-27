@@ -50,13 +50,14 @@
     </div>
   </div>
 </nav> --}}
+<header>
     <div class="header-top bg-black sticky-header">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-2 col-md-3 md-custom-12">
                                 <!-- logo start -->
                                 <div class="logo">
-                                    <a href="/"><img src="img/logo/logo-2.png" alt=""></a>
+                                    <a href="/"><img src="/img/logo/logo-2.png" alt=""></a>
                                 </div>
                                 <!-- logo end -->
                             </div>
@@ -108,7 +109,7 @@
                                                             <li><a href="#">Column</a>
                                                                 <ul>
                                                                     <li><a href="about-us.html">About Us</a></li>
-                                                                    <li><a href="checkout.html">Checkout</a></li>
+                                                                    <li><a href="/placeOrder">Checkout</a></li>
                                                                     <li><a href="cart.html">Cart Page</a></li>
                                                                     <li><a href="wishlist.html">Wish List</a></li>
                                                                 </ul>
@@ -174,8 +175,8 @@
                                                     </li>
                                                     <li class="drodown-show"><a href="#"> Setting <i class="fa fa-angle-down"></i></a>
                                                         <ul class="open-dropdown setting">
-                                                            <li><a href="my-account.html">My account</a></li>
-                                                            <li><a href="checkout.html">Checkout</a></li>
+                                                            <li><a href="/order">My Order History</a></li>
+                                                            <li><a href="/placeOrder">Checkout</a></li>
                                                             {{#if user}}
                                                              <li><a class="text-black bg-danger" href="/logout">SignOut</a></li>
                                                              {{else}}
@@ -333,7 +334,7 @@
                                                 <li>
                                                     <div class="shoping-cart-image">
                                                         <a href="#">
-                                                            <img src="img/small-product/2.jpg" alt="">
+                                                            <img src="/img/small-product/2.jpg" alt="">
                                                             <span class="product-quantity">1x</span>
                                                         </a>
                                                     </div>

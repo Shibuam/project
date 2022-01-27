@@ -33,7 +33,7 @@ router.get('/', async (req, res, next) => {
   let cartCount = null
   if (user) {
     cartCount = await userHelper.cartCount(user._id)
-req.session.cartCount=cartCount
+
   }
   adminHelper.viewProducts().then((products) => {
 
@@ -85,8 +85,8 @@ router.get('/signup', function (req, res, next) {
 router.post('/signup', function (req, res, next) {
   userHelper.doLogin(req.body).then((response) => {
     if (response.status) {
-      // req.session.userAlreadyExist=response.status
-      res.send('already exist')
+       req.session.userAlreadyExist="*Sorry you already have an account"
+      res.redirect('/signup')
     }
     else {
       req.session.userdetails = req.body
@@ -102,6 +102,12 @@ router.post('/signup', function (req, res, next) {
 
   })
 });
+router.get('/otpVerification', (req, res, next) => {
+  let invalidOtp= req.session.doNotMatch
+  console.log(invalidOtp)
+  res.render('user/otpverify',{invalidOtp})
+})
+
 router.post('/otpVerificationForUserSignUp', (req, res, next) => {
 
   const { otp } = req.body;
@@ -114,6 +120,8 @@ router.post('/otpVerificationForUserSignUp', (req, res, next) => {
       res.redirect('/')
     }
     else {
+      req.session.doNotMatch=invalidOtp
+      console.log(req.session.doNotMatch)
       res.redirect('/otpVerification')
     }
   })
@@ -140,9 +148,7 @@ router.post('/numberChecking', (req, res, next) => {
     }
   })
 })
-router.get('/otpVerification', (req, res, next) => {
-  res.render('user/otpverify')
-})
+
 
 router.post('/otpVerification', (req, res, next) => {
   const { otp } = req.body;
@@ -155,6 +161,8 @@ router.post('/otpVerification', (req, res, next) => {
       res.redirect('/')
     }
     else {
+      req.session.doNotMatch=invalidOtp
+      console.log(req.session.doNotMatch,"------------------------------")
       res.redirect('/otpVerification')
     }
   })
@@ -164,13 +172,15 @@ router.get('/logout', (req, res, next) => {
   res.redirect('/')
 })
 
-router.get('/product-details',async (req, res, next) => {
-  // console.log(req.query.id)
+router.get('/product-details/',verifyLogin,async (req, res, next) => {
+  let user = req.session.user
+  cartCount = await userHelper.cartCount(user._id)
 
  let productDetails= await adminHelper.viewProductsDetails(req.query.id)
   
 
-    res.render('user/singleProduct', { users: true, productDetails})
+
+    res.render('user/singleProduct', { users: true, productDetails,user,cartCount})
   
 })
 router.get('/numberVerification', (req, res, next) => {
@@ -185,8 +195,12 @@ router.get('/viewCart', verifyLogin, async (req, res, next) => {
   let products = await userHelper.viewToCart(req.session.user._id)
   req.session.products=products
   let user = req.session.user
-  let total = await userHelper.getTotal(user._id)
- let cartCount=req.session.cartCount
+  let total=0
+  if(products.length>0){
+     total = await userHelper.getTotal(user._id)
+  }
+
+  cartCount = await userHelper.cartCount(user._id)
 
   res.render('user/cart', { users: true, products, user,cartCount,total})
 })
@@ -214,9 +228,14 @@ router.post('/removeProductFromCart', (req, res, next) => {
 })
 router.get('/placeOrder', verifyLogin, async (req, res, next) => {
   let user = req.session.user
-    let total = await userHelper.getTotal(user._id)
+ let cartCount = await userHelper.cartCount(user._id)
+ let total=0
+ if (cartCount>0){
+   total = await userHelper.getTotal(user._id)
+ }
+   
   let  products =req.session.products
-  res.render('user/checkOut', { users: true, user, total,products })
+  res.render('user/checkOut', { users: true, user, total,products ,cartCount})
 })
 router.post('/placeOrder',async(req,res,next)=>{
   let cartProd=await userHelper.cartProducts(req.body.userId)
@@ -229,17 +248,26 @@ router.get('/orderSuccess',(req,res,next)=>{
   let user = req.session.user
   res.render('user/orderSuccess',{users:true,user})
 })
-router.get('/order',async(req,res,next)=>{
+router.get('/order',verifyLogin,async(req,res,next)=>{
     let user = req.session.user
     let orders=await userHelper.getuserOrders(user._id)
   res.render('user/order',{users:true,user,orders})
 })
-router.get('/viewOrderProducts/:id',async(req,res,next)=>{
+router.get('/viewOrderProd/',async(req,res,next)=>{
   let user = req.session.user
-let viewProOrderlist=await userHelper.getOrderProducts(req.params.id)
+
+  
+
+
+ let viewProOrderlist=await userHelper.getOrderPro(req.query.id)
 console.log(viewProOrderlist)
 
- res.render('user/viewOrderProductList',{viewProOrderlist,user,users:true})
+ res.render('user/viewOrderProductList',{user,users:true,viewProOrderlist})
+})
+router.post('/cancelOrder',(req,res,next)=>{
+
+  userHelper.cancelOrder(req.body.orderList)
+
 })
 
 
