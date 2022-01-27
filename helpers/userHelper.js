@@ -345,5 +345,14 @@ module.exports = {
          return new Promise((resolve,reject)=>{
              db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:ObjectId(orderId)},{$set:{status:"Canceled"}})
          })
-     }
+     },
+     viewBanner:()=>{
+        return new Promise(async(resolve,reject)=>{
+         let banner=await  db.get().collection(collection.BANNER_COLLECTION).find().toArray()
+         console.log(banner);
+         console.log("==================================================================================================");
+        resolve(banner)
+        })
+    }
+
 }

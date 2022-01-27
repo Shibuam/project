@@ -443,24 +443,27 @@
                             <div class="customer-login-register">
                                 <h3>Register</h3>
                                 <div class="login-Register-info">
-           <div class="text-danger" id="error"></div>  
+           
            <div class="text-danger">{{alreadyExist}}</div>                      
       <form class="signup__form" id="signup" action="/signup" method="post">
-       <p class="coupon-input form-row-first">  
+       <p class="coupon-input form-row-first"> 
+            <div class="text-danger error"></div>  
       <input class="input input--small" type="text" id="firstname" name="firstname" placeholder="First name"></p>
        <p class="coupon-input form-row-first">  
-
+<div class="text-danger error"></div>  
       <input class="input input--small" type="text" id="lastname" name="lastname"  placeholder="Last name"></p>
        <p class="coupon-input form-row-first">  
-
+<div class="text-danger error"></div>  
       <input class="input" type="text" name="email" id="email" placeholder="your@email.com"></p>
        <p class="coupon-input form-row-first">  
-
+<div class="text-danger error"></div>  
       <input class="input" type="text" name="phone" id="phone" placeholder="Contact Number"></p>
       {{!-- <a class="text-black btn bg-danger m-1" href="/numberVerification">confirm phone number</a> --}}
-       <p class="coupon-input form-row-first">  
+       <p class="coupon-input form-row-first"> 
+           <div class="text-danger error"></div>   
       <input class="input" type="password" name="password" id="password" placeholder="password"></p>
        <div class="signup__message">
+
         <span class="">Do you have an account? <a class="text-danger" href="./login">click here</a></span>
       </div>
       <button class="button-login" type="submit" value="Submit">Create account</button>
@@ -690,26 +693,35 @@
 
  
       const signup=document.getElementById("signup")
-      const errorElement=document.getElementById('error')
+      const errorElement=document.getElementsByClassName('error')
 
       signup.addEventListener('submit',(e)=>{
            
                       let messages=[]
          if(firstname.value==''||firstname.value==null){
               messages.push('firstname is required')
-          e.preventDefault()
+              errorElement[0].innerText="first Name required"
+         
       }
       if(lastname.value==''||lasttname.value==null){
               messages.push('lastname is required')
-            e.preventDefault()
-      }
+               errorElement[1].innerText="last Name required"
+
+                 }
+                   if(email.value==''||email.value==null){
+              messages.push('lastname is required')
+               errorElement[2].innerText="email required"
+
+                 }
       if(password.value.length<3||password.value==null){
               messages.push('password required minimum 3 charactors')
-          e.preventDefault()
+              errorElement[4].innerText="password required minimum 3 charactors"
+        
       }
       if(phone.value.length!=10||phone.value==null){
               messages.push('phone number must be ten digits')
-           e.preventDefault()
+               errorElement[3].innerText="phone number must be ten digits"
+           
       }
       
       

@@ -5,6 +5,7 @@ module.exports={
     CATEGORY_COLLECTION:'category',
     SUB_CATEGORY_COLLECTION:'subCategory',
     CART_COLLECTION:'cart',
-    ORDER_COLLECTION:'order'
+    ORDER_COLLECTION:'order',
+    BANNER_COLLECTION:'banner'
     
 }

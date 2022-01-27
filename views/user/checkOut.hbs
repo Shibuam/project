@@ -83,7 +83,7 @@
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-6 offset-xl-1 col-xl-5 col-sm-12">
-                                         <div  class="text-danger" id="error"></div>
+                                         
                                          <form action="#" id="checkOutForm" method="post"> 
                                             <div class="checkbox-form">
                                                 <h3 class="shoping-checkboxt-title">Billing Details</h3>
@@ -91,12 +91,14 @@
                                                     <div class="col-lg-6">
                                                         <p class="single-form-row">
                                                             <label>First name <span class="required">*</span></label>
+                                                            <div class="error text-danger"></div>
                                                             <input type="text" id="firstname" name="firstname" value="{{this.user.firstname}}">
                                                         </p>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <p class="single-form-row">
                                                             <label> Last Name<span class="required">*</span></label>
+                                                            <div class="error text-danger"></div>
                                                             <input type="text" id="lastname" name="lastname" value="{{this.user.lastname}}">
                                                         </p>
                                                     </div>
@@ -517,17 +519,52 @@
              <script>
   const checkOutForm=document.getElementById("checkOutForm")
   const firstname=document.getElementById("firstname")
-    const errorElement=document.getElementById("error")
+  const lastname=document.getElementById("lastname")
+  const email=document.getElementById("email")
+  const streetName=document.getElementById("streetName")
+  const city=document.getElementById("city")
+  const state=document.getElementById("state")
+  const postcode=document.getElementById("postcode")
+  const phone=document.getElementById("phone")
+
+
+
+    const errorElement=document.getElementsByClassName("error")
+
+
+
 
       checkOutForm.addEventListener('submit',(e)=>{
            
-                      let messages=[]
+    let messages=[]
        
       if(firstname.value==null||firstname.value==''){
-              messages.push('First name required ')
-              
+              messages.push('First name required ') 
+              errorElement[0].innerText='First name required '
+
+       if(lastname.value==null||lastname.value==''){
+              messages.push('lastname name required ') 
+                 errorElement[1].innerText='last name required ' 
       }
-      
+       if(email.value==null||email.value==''){
+              messages.push('email  required ') 
+      }
+        if(streetName.value==null||streetName.value==''){
+              messages.push('Street Name  required ') 
+      }
+           if(city.value==null||city.value==''){
+              messages.push('City Name  required ') 
+      }
+              if(state.value==null||state.value==''){
+              messages.push('State   required ') 
+      }
+  if(postcode.value==null||postcode.value==''){
+              messages.push('postcode   required ') 
+      }
+       if(phone.value.length!=10||phone.value==''){
+              messages.push('Phone number   required ') 
+      }
+
       
           if(messages.length>0){
                  e.preventDefault()

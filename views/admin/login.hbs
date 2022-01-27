@@ -128,33 +128,44 @@ form .button:active {
 
 
 
-<form  action="/admin/login" method="post" id='myform'  enctype="multipart/form-data" >
+<form  action="/admin/login" method="post" id='login'  enctype="multipart/form-data" >
+<div class="text-danger" id="error"></div>
 <p>{{this.msg}}</p>
 	<h2>Admin Login</h2>
 
-	<input type="text" name="name"  class="text-field" placeholder="Username" />
-    <input type="password" name="password" class="text-field" placeholder="Password" />
+	<input type="text" name="name" id="admin" class="text-field" placeholder="Username" />
+    <input type="password" name="password" id="password" class="text-field" placeholder="Password" />
     
  <input type="submit"  class="button" value="Log In" />
 
 </form>
  <script>
-    $(document).ready(function () {
-      $("#myform").validate({
-        rules: {
-          name: {
-            required: true,
-            minlength: 3,
+  const admin=document.getElementById("admin")
+   const password=document.getElementById("password")
+      const login=document.getElementById("login")
+      const errorElement=document.getElementById('error')
+
+      login.addEventListener('submit',(e)=>{
            
-          },
-          password: {
-            required: true,
-            minlength: 3,
-            maxlength: 10
+                      let messages=[]
+         if(admin.value==''||admin.value==null){
+              messages.push('email is required')
+              console.log(messages)
+      }
+      if(password.value.length<3||password.value==''){
+              messages.push('password required minimum 3 charactors')
+              console.log(messages)
+      }
+      
+      
+          if(messages.length>0){
+                 e.preventDefault()
+                 errorElement.innerText=messages.join(',')
           }
-   
-        }
+         
       })
-    })
-  </script>
+
+  
+          </script>
+
 </body>  

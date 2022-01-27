@@ -6,10 +6,15 @@
        
             
             <!-- slider-main-area start -->
+             {{#each banner}}
             <div class="slider-main-area">
                 <div class="slider-active owl-carousel">
                     <!-- slider-wrapper start -->
-                    <div class="slider-wrapper" style="background-image:url(img/slider/home-3-01.jpg)">
+                       
+                   
+                     {{!-- <h1>{{this._id}}</h1> --}}
+                    <div class="slider-wrapper" style=" background-image:url(/bannerImage/{{this._id}}image.jpg)">
+                   
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col">
@@ -26,7 +31,7 @@
                     </div>
                     <!-- slider-wrapper end -->
                     <!-- slider-wrapper start -->
-                    <div class="slider-wrapper" style="background-image:url(img/slider/home-2-02.jpg)">
+                    <div class="slider-wrapper" style="background-image:url(/bannerImage/{{this._id}}image2.jpg)">
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col">
@@ -43,7 +48,7 @@
                     </div>
                     <!-- slider-wrapper end -->
                     <!-- slider-wrapper start -->
-                    <div class="slider-wrapper" style="background-image:url(img/slider/home-2-03.jpg)">
+                    <div class="slider-wrapper" style="background-image:url(/bannerImage/61f265e97faefda97bdb19a2image.jpg)">
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col">
@@ -61,7 +66,9 @@
                     <!-- slider-wrapper end -->
                 </div>
             </div>
+            
             <!-- slider-main-area end -->
+        
             
             <!-- banner-area start -->
             <div class="banner-area mt-40">
@@ -70,37 +77,38 @@
                         <div class="col-lg-4 col-custom-4 col">
                             <!--single-banner-box start -->
                             <div class="single-banner-box mb-20">
-                                <a href="#"><img src="img/banner/1.jpg" alt=""></a>
+                                <a href="#"><img src="/bannerImage/{{this._id}}image2.jpg" alt=""></a>
                             </div>
                             <!--single-banner-box end -->
                             <!--single-banner-box start -->
                             <div class="single-banner-box">
-                                <a href="#"><img src="img/banner/2.jpg" alt=""></a>
+                                <a href="#"><img src="/bannerImage/{{this._id}}image3.jpg" alt=""></a>
                             </div>
                             <!--single-banner-box end -->
                         </div>
                         <div class="col-lg-4 centeritem col">
                             <!--single-banner-box start -->
                             <div class="single-banner-box">
-                                <a href="#"><img src="img/banner/3.jpg" alt=""></a>
+                                <a href="#"><img src="/bannerImage/{{this._id}}image4.jpg" alt=""></a>
                             </div>
                             <!--single-banner-box end -->
                         </div>
                         <div class="col-lg-4 col-custom-4 col">
                             <!--single-banner-box start -->
                             <div class="single-banner-box mb-20">
-                                <a href="#"><img src="img/banner/4.jpg" alt=""></a>
+                                <a href="#"><img src="/bannerImage/{{this._id}}image5.jpg" alt=""></a>
                             </div>
                             <!--single-banner-box end -->
                             <!--single-banner-box start -->
                             <div class="single-banner-box">
-                                <a href="#"><img src="img/banner/5.jpg" alt=""></a>
+                                <a href="#"><img src="/bannerImage/{{this._id}}image6.jpg" style="width: 500px;;" alt=""></a>
                             </div>
                             <!--single-banner-box end -->
                         </div>
                     </div>
                 </div>
             </div>
+            {{/each}}
             <!-- banner-area end -->
             
             <!-- product-area start -->
@@ -822,17 +830,19 @@
             <!-- product-area end -->
             
             <!-- banner-area start -->
+            {{!-- {{#each banner}}
             <div class="banner-area ptb-95">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="single-banner-box-2">
-                                <a href="#"><img src="img/banner/home-3-1.jpg" alt=""></a>
+                                <a href="#"><img src="/bannerImage/{{this._id}}image3.jpg" alt=""></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {{/each}} --}}
             <!-- banner-area end -->
             
             <!-- product-area start -->

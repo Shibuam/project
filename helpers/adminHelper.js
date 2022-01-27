@@ -88,6 +88,14 @@ module.exports = {
 
         })
     },
+
+    Subcategory:()=>{
+            return new Promise((resolve,reject)=>{
+                let sub=db.get().collection(collection.SUB_CATEGORY_COLLECTION).find().toArray()
+                resolve(sub)
+            })
+    },
+
     deleteSubCategory: (id) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.SUB_CATEGORY_COLLECTION).deleteOne({ _id: ObjectId(id) }).then((result) => {
@@ -118,5 +126,14 @@ module.exports = {
           let  orderList=await db.get().collection(collection.ORDER_COLLECTION).find().toArray()
             resolve(orderList)
         })
-    }
+    },
+    addBanner:(banner)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.BANNER_COLLECTION).insertOne({banner:banner}).then((bannerId)=>{
+                console.log(bannerId)
+                resolve(bannerId)
+            })
+        })
+    },
 }
+   

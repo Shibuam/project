@@ -35,9 +35,10 @@ router.get('/', async (req, res, next) => {
     cartCount = await userHelper.cartCount(user._id)
 
   }
+  let banner = await userHelper.viewBanner()
   adminHelper.viewProducts().then((products) => {
 
-
+    console.log("........................", banner)
 
     if (req.session.status == true) {
       let status = "*Admin Blocked"
@@ -46,7 +47,7 @@ router.get('/', async (req, res, next) => {
     }
 
 
-    res.render('user/home', { users: true, user, products, cartCount });
+    res.render('user/home', { users: true, user, products, cartCount, banner });
   })
 });
 
@@ -85,7 +86,7 @@ router.get('/signup', function (req, res, next) {
 router.post('/signup', function (req, res, next) {
   userHelper.doLogin(req.body).then((response) => {
     if (response.status) {
-       req.session.userAlreadyExist="*Sorry you already have an account"
+      req.session.userAlreadyExist = "*Sorry you already have an account"
       res.redirect('/signup')
     }
     else {
@@ -103,9 +104,13 @@ router.post('/signup', function (req, res, next) {
   })
 });
 router.get('/otpVerification', (req, res, next) => {
-  let invalidOtp= req.session.doNotMatch
-  console.log(invalidOtp)
-  res.render('user/otpverify',{invalidOtp})
+  if (req.session.doNotMatch) {
+    var OtpError = "Miss Match otp"
+    res.render('user/otpverify', { OtpError })
+  }
+  else {
+    res.render('user/otpverify')
+  }
 })
 
 router.post('/otpVerificationForUserSignUp', (req, res, next) => {
@@ -120,7 +125,7 @@ router.post('/otpVerificationForUserSignUp', (req, res, next) => {
       res.redirect('/')
     }
     else {
-      req.session.doNotMatch=invalidOtp
+      req.session.doNotMatch = invalidOtp
       console.log(req.session.doNotMatch)
       res.redirect('/otpVerification')
     }
@@ -128,7 +133,13 @@ router.post('/otpVerificationForUserSignUp', (req, res, next) => {
 })
 
 router.get('/contact', (req, res, next) => {
+  if(req.session.errorId){
+    let phone="phone Number do not registerd"
+    res.render('user/contact',{phone})
+  }
+  else{
   res.render('user/contact')
+  }
 })
 router.post('/numberChecking', (req, res, next) => {
   userHelper.findContact(req.body).then((number) => {
@@ -144,7 +155,7 @@ router.post('/numberChecking', (req, res, next) => {
     }
     else {
       req.session.errorId = true
-      res.redirect('/signup')
+      res.redirect('/contact')
     }
   })
 })
@@ -161,8 +172,8 @@ router.post('/otpVerification', (req, res, next) => {
       res.redirect('/')
     }
     else {
-      req.session.doNotMatch=invalidOtp
-      console.log(req.session.doNotMatch,"------------------------------")
+      req.session.doNotMatch = true
+     
       res.redirect('/otpVerification')
     }
   })
@@ -172,16 +183,16 @@ router.get('/logout', (req, res, next) => {
   res.redirect('/')
 })
 
-router.get('/product-details/',verifyLogin,async (req, res, next) => {
+router.get('/product-details/', verifyLogin, async (req, res, next) => {
   let user = req.session.user
   cartCount = await userHelper.cartCount(user._id)
 
- let productDetails= await adminHelper.viewProductsDetails(req.query.id)
-  
+  let productDetails = await adminHelper.viewProductsDetails(req.query.id)
 
 
-    res.render('user/singleProduct', { users: true, productDetails,user,cartCount})
-  
+
+  res.render('user/singleProduct', { users: true, productDetails, user, cartCount })
+
 })
 router.get('/numberVerification', (req, res, next) => {
   client.verify.services(SERVICE_ID).verifications.create({
@@ -193,16 +204,16 @@ router.get('/numberVerification', (req, res, next) => {
 
 router.get('/viewCart', verifyLogin, async (req, res, next) => {
   let products = await userHelper.viewToCart(req.session.user._id)
-  req.session.products=products
+  req.session.products = products
   let user = req.session.user
-  let total=0
-  if(products.length>0){
-     total = await userHelper.getTotal(user._id)
+  let total = 0
+  if (products.length > 0) {
+    total = await userHelper.getTotal(user._id)
   }
 
   cartCount = await userHelper.cartCount(user._id)
 
-  res.render('user/cart', { users: true, products, user,cartCount,total})
+  res.render('user/cart', { users: true, products, user, cartCount, total })
 })
 
 router.get('/cart/:id', verifyLogin, (req, res, next) => {
@@ -221,50 +232,51 @@ router.post('/change-product-quantity', (req, res, next) => {
   })
 })
 router.post('/removeProductFromCart', (req, res, next) => {
- userHelper.remProFromCart(req.body).then((response)=>{
-  res.json(response)
- })
- 
+  userHelper.remProFromCart(req.body).then((response) => {
+    res.json(response)
+  })
+
 })
 router.get('/placeOrder', verifyLogin, async (req, res, next) => {
   let user = req.session.user
- let cartCount = await userHelper.cartCount(user._id)
- let total=0
- if (cartCount>0){
-   total = await userHelper.getTotal(user._id)
- }
-   
-  let  products =req.session.products
-  res.render('user/checkOut', { users: true, user, total,products ,cartCount})
+  let cartCount = await userHelper.cartCount(user._id)
+  let total = 0
+  if (cartCount > 0) {
+    total = await userHelper.getTotal(user._id)
+  }
+
+  let products = req.session.products
+  res.render('user/checkOut', { users: true, user, total, products, cartCount })
 })
-router.post('/placeOrder',async(req,res,next)=>{
-  let cartProd=await userHelper.cartProducts(req.body.userId)
+router.post('/placeOrder', verifyLogin, async (req, res, next) => {
+  let cartProd = 0
+  cartProd = await userHelper.cartProducts(req.body.userId)
   let total = await userHelper.getTotal(req.body.userId)
-userHelper.placeOrder(req.body,cartProd,total).then((response)=>{
-  res.json({status:true})
+  userHelper.placeOrder(req.body, cartProd, total).then((response) => {
+    res.json({ status: true })
+  })
 })
-})
-router.get('/orderSuccess',(req,res,next)=>{
+router.get('/orderSuccess', (req, res, next) => {
   let user = req.session.user
-  res.render('user/orderSuccess',{users:true,user})
+  res.render('user/orderSuccess', { users: true, user })
 })
-router.get('/order',verifyLogin,async(req,res,next)=>{
-    let user = req.session.user
-    let orders=await userHelper.getuserOrders(user._id)
-  res.render('user/order',{users:true,user,orders})
+router.get('/order', verifyLogin, async (req, res, next) => {
+  let user = req.session.user
+  let orders = await userHelper.getuserOrders(user._id)
+  res.render('user/order', { users: true, user, orders })
 })
-router.get('/viewOrderProd/',async(req,res,next)=>{
+router.get('/viewOrderProd/', async (req, res, next) => {
   let user = req.session.user
 
-  
 
 
- let viewProOrderlist=await userHelper.getOrderPro(req.query.id)
-console.log(viewProOrderlist)
 
- res.render('user/viewOrderProductList',{user,users:true,viewProOrderlist})
+  let viewProOrderlist = await userHelper.getOrderPro(req.query.id)
+  console.log(viewProOrderlist)
+
+  res.render('user/viewOrderProductList', { user, users: true, viewProOrderlist })
 })
-router.post('/cancelOrder',(req,res,next)=>{
+router.post('/cancelOrder', (req, res, next) => {
 
   userHelper.cancelOrder(req.body.orderList)
 

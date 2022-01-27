@@ -79,6 +79,7 @@ p.last {
 
     <div class="container">
       <div class="top-header">
+       
         <h3>Welcome back</h3>
         <p>Enter your Phone number</p>
       </div>
@@ -86,6 +87,7 @@ p.last {
       <form action="/numberChecking" id="otp" method="post">
         <div class="user">
           <i class="bx bxs-user-circle"></i>
+           <div class="text-danger">{{phone}}</div>
           <input type='text' id="phone" name='phone' placeholder="Enter your Contact Number" />
         </div>
         

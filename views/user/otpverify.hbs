@@ -79,12 +79,13 @@ p.last {
 
     <div class="container">
       <div class="top-header">
-        <h3>{{invalidOtp}}</h3>
+      
         <h3>Welcome back</h3>
         <p>Enter OTP </p>
       </div>
        <div  class="text-danger" id="error"></div>
       <form action="/otpVerification" id="otp" method="post">
+      <div class="text-danger">{{OtpError}}</div>
         <div class="user">
           <i class="bx bxs-user-circle"></i>
           <input type='text' id="verify" name='otp' placeholder="Enter One Time Password" />
@@ -106,7 +107,7 @@ p.last {
            
                       let messages=[]
        
-      if(verify.value.length!=6||verify.value.length==''){
+      if(verify.value.length!=6){
               messages.push('password required six digits')
               console.log(messages)
       }

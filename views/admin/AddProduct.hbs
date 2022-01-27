@@ -20,6 +20,7 @@
   }
 }
 </script>
+               
               <form action="/admin/addProducts" id="imgInp" name="myform" class="tm-edit-product-form" method="post"
                 enctype="multipart/form-data" onsubmit="return validation()">
 
@@ -68,26 +69,30 @@
                   <div class="form-group mb-3 col-xs-12 col-sm-6">
                     <label for="expire_date">landing cost
                     </label>
-                    <input id="expire_date" name="lanCost" type="text" class="form-control validate"
+                     <div class="error text-danger"></div>
+                    <input id="lanCost" name="lanCost" type="text" class="form-control validate"
                       data-large-mode="true" />
                   </div>
                   <div class="form-group mb-3 col-xs-12 col-sm-6">
                     <label for="stock">MRP
                     </label>
-                    <input id="" name="mrp" type="text" class="form-control validate" required />
+                     <div class="error text-danger"></div>
+                    <input id="mrp" name="mrp" type="text" class="form-control validate" >
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group mb-3 col-xs-12 col-sm-6">
                     <label for="expire_date">Brand
                     </label>
-                    <input id="expire_date" name="brand" type="text" class="form-control validate"
+                    <div class="error text-danger"></div>
+                    <input id="brand" name="brand" type="text" class="form-control validate"
                       data-large-mode="true" />
                   </div>
                   <div class="form-group mb-3 col-xs-12 col-sm-6">
                     <label for="stock">QTY
                     </label>
-                    <input id="stock" name="qty" type="text" class="form-control validate" required />
+                     <div class="error text-danger"></div>
+                    <input id="qty" name="qty" type="text" class="form-control validate">
                   </div>
                 </div>
 
@@ -108,6 +113,7 @@
           <input type="file"onchange="document.getElementById('thisImageId2').src = window.URL.createObjectURL(this.files[0])" class="m-1" name="image2"><img id="thisImageId2" alt="your image" width="100" height="100" /><br>
           <input type="file"onchange="document.getElementById('thisImageId3').src = window.URL.createObjectURL(this.files[0])"class="m-1" name="image3"><img id="thisImageId3" alt="your image" width="100" height="100" />
           <div class="col-12">
+             <div class="text-danger" id="error"></div>
             <button type="submit" class="btn btn-primary">Add Product Now</button>
           </div>
           </form>
@@ -171,18 +177,50 @@ function validation(){
 
 
   {{!-- for display text box --}}
-  <script>
-    $('#sel').change(function() {
-      console.log('...............................................')
-    var selected = $(this).val();
-    if(selected == 'Other'){
-      $('#other').show();
-    }
-    else{
-      $('#other').hide();
-    }
-});
-  </script>
+ <script>
+  const imgInp=document.getElementById("imgInp")
+   const lanCost=document.getElementById("lanCost")
+      const mrp=document.getElementById("mrp")
+       const brand=document.getElementById("brand")
+        const qty=document.getElementById("qty")
+        const errors= document.getElementsByClassName("error")
+
+      {{!-- const errorElement=document.getElementById('error') --}}
+
+      imgInp.addEventListener('submit',(e)=>{
+           
+                      let messages=[]
+         if(lanCost.value==''||lanCost.value==null){
+              messages.push('lanCost is required')
+              errors[0].innerText="lan Cost is required"
+           
+      }
+      if(mrp.value==null||mrp.value==''){
+              messages.push('MRP required')
+            errors[1].innerText="MRP required"
+      }
+       if(brand.value==null||brand.value==''){
+             
+            
+           
+            errors[2].innerText= "Brand required"
+      }
+      if(qty.value==null||qty.value==''){
+              messages.push('Quantity required')
+              errors[3].innerText="Quantity required"
+            
+      }
+      
+      
+          if(messages.length>0){
+                 e.preventDefault()
+                 errorElement.innerText=messages.join(',')
+          }
+         
+      })
+
+  
+          </script>
 </body>
 
 </html>

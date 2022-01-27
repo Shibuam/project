@@ -1,0 +1,44 @@
+<section>
+    <div class="container">
+        <form action="/admin/addBanners" id="imgInp" name="addBanner" class="tm-edit-product-form" method="post"
+                enctype="multipart/form-data">
+            <h1 class="text-black m-2">Banner Management</h1>
+          <div class="row m-auto">
+              <div class="m-2"><label for="">Name Of the Banner</label>
+              <input type="text" name="banner">
+              </div>
+                    <div>
+                                 <input type="file"onchange="document.getElementById('thisImageId').src = window.URL.createObjectURL(this.files[0])" class="m-1" name="image"><img id="thisImageId" alt="your image" width="100" height="100" />
+                    </div>
+<div>
+                                 <input type="file"onchange="document.getElementById('thisImageId2').src = window.URL.createObjectURL(this.files[0])" class="m-1" name="image2"><img id="thisImageId2" alt="your image" width="100" height="100" />
+                    </div>
+
+<div>
+                                 <input type="file"onchange="document.getElementById('thisImageId3').src = window.URL.createObjectURL(this.files[0])" class="m-1" name="image3"><img id="thisImageId3" alt="your image" width="100" height="100" />
+                    </div>
+<div>
+                                 <input type="file"onchange="document.getElementById('thisImageId4').src = window.URL.createObjectURL(this.files[0])" class="m-1" name="image4"><img id="thisImageId4" alt="your image" width="100" height="100" />
+                    </div>
+                    <div>
+                                 <input type="file"onchange="document.getElementById('thisImageId5').src = window.URL.createObjectURL(this.files[0])" class="m-1" name="image5"><img id="thisImageId5" alt="your image" width="100" height="100" />
+                    </div>
+<div>
+                                 <input type="file"onchange="document.getElementById('thisImageId6').src = window.URL.createObjectURL(this.files[0])" class="m-1" name="image6"><img id="thisImageId6" alt="your image" width="100" height="100" />
+                    </div>
+
+                
+          </div>
+        <div >  <button type="submit" class="btn btn-danger m-2">Add Banners</button></div>
+        </form>
+    </div>
+</section>
+{{!-- image Preview --}}
+<script>
+  imgInp.onchange = evt => {
+  const [file] = imgInp.files
+  if (file) {
+    blah.src = URL.createObjectURL(file)
+  }
+}
+</script
