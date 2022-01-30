@@ -7,12 +7,12 @@
   font-family: poppins;
 }
 body {
-  background-color: #f2f4ff;
+  background-color: #508bfc;
 }
 .container {
-  width: 400px;
-  height: 300px;
-  background-color: #fff;
+  width: 500px;
+  height: 400px;
+  background-color: #508bfc;
   margin: 150px auto;
   border-radius: 11px;
   padding: 40px 50px;
@@ -21,7 +21,7 @@ body {
 /* top-header */
 .top-header h3 {
   text-align: center;
-  color: #495d76;
+  color: #0b0c0c;
 }
 .top-header p {
   color: #cecfd3;
@@ -82,22 +82,96 @@ p.last {
       
         <h3>Welcome back</h3>
         <p>Enter OTP </p>
+      
+
+        
+        <div class="font-weight-bold text-center mt-5">
+          Time Left :: <div  class="text-danger" id="error"></div>
+          <p id="demo"></p>
+        </div>
+
+
       </div>
-       <div  class="text-danger" id="error"></div>
+      
       <form action="/otpVerification" id="otp" method="post">
+     
       <div class="text-danger">{{OtpError}}</div>
         <div class="user">
           <i class="bx bxs-user-circle"></i>
           <input type='text' id="verify" name='otp' placeholder="Enter One Time Password" />
         </div>
-        
-     
-      <div class="btn">
-      <input type="submit"value="Submit">
+   <input type="submit"value="Submit"class="btn btn-success btn_verify">
+    </form>
+
+  <button class="text-danger font-italic btn_resend" style="display: none;">Resend OTP</button>   
+
+
+      
+
       </div>
-    </div>
-    
-   </form>
+{{!-- 
+      <button type="submit" onclick="validateOtpForm()" class="btn btn-success btn_verify">continue</button> --}}
+ 
+       
+          
+  
+
+{{!-- otp resent --}}
+
+<script>
+
+$(".btn_resend").on("click", () => {
+  
+    $.ajax({
+        url : "/resentOtp" ,
+        type : "post" ,
+        dataType : "json" ,
+        success : function (res) {
+            if (res) {
+                countDownTimer()
+                $('.btn_resend').hide()
+                $('.btn_verify').show()
+            }
+            else {
+                alert("otp sending failed")
+            }
+        }
+    })
+})
+
+var seconds = 60;
+
+function countDownTimer(){
+    var countDownDate = new Date();
+    countDownDate.setSeconds( countDownDate.getSeconds() + seconds );
+
+    var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        // Display the result in the element with id="demo"
+        $("#demo").html(minutes + "m " + seconds + "s ");
+        
+        // If the count down is finished, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            $("#demo").html("EXPIRED");
+            $('.btn_resend').show()
+                $('.btn_verify').hide()
+        }
+    }, 1000);
+}
+
+$( document ).ready(function() {
+    countDownTimer();
+});
+
+
+</script>
+
+
    <script>
   const otp=document.getElementById("otp")
   const verify=document.getElementById("verify")

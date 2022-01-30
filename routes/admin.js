@@ -61,10 +61,11 @@ router.post('/addProducts',(req,res,next)=>{
   req.body.mrp = parseInt(req.body.mrp)
  
   adminHelper.addProduct(req.body).then((id)=>{
-   
-    let image = req.files.image;
+  
+    let image = req.files.image1;
         let image2= req.files.image2;
     let image3 = req.files.image3;
+    let image4 = req.files.image4;
    
     id=id.insertedId;
     image.mv('./public/images/proImage/'+id+'image.jpg',(err)=>{
@@ -73,8 +74,11 @@ if(!err){
     if(!err){
       image3.mv('./public/images/proImage/'+id+'image3.jpg',(err)=>{
         if(!err){
+          image4.mv('./public/images/proImage/'+id+'image4.jpg',(err)=>{
+            if(!err){
           res.redirect('/admin/viewProducts')
-
+            }
+          })
         }
       })
     }
@@ -187,6 +191,7 @@ router.get('/bannerManagement',(req,res,next)=>{
   res.render('admin/bannerManage',{admin:true})
 })
 router.post('/addBanners',(req,res,next)=>{
+
 
 
 

@@ -202,6 +202,32 @@ img{
     }
 }
 </style>
+{{!-- style for zooming --}}
+
+
+        <style>
+    .imgkey{
+        width:100px;
+        height:100px;}
+    .previewPane{
+        /* display:inline-block; */
+        width:500px;
+        height:300px;
+        cursor:crosshair;
+        margin-right: 20rem;
+        background-size:100% 100%}
+    #zoomer{
+        background: #fff;
+        display:none;
+        background-repeat:no-repeat;
+        width:800px;
+        height:550px;
+        z-index: 1000;
+        position: fixed;
+        right: 10%;
+        top: 13%;
+    }
+</style>
 
 
 <div class = "card-wrapper">
@@ -210,6 +236,7 @@ img{
     <div class = "product-imgs">
       <div class = "img-display">
         <div class = "img-showcase">
+            
           <img src = "/images/proImage/{{productDetails._id}}image.jpg"alt = "shoe image">
           <img src = "/images/proImage/{{productDetails._id}}image2.jpg"alt = "shoe image">
           <img src = "/images/proImage/{{productDetails._id}}image3.jpg" alt = "shoe image">
@@ -443,3 +470,30 @@ window.addEventListener('resize', slideImage);
     })
    }
            </script>
+
+
+
+
+           {{!-- .....................................................................image zoom --}}
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+<script>
+    $(function(){
+    $('.previewPane, #zoomer').css('background-image','url('+$('.imgkey').first().attr('src')+')');
+    $('.imgkey').click(function(){
+    $('.previewPane').css('background-image','url('+$(this).attr('src')+')');
+                });
+    $('.previewPane').mousemove(function(ev){
+    $('#zoomer').css('display','inline-block');
+    var img = $(this).css('background-image').replace(/^url\(['"](.+)['"]\)/, '$1');
+    var posX = ev.offsetX ? (ev.offsetX) : ev.pageX - $(this).offset().left;
+    var posY = ev.offsetY ? (ev.offsetY) : ev.pageY - $(this).offset().top;
+    $('#zoomer').css('background-position',((-posX * 3) + "px " + (-posY * 3) + "px"));
+    $('#zoomer').css('background-image','url('+img+')');
+                });
+    $('.previewPane').mouseleave(function(){$('#zoomer').css('display','none');});
+            });
+</script>

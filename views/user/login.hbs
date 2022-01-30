@@ -425,12 +425,12 @@
             <!-- content-wraper start -->
             <div class="content-wraper ">
                 <div class="container-fluid">
-                    <div class="row mx-auto">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="row m:auto">
+                        <div class="col-lg-6 col-md-6 col-sm-12  ml-5 ">
                             <div class="customer-login-register" >
                                 <h3>Login</h3>
-                                <div class="login-Register-info">
-                                  <div class="text-danger" id="error"></div>
+                                <div  class="login-Register-info">
+                                 
                                   <form action="/home" id="login" method="post" enctype="multipart/form-data">
                                   
                                        
@@ -438,10 +438,12 @@
                                          <p class="text-danger">{{status}}</p> 
                                           <p class="coupon-input form-row-first">
                                             <label> email <span class="required">*</span></label>
+ <div class="text-danger error"></div>
                                             <input type="text"id="email" name="email">
                                         </p>
                                         <p class="coupon-input form-row-last">
                                             <label>password <span class="required">*</span></label>
+                                             <div class="text-danger error"></div>
                                             <input  type="password" id="password" name="password">
                                         </p>
                                        <div class="clear"></div>
@@ -730,13 +732,18 @@
   </div>
 </div> --}}
 
+
+
+
+
+
 {{!-- validation --}}
 
 <script>
   const name=document.getElementById("email")
    const password=document.getElementById("password")
       const login=document.getElementById("login")
-      const errorElement=document.getElementById('error')
+      const errorElement=document.getElementsByClassName('error')
 
       login.addEventListener('submit',(e)=>{
            
@@ -744,10 +751,12 @@
          if(name.value==''||name.value==null){
               messages.push('email is required')
               console.log(messages)
+              errorElement[0].innerText="email is required"
       }
       if(password.length<3||password.value==''){
               messages.push('password required minimum 3 charactors')
               console.log(messages)
+              errorElement[1].innerText="password required minimum 3 charactors'"
       }
       
       

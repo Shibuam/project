@@ -349,10 +349,29 @@ module.exports = {
      viewBanner:()=>{
         return new Promise(async(resolve,reject)=>{
          let banner=await  db.get().collection(collection.BANNER_COLLECTION).find().toArray()
-         console.log(banner);
-         console.log("==================================================================================================");
-        resolve(banner)
+              resolve(banner)
         })
-    }
+    },
+    women:()=>{
+        return new Promise((resolve,reject)=>{
+            let data=db.get().collection(collection.PRODUCTS).find({category:"Ladies Shoes"}).toArray()
+            resolve(data)
+        })
+        
+    },
+    men:()=>{
+        return new Promise((resolve,reject)=>{
+            let data=db.get().collection(collection.PRODUCTS).find({category:"Men Shoes"}).toArray()
+            resolve(data)
+        })
+        
+    },
+    kids:()=>{
+        return new Promise((resolve,reject)=>{
+            let data=db.get().collection(collection.PRODUCTS).find({category:"Kids Shoes"}).toArray()
+            resolve(data)
+        })
+        
+    },
 
 }

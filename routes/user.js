@@ -29,16 +29,20 @@ const client = require("twilio")(ACCOUNT_SID, AUTH_TOKEN)
 
 /* GET home page. */
 router.get('/', async (req, res, next) => {
+  let women=await userHelper.women()
+  let men=await userHelper.men()
+  let kids=await userHelper.kids()
+ 
   let user = req.session.user
   let cartCount = null
   if (user) {
     cartCount = await userHelper.cartCount(user._id)
-
+  
   }
   let banner = await userHelper.viewBanner()
   adminHelper.viewProducts().then((products) => {
 
-    console.log("........................", banner)
+  
 
     if (req.session.status == true) {
       let status = "*Admin Blocked"
@@ -47,7 +51,7 @@ router.get('/', async (req, res, next) => {
     }
 
 
-    res.render('user/home', { users: true, user, products, cartCount, banner });
+    res.render('user/home', { users: true, user, products, cartCount, banner,women,men,kids });
   })
 });
 
@@ -104,6 +108,7 @@ router.post('/signup', function (req, res, next) {
   })
 });
 router.get('/otpVerification', (req, res, next) => {
+ 
   if (req.session.doNotMatch) {
     var OtpError = "Miss Match otp"
     res.render('user/otpverify', { OtpError })
@@ -156,12 +161,27 @@ router.post('/numberChecking', (req, res, next) => {
     else {
       req.session.errorId = true
       res.redirect('/contact')
+      
     }
   })
+})
+// Resent OTP
+router.post('/resentOtp',(req,res,next)=>{
+  let number=req.session.contact
+
+
+  client.verify.services(SERVICE_ID).verifications.create({
+    to: `+91${number}`,
+    channel: "sms"
+  })
+  res.render('user/otpverify')
+
+
 })
 
 
 router.post('/otpVerification', (req, res, next) => {
+
   const { otp } = req.body;
   var userData = req.session.contact
   client.verify.services(SERVICE_ID).verificationChecks.create({
@@ -280,6 +300,9 @@ router.post('/cancelOrder', (req, res, next) => {
 
   userHelper.cancelOrder(req.body.orderList)
 
+})
+router.get('/timer',(req,res,next)=>{
+  res.render('user/timer')
 })
 
 

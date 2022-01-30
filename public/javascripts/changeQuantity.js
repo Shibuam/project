@@ -15,7 +15,7 @@ $.ajax({
         location.reload()
         if(response.removeProduct){
             alert("Product removed from cart")
-         
+         return false;
         }
        
         else{

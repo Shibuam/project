@@ -11,8 +11,8 @@ body {
 }
 .container {
   width: 400px;
-  height: 300px;
-  background-color: #fff;
+  height: 400px;
+  background-color: #508bfc;
   margin: 150px auto;
   border-radius: 11px;
   padding: 40px 50px;
@@ -86,12 +86,18 @@ p.last {
       <form action="/otpVerificationForUserSignUp" method="post">
         <div class="user">
           <i class="bx bxs-user-circle"></i>
+          <div  class="text-danger" id="error"></div>  
+        <div class="font-weight-bold text-center mt-5">
+          Time Left ::   <p id="demo"></p>
+        
+        </div>
+
           <input type='text' id="verify" name='otp' placeholder="Enter One Time Password" />
         </div>
-        
+          <button class="text-danger font-italic btn_resend" style="display: none;">Resend OTP</button>
      
       <div class="btn">
-      <input type="submit"value="Submit">
+      <input type="submit"value="Submit" class="btn btn-success btn_verify">
       </div>
     </div>
     
@@ -121,3 +127,88 @@ p.last {
 
   
           </script>
+
+
+
+{{!-- resent otp --}}
+
+
+
+<script>
+
+$(".btn_resend").on("click", () => {
+    $.ajax({
+        url : "/resentOtp" ,
+        type : "post" ,
+        dataType : "json" ,
+        success : function (res) {
+            if (res) {
+                countDownTimer()
+                $('.btn_resend').hide()
+                $('.btn_verify').show()
+            }
+            else {
+                alert("otp sending failed")
+            }
+        }
+    })
+})
+
+var seconds = 10;
+
+function countDownTimer(){
+    var countDownDate = new Date();
+    countDownDate.setSeconds( countDownDate.getSeconds() + seconds );
+
+    var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        // Display the result in the element with id="demo"
+        $("#demo").html(minutes + "m " + seconds + "s ");
+        
+        // If the count down is finished, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            $("#demo").html("EXPIRED");
+            $('.btn_resend').show()
+                $('.btn_verify').hide()
+        }
+    }, 1000);
+}
+
+$( document ).ready(function() {
+    countDownTimer();
+});
+
+
+</script>
+
+
+   <script>
+  const otp=document.getElementById("otp")
+  const verify=document.getElementById("verify")
+    const errorElement=document.getElementById("error")
+
+      otp.addEventListener('submit',(e)=>{
+           
+                      let messages=[]
+       
+      if(verify.value.length!=6){
+              messages.push('password required six digits')
+              console.log(messages)
+      }
+      
+      
+          if(messages.length>0){
+                 e.preventDefault()
+                 errorElement.innerText=messages.join(',')
+          }
+         
+      })
+
+  
+          </script>
+        

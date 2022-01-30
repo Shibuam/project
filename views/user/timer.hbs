@@ -1,5 +1,15 @@
 
 
+</script>
+<link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+		<link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
+		<script src="https://unpkg.com/dropzone"></script>
+		<script src="https://unpkg.com/cropperjs">
+    </script>
+
+
+
+
 <style>
   /* .image_area {
 		  position: relative;
@@ -55,110 +65,131 @@
 
 
 
+<section class="container-scroller">
 
 
-<body>
-
-  
-  <div class="container tm-mt-big tm-mb-big">
- 
-      <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
-        <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-          <center>
-          <div class="row">
-            <div class="col-12">
-
-              <h2 class="tm-block-title d-inline-block">Add Product</h2>
-            </div>
-          </div>
-</center>
-          <div class="row tm-edit-product-row">
-            <center>
-            <div class="col-xl-6 col-lg-6 col-md-12">
-             
-
-              <form action="/admin/addProducts" id="imgInp" name="myform" class="tm-edit-product-form" method="post"
-                enctype="multipart/form-data" onsubmit="return validation()">
-
-                <div class="form-group mb-3">
+  <div class="container-fluid page-body-wrapper">
 
 
+   
+     <div class="container pt-5">
+            <div class="d-flex mt-5 justify-content-center">
+
+    <div class="col-lg-8 mt-5 rounded-2 shadow-lg grid-margin stretch-card" style="border-radius: 25px !important;">
+      <div class="contents order-2 order-md-1">
+        <div class="container">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-md-12">
+              <div class="text-center mb-5">
+                <h3>Add <strong>New Product</strong></h3>
+              </div>
+              <form action="/admin/admin-addproduct" onsubmit="return validationaddressplace()" method="POST" enctype="multipart/form-data" 
+                style="padding-top: 40px;" id="add-prod">
+                {{#if productExist}}
+                <div class="alert alert-danger" role="alert">
+                  This product is already exist!
                 </div>
-                <div class="form-group mb-3">
+                {{/if}}
+                <div class="form-row">               
+                  <div class="form-group col-md-6">                  
+                    <label for="inputName">Product Name</label>
+                    <input type="text" class="form-control" id="inputName" name="name" placeholder="Product name">
+                     <p id="product" class="text text-danger"></p>
+                    
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="brand">Brand</label>
+                    <select name="brand" id="brand" class="custom-select p-2">
+                      <option value="" selected>Choose a Brand</option>
 
-                  <label for="category">Category</label>
+                      {{#each brand}}
+                      <option value="{{this.name}}">{{this.name}}</option>
+                      {{/each}}
+                    </select>
 
-                  <select name="category" id="" onclick="sel()" class="form-select" aria-label="Default select example">
-                    <br><br>
-                    {{#each category}}
-                    <option value="{{this.category}}">{{this.category}}</option>
-                    {{/each}}
-                  </select>
-                  {{!-- <a href="/admin/viewSubCategory/{{this.category}}" class="btn bg-danger text-black m-2">Click
-                    for Category</a> --}}
-                  {{!-- for getting subcategory --}}
-
-
-
-                  <label for="category">SubCategory</label>
-                  <select name="SubCategory" id="" class="form-select" aria-label="Default select example">
-
-                    {{#each Subcategory}}
-                    <option value="{{this.subCategory}}">{{this.subCategory}}</option>
-                    {{/each}}
-                  </select>
-
+                    {{#if catErrPro}}
+                    <p class="text-center text-danger">{{catErrPro}}</p>
+                    {{/if}}
+                    <p id="brandone" class="text text-danger"></p>
+                  </div>
                 </div>
-                <label for="expire_date">Size
-                </label>
-                <select class="form-select" name="size" aria-label="Default select example">
 
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                </select>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="category">Category</label>
+                    <select name="catagaries" id="categorys" class="custom-select p-2">
+                      <option value="" selected>Choose a Category</option>
+                      <p id="categoryone" class="text text-danger"></p>
+                      {{#each catagory}}
+                      <option value="{{this.name}}">{{this.name}}</option>
+                      {{/each}}
+                       <p id="categoryone" class="text text-danger"></p>
+                    </select>
+
+                    {{#if catErrPro}}
+                    <p class="text-center text-danger">{{catErrPro}}</p>
+                    {{/if}}
+                  </div>
+                  {{#if catErrPro}}
+                  <p class="text-center text-danger">{{catErrPro}}</p>
+                  {{/if}}
+                  <div class="form-group col-md-6">
+
+
+                    <label for="inputCost">Sub Catagory</label>
+                    <input type="text" class="form-control" onkeydown="return event.keyCode !== 69" id="subcategory" placeholder="Sub catagory"
+                      name="subcatagory">
+                    <p id="subcategoryone" class="text text-danger"></p>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputPrice">Price</label>
+                    <input type="number" class="form-control" onkeydown="return event.keyCode !== 69" id="Price" placeholder="Price"
+                      name="price">
+                    <p id="Priceone" class="text text-danger"></p>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputStock">Stock</label>
+                    <input type="number" class="form-control" onkeydown="return event.keyCode !== 69" id="inputStock" placeholder="Stock"
+                      name="stock">
+                    <p id="stockone" class="text text-danger"></p>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputPrice">Fabric</label>
+                    <input type="text" class="form-control" onkeydown="return event.keyCode !== 69" id="fabric" placeholder="Fabric"
+                      name="fabric">
+                    <p id="fabrione" class="text text-danger"></p>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputStock">Pack Of</label>
+                    <input type="text" class="form-control" onkeydown="return event.keyCode !== 69" id="inputpackof" placeholder="Packof"
+                      name="packof">
+                    <p id="packof" class="text text-danger"></p>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputPrice">Colour</label>
+                    <input type="text" class="form-control" onkeydown="return event.keyCode !== 69" id="color" placeholder="colour"
+                      name="color">
+                    <p id="colorone" class="text text-danger"></p>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputStock">Size</label>
+                    <input type="text" class="form-control" onkeydown="return event.keyCode !== 69" id="size" placeholder="Size"
+                      name="size">
+                    <p id="sizeone" class="text text-danger"></p>
+                  </div>
+                </div>
+
+
+
+
                 <div class="row">
-                  <div class="form-group mb-3 col-xs-12 col-sm-6">
-                    <label for="expire_date">landing cost
-                    </label>
-                    <div class="error text-danger"></div>
-                    <input id="lanCost" name="lanCost" type="text" class="form-control validate"
-                      data-large-mode="true" />
-                  </div>
-                  <div class="form-group mb-3 col-xs-12 col-sm-6">
-                    <label for="stock">MRP
-                    </label>
-                    <div class="error text-danger"></div>
-                    <input id="mrp" name="mrp" type="text" class="form-control validate">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-group mb-3 col-xs-12 col-sm-6">
-                    <label for="expire_date">Brand
-                    </label>
-                    <div class="error text-danger"></div>
-                    <input id="brand" name="brand" type="text" class="form-control validate" data-large-mode="true" />
-                  </div>
-                  <div class="form-group mb-3 col-xs-12 col-sm-6">
-                    <label for="stock">QTY
-                    </label>
-                    <div class="error text-danger"></div>
-                    <input id="qty" name="qty" type="text" class="form-control validate">
-                  </div>
-                </div>
-                
-</div>
- </center>
-          </div>
-
-
-      
-
-                        <div class="row">
                   <div id="image-box1" style="width: 300px; height: 300px; display: none;">
                   </div>
                   <div>
@@ -198,103 +229,27 @@
                   </div>
 
                 </div>
-          <div class="col-12">
-            <div class="text-danger error"></div>
-             <center>
+
+                <center>
                   <button id="confirm-btn1" type="submit" class="btn btn-primary mt-5">Add
                     Product</button><br>
                 </center>
 
                 <p class="text-danger text-center" style="display: none;" id="errMsg">Only Image is
                   Accepted</p>
+              </form>
+
+
+            </div>
           </div>
-          </form>
         </div>
       </div>
     </div>
-  </div>
-  </div>
-
-  <div class="col-md-5">
-    <div class="form-group">
-      <div id="image-box" class="image-container"></div>
-      <button class="btn btn-outline-info" id="crop-btn" style=" margin-top: 10px; display: none;"
-        type="button">Crop</button>
+       </div>
     </div>
   </div>
+</section>
 
-  {{!-- image validation --}}
-
-  <script>
-  
-
-    function validation() {
-
-      if (file1.value != '' && file2.value != '' && file3.value != ''&& file4.value != '') {
-
-        var pos_of_dot = img.value.lastIndexOf('.') + 1
-        var img_ext_of = img.value(pos_of_dot)
-        console.log(img_ext_of)
-      }
-      else {
-        alert("Please upload four images")
-        return false;
-      }
-    }
-  </script>
-
- 
-
-
-  {{!-- for display text box --}}
-  <script>
-    const imgInp = document.getElementById("imgInp")
-    const lanCost = document.getElementById("lanCost")
-    const mrp = document.getElementById("mrp")
-    const brand = document.getElementById("brand")
-    const qty = document.getElementById("qty")
-    const errors = document.getElementsByClassName("error")
-
-   
-
-    imgInp.addEventListener('submit', (e) => {
-
-      let messages = []
-      if (lanCost.value == '' || lanCost.value == null) {
-        messages.push('lanCost is required')
-        errors[0].innerText = "lan Cost is required"
-
-      }
-      if (mrp.value == null || mrp.value == '') {
-        messages.push('MRP required')
-        errors[1].innerText = "MRP required"
-      }
-      if (brand.value == null || brand.value == '') {
-
-
-
-        errors[2].innerText = "Brand required"
-      }
-      if (qty.value == null || qty.value == '') {
-        messages.push('Quantity required')
-        errors[3].innerText = "Quantity required"
-
-      }
-
-
-      if (messages.length > 0) {
-        e.preventDefault()
-       
-      }
-
-    })
-
-
-  </script>
-
-
-  
- 
 <script>
 
 
@@ -507,3 +462,179 @@
 
 <script src=" https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js"></script>
+
+
+
+<script>
+  function validationaddressplace() {
+    var name = document.getElementById("inputName").value;
+    var brand = document.getElementById("brand").value;
+    var category = document.getElementById("categorys").value;
+    var subcategory = document.getElementById("subcategory").value;
+    var Price = document.getElementById("Price").value;
+    var stock = document.getElementById("inputStock").value;
+    var fabric = document.getElementById("fabric").value;
+    var packof = document.getElementById("inputpackof").value;
+    var color = document.getElementById("color").value;
+    var size = document.getElementById("size").value;
+    var image1=document.getElementById("file1").value
+    var image2=document.getElementById("file2").value
+    var image3=document.getElementById("file3").value
+    var image4=document.getElementById("file4").value
+
+    if (name == "") {
+      document.getElementById("product").innerHTML =
+        "Please enter product name";
+      return false;
+    }
+    if (!isNaN(name)) {
+      document.getElementById("product").innerHTML =
+        " Enter the valid characters";
+      return false;
+    }
+    if (brand == "") {
+      document.getElementById("brandone").innerHTML =
+        " Please  select brand";
+      return false;
+    }
+    if (brand.length <= 2 || brand.length > 20) {
+      document.getElementById("brandone").innerHTML =
+        "Please enter more than 2 characters and shorter than 20 characters";
+      return false;
+    }
+    if (!isNaN(brand)) {
+      document.getElementById("brandone").innerHTML =
+        " Only enter characters";
+      return false;
+    }
+
+    if (category == "") {
+      document.getElementById("categoryone").innerHTML =
+        " Please select the catagory";
+      return false;
+    }
+   
+    if (!isNaN(category)) {
+      document.getElementById("categoryone").innerHTML =
+        " Only enter characters";
+      return false;
+    }
+
+
+
+    if (subcategory == "") {
+      document.getElementById("subcategoryone").innerHTML =
+        " Please Enter Subcatagory";
+      return false;
+    }
+    if (!isNaN(subcategory)) {
+      document.getElementById("subcategoryone").innerHTML =
+        " Only enter characters";
+      return false;
+    }
+
+
+    if (Price == "") {
+      document.getElementById("Priceone").innerHTML =
+        " Please Enter price";
+      return false;
+    }
+    if (isNaN(Price)) {
+      document.getElementById("Priceone").innerHTML =
+        " Only enter characters";
+      return false;
+    }
+
+
+    if (stock == "") {
+      document.getElementById("stockone").innerHTML =
+        " Please Enter stock";
+      return false;
+    }
+    
+    if (isNaN(stock)) {
+      document.getElementById("stockone").innerHTML =
+        " Only enter characters";
+      return false;
+    }
+
+
+
+    if (fabric == "") {
+      document.getElementById("fabrione").innerHTML =
+        "Please enter  fabric";
+      return false;
+    }
+    if (fabric.length <= 2 || fabric.length > 20) {
+      document.getElementById("fabrione").innerHTML =
+        " The length is to short ";
+      return false;
+    }
+    if (!isNaN(fabric)) {
+      document.getElementById("fabrione").innerHTML =
+        " Enter the valid characters";
+      return false;
+    }
+
+
+    if (packof == "") {
+      document.getElementById("packof").innerHTML =
+        "Please enter pack";
+      return false;
+    }
+    if (isNaN(packof)) {
+      document.getElementById("packof").innerHTML =
+        " Enter the valid characters";
+      return false;
+    }
+
+
+    if (color == "") {
+      document.getElementById("colorone").innerHTML =
+        "Please enter colour";
+      return false;
+    }
+    if (color.length <= 2 || color.length > 20) {
+      document.getElementById("colorone").innerHTML =
+        " The length is to short ";
+      return false;
+    }
+    if (!isNaN(color)) {
+      document.getElementById("colorone").innerHTML =
+        " Enter the valid characters";
+      return false;
+    }
+
+
+    if (size == "") {
+      document.getElementById("sizeone").innerHTML =
+        "Please enter the size";
+      return false;
+    }
+    if (isNaN(size)) {
+      document.getElementById("sizeone").innerHTML =
+        " Enter the valid characters";
+      return false;
+    }
+        if (image1 == "") {
+      document.getElementById("img1").innerHTML =
+        "Please uplod image";
+      return false;
+    }
+         if (image2 == "") {
+      document.getElementById("img2").innerHTML =
+        "Please uplod image";
+      return false;
+    }
+         if (image3 == "") {
+      document.getElementById("img3").innerHTML =
+        "Please uplod image";
+      return false;
+    }
+         if (image4 == "") {
+      document.getElementById("img4").innerHTML =
+        "Please uplod image";
+      return false;
+    }
+
+  }
