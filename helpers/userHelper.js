@@ -277,6 +277,7 @@ module.exports = {
             let status=order.method==='COD'?'placed':'pending'
             let orderObj={
                 deliveryDetails:{
+                    name:order.firstname,
                     mobile:order.phone,
                     pincode:order.postcode,
                     state:order.state,

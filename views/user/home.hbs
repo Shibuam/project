@@ -19,10 +19,10 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="slider-text-info style-2 text-center slider-text-animation">
-                                        <h1 class="title1"><span class="text">ACG sport</span> jacket</h1>
-                                        <p>outerwear. footwear. portable storage and indispensable in life</p>
+                                        <h1 class="title1"><span class="text">ACG sport</span> {{this.banner1}}</h1>
+                                        <p>{{this.text1}}</p>
                                         <div class="slier-btn-1">
-                                            <a title="shop now" href="#" class="shop-btn">Shopping now</a>
+                                            {{!-- <a title="shop now" href="#" class="shop-btn">Shopping now</a> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -36,28 +36,29 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="slider-text-info style-2 text-center slider-text-animation">
-                                        <h1 class="title1"><span class="text">perfect </span>design </h1>
-                                        <p>Ready. experience. comfortable and indispensable in life</p>
-                                        <div class="slier-btn-1">
+                                        <h1 class="title1"><span class="text">perfect </span>{{this.banner2}} </h1>
+                                        <p>{{this.text2}}</p>
+                                        {{!-- <div class="slier-btn-1">
                                             <a title="shop now" href="#" class="shop-btn">Shopping now</a>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
                     <!-- slider-wrapper end -->
                     <!-- slider-wrapper start -->
-                    <div class="slider-wrapper" style="background-image:url(/bannerImage/61f265e97faefda97bdb19a2image.jpg)">
+                    <div class="slider-wrapper" style="background-image:url(/bannerImage/{{this._id}}image3.jpg)">
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col">
                                     <div class="slider-text-info style-2 text-center slider-text-animation">
-                                        <h1 class="title1"><span>nike new</span>Jacket</h1>
-                                        <p>We've handpicked our best gifts for all kinds of athletes.</p>
-                                        <div class="slier-btn-1">
+                                        <h1 class="title1"><span>nike new</span>{{this.banner3}}</h1>
+                                        <p>{{this.text3}}</p>
+                                        {{!-- <div class="slier-btn-1">
                                             <a title="shop now" href="#" class="shop-btn">Shopping now</a>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -66,49 +67,49 @@
                     <!-- slider-wrapper end -->
                 </div>
             </div>
-            
+             {{/each}}
             <!-- slider-main-area end -->
         
             
             <!-- banner-area start -->
-            <div class="banner-area mt-40">
+            {{!-- <div class="banner-area mt-10">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-4 col-custom-4 col">
+                        <div class="col-lg-4 col-custom-4 col" >
                             <!--single-banner-box start -->
-                            <div class="single-banner-box mb-20">
+                            <div class="single-banner-box " style="width: 300px;height:fit-content">
                                 <a href="#"><img src="/bannerImage/{{this._id}}image2.jpg" alt=""></a>
                             </div>
                             <!--single-banner-box end -->
                             <!--single-banner-box start -->
-                            <div class="single-banner-box">
+                            <div class="single-banner-box"style="width: 300px;" >
                                 <a href="#"><img src="/bannerImage/{{this._id}}image3.jpg" alt=""></a>
                             </div>
                             <!--single-banner-box end -->
                         </div>
-                        <div class="col-lg-4 centeritem col">
+                        <div class="col-lg-4 centeritem col" >
                             <!--single-banner-box start -->
-                            <div class="single-banner-box">
+                            <div class="single-banner-box mt-40 me-40"style="width: 450px;">
                                 <a href="#"><img src="/bannerImage/{{this._id}}image4.jpg" alt=""></a>
                             </div>
                             <!--single-banner-box end -->
                         </div>
-                        <div class="col-lg-4 col-custom-4 col">
+                        <div class="col-lg-4 col-custom-4 col"style="width: 600px;">
                             <!--single-banner-box start -->
-                            <div class="single-banner-box mb-20">
+                            <div class="single-banner-box " style="width:400px;">
                                 <a href="#"><img src="/bannerImage/{{this._id}}image5.jpg" alt=""></a>
                             </div>
                             <!--single-banner-box end -->
                             <!--single-banner-box start -->
-                            <div class="single-banner-box">
-                                <a href="#"><img src="/bannerImage/{{this._id}}image6.jpg" style="width: 500px;;" alt=""></a>
+                            <div class="single-banner-box"style="width: 400px;">
+                                <a href="#"><img src="/bannerImage/{{this._id}}image6.jpg" alt=""></a>
                             </div>
                             <!--single-banner-box end -->
                         </div>
                     </div>
                 </div>
-            </div>
-            {{/each}}
+            </div> --}}
+           
             <!-- banner-area end -->
             
             <!-- product-area start -->

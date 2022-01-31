@@ -1,37 +1,121 @@
+<style>
+  /* .image_area {
+		  position: relative;
+		} */
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  .preview {
+    overflow: hidden;
+    width: 160px;
+    height: 160px;
+    margin: 10px;
+    border: 1px solid red;
+  }
+
+  .modal-lg {
+    max-width: 1000px !important;
+  }
+
+  .overlay {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+    height: 0;
+    transition: .5s ease;
+    width: 100%;
+  }
+
+  .image_area:hover .overlay {
+    height: 50%;
+    cursor: pointer;
+  }
+
+  .text {
+    color: #333;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+</style>
 <section>
     <div class="container">
       <center>
-        <form action="/admin/addBanners" id="imgInp" name="addBanner"  onsubmit="return validation()"  class="tm-edit-product-form" method="post"
-                enctype="multipart/form-data">
+         <form action="/admin/addBanners" id="imgInp" name="myform" class="tm-edit-product-form" method="post"
+                enctype="multipart/form-data" onsubmit="return validation()">
             <h1 class="text-black m-2">Banner Management</h1>
           <div class="row m-auto">
-              <div class="m-2"><label for="">Name Of the Banner</label>
-              <input type="text" name="banner">
+              <div class="m-2"><label for="">Title Of the first Banner</label>
+              <input type="text" name="banner1">
+                <label for="">Text</label>
+             <textarea name="text1"></textarea>
+
               </div>
-                    <div>
-                                 <input id="file1" type="file"onchange="document.getElementById('thisImageId').src = window.URL.createObjectURL(this.files[0])" class="m-1" name="image"><img id="thisImageId" alt="your image" width="100" height="100" />
-                    </div>
-<div>
-                                 <input id="file2" type="file"onchange="document.getElementById('thisImageId2').src = window.URL.createObjectURL(this.files[0])" class="m-1" name="image2"><img id="thisImageId2" alt="your image" width="100" height="100" />
-                    </div>
+               <div class="m-2"><label for="">Title Of the second Banner</label>
+              <input type="text" name="banner2">
+                <label for="">Text</label>
+             <textarea name="text2"></textarea>
 
-<div>
-                                 <input id="file3" type="file"onchange="document.getElementById('thisImageId3').src = window.URL.createObjectURL(this.files[0])" class="m-1" name="image3"><img id="thisImageId3" alt="your image" width="100" height="100" />
-                    </div>
-<div>
-                                 <input id="file4" type="file"onchange="document.getElementById('thisImageId4').src = window.URL.createObjectURL(this.files[0])" class="m-1" name="image4"><img id="thisImageId4" alt="your image" width="100" height="100" />
-                    </div>
-                    <div>
-                                 <input id="file5" type="file"onchange="document.getElementById('thisImageId5').src = window.URL.createObjectURL(this.files[0])" class="m-1" name="image5"><img id="thisImageId5" alt="your image" width="100" height="100" />
-                    </div>
-<div>
-                                 <input id="file6" type="file"onchange="document.getElementById('thisImageId6').src = window.URL.createObjectURL(this.files[0])" class="m-1" name="image6"><img id="thisImageId6" alt="your image" width="100" height="100" />
-                    </div>
+              </div>
+                 <div class="m-2"><label for="">Title Of the third Banner</label>
+              <input type="text" name="banner3">
+                <label for="">Text</label>
+             <textarea name="text3"></textarea>
 
+              </div>
+                    <div class="row">
+                  <div id="image-box1" style="width: 300px; height: 300px; display: none;">
+                  </div>
+                  <div>
+                    <button class="btn btn-primary mt-3" type="button" style="display: none;"
+                      id="crop-btn1">Done</button>
+                  </div>
+                  <div class="mt-5 col-md-6">
+                    <label for="">IMAGE 1</label>
+                    <img src="" alt="" style="width: 100px; height:auto" id="imgview1">
+                    <input type="file" name="image1" id="file1" class="form-control"
+                      onchange="return fileValidation1()">
+                      <p id="img1" class="text text-danger"></p>
+     
+                  </div>
+                  <div class="mt-5 col-md-6">
+                    <label for="">IMAGE 2</label>
+                    <img src="" alt="" style="width: 100px; height:auto" id="imgview2">
+                    <input type="file" name="image2" id="file2" class="form-control"
+                      onchange="return fileValidation2()">
+                      <p id="img2" class="text text-danger"></p>
                 
-          </div>
+                  </div>
+                  <div class="mt-5 col-md-6">
+                    <label for="">IMAGE 3</label>
+                    <img src="" alt="" style="width: 100px; height:auto" id="imgview3">
+                    <input type="file" name="image3" id="file3" class="form-control"
+                      onchange="return fileValidation3()">
+                      <p id="img3" class="text text-danger"></p>
+                  </div>
+                    </div>
 
-  <div> <center>   <button type="submit"class="btn btn-danger m-2">Add Banners</button> </center></div>
+    <div class="col-12">
+            <div class="text-danger error"></div>
+             <center>
+                  <button id="confirm-btn1" type="submit" class="btn btn-primary mt-5">Add
+                    Banner</button><br>
+                </center>
+
+                <p class="text-danger text-center" style="display: none;" id="errMsg">Only Image is
+                  Accepted</p>
+          </div>
         </form>
         </center>
     </div>
@@ -48,9 +132,172 @@
 {{!-- image validation --}}
 <script>
 function validation(){
- if((file1.value=='')||(file2.value=='')||(file3.value=='')||(file4.value=='')||(file5.value=='')||(file6.value=='')){
-alert("add six banners")
+ if((file1.value=='')||(file2.value=='')||(file3.value=='')){
+alert("add three banners")
  return false;
  }
 }
 </script>
+<script>
+  //Cropper js function
+
+  function fileValidation1() {
+  
+    const imagebox = document.getElementById('image-box1')
+    const crop_btn = document.getElementById('crop-btn1')
+    var fileInput = document.getElementById('file1');
+
+    var filePath = fileInput.value;
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+    if (!allowedExtensions.exec(filePath)) {
+      fileInput.value = '';
+      Swal.fire('Upload image only') 
+      return false;
+    } else {
+      //Image preview
+      const img_data = fileInput.files[0]
+      const url = URL.createObjectURL(img_data)
+      imagebox.innerHTML = `<img src="${url}" id="image" style="width:100%">`
+      const image = document.getElementById('image')
+      document.getElementById('image-box1').style.display = 'block'
+      document.getElementById('crop-btn1').style.display = 'block'
+      document.getElementById('confirm-btn1').style.display = 'none'
+
+      const cropper = new Cropper(image, {
+        autoCropArea: 1,
+        viewMode: 1,
+        scalable: false,
+        zoomable: false,
+        movable: false,
+        aspectRatio: 35 / 14,
+        //  preview: '.preview',
+        minCropBoxWidth: 180,
+        minCropBoxHeight: 240,
+      })
+      crop_btn.addEventListener('click', () => {
+        cropper.getCroppedCanvas().toBlob((blob) => {
+          let fileInputElement = document.getElementById('file1');
+          let file = new File([blob], img_data.name, { type: "image/*", lastModified: new Date().getTime() });
+          let container = new DataTransfer();
+
+          container.items.add(file);
+          const img = container.files[0]
+          var url = URL.createObjectURL(img)
+          fileInputElement.files = container.files;
+          document.getElementById('imgview1').src = url
+          document.getElementById('image-box1').style.display = 'none'
+          document.getElementById('crop-btn1').style.display = 'none'
+          document.getElementById('confirm-btn1').style.display = 'block'
+        }, 'image/webp', 0.5);
+      });
+    }
+  }
+  function fileValidation2() {
+    const imagebox = document.getElementById('image-box1')
+    const crop_btn = document.getElementById('crop-btn1')
+    var fileInput = document.getElementById('file2');
+
+    var filePath = fileInput.value;
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+    if (!allowedExtensions.exec(filePath)) {
+      Swal.fire('Upload image only')
+      fileInput.value = '';
+      return false;
+    } else {
+      //Image preview
+      const img_data = fileInput.files[0]
+      const url = URL.createObjectURL(img_data)
+      imagebox.innerHTML = `<img src="${url}" id="image" style="width:100%">`
+      const image = document.getElementById('image')
+      document.getElementById('image-box1').style.display = 'block'
+      document.getElementById('crop-btn1').style.display = 'block'
+      document.getElementById('confirm-btn1').style.display = 'none'
+
+      const cropper = new Cropper(image, {
+        autoCropArea: 1,
+        viewMode: 1,
+        scalable: false,
+        zoomable: false,
+        movable: false,
+        aspectRatio: 35/14,
+        //  preview: '.preview',
+        minCropBoxWidth: 180,
+        minCropBoxHeight: 240,
+      })
+      crop_btn.addEventListener('click', () => {
+        cropper.getCroppedCanvas().toBlob((blob) => {
+          let fileInputElement = document.getElementById('file2');
+          let file = new File([blob], img_data.name, { type: "image/*", lastModified: new Date().getTime() });
+          let container = new DataTransfer();
+
+          container.items.add(file);
+          const img = container.files[0]
+          var url = URL.createObjectURL(img)
+          fileInputElement.files = container.files;
+          document.getElementById('imgview2').src = url
+          document.getElementById('image-box1').style.display = 'none'
+          document.getElementById('crop-btn1').style.display = 'none'
+          document.getElementById('confirm-btn1').style.display = 'block'
+        }, 'image/webp', 0.5);
+      });
+    }
+  }
+  function fileValidation3() {
+    const imagebox = document.getElementById('image-box1')
+    const crop_btn = document.getElementById('crop-btn1')
+    var fileInput = document.getElementById('file3');
+
+    var filePath = fileInput.value;
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+    if (!allowedExtensions.exec(filePath)) {
+      Swal.fire('Upload image only')
+      fileInput.value = '';
+      return false;
+    } else {
+      //Image preview
+      const img_data = fileInput.files[0]
+      const url = URL.createObjectURL(img_data)
+      imagebox.innerHTML = `<img src="${url}" id="image" style="width:100%">`
+      const image = document.getElementById('image')
+      document.getElementById('image-box1').style.display = 'block'
+      document.getElementById('crop-btn1').style.display = 'block'
+      document.getElementById('confirm-btn1').style.display = 'none'
+
+      const cropper = new Cropper(image, {
+        autoCropArea: 1,
+        viewMode: 1,
+        scalable: false,
+        zoomable: false,
+        movable: false,
+        aspectRatio: 35/14,
+        //  preview: '.preview',
+        minCropBoxWidth: 180,
+        minCropBoxHeight: 240,
+      })
+      crop_btn.addEventListener('click', () => {
+        cropper.getCroppedCanvas().toBlob((blob) => {
+          let fileInputElement = document.getElementById('file3');
+          let file = new File([blob], img_data.name, { type: "image/*", lastModified: new Date().getTime() });
+          let container = new DataTransfer();
+
+          container.items.add(file);
+          const img = container.files[0]
+          var url = URL.createObjectURL(img)
+          fileInputElement.files = container.files;
+          document.getElementById('imgview3').src = url
+          document.getElementById('image-box1').style.display = 'none'
+          document.getElementById('crop-btn1').style.display = 'none'
+          document.getElementById('confirm-btn1').style.display = 'block'
+        }, 'image/webp', 0.5);
+      });
+    }
+  }
+
+  
+</script>
+
+
+
+<script src=" https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js"></script>
+

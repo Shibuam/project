@@ -56,7 +56,7 @@ router.get('/viewProducts',(req,res,next)=>{
   })
 })
  
-
+// .......................Add Products............................................................
 router.post('/addProducts',(req,res,next)=>{
   req.body.mrp = parseInt(req.body.mrp)
  
@@ -190,43 +190,30 @@ router.get('/orderManage',async(req,res,next)=>{
 router.get('/bannerManagement',(req,res,next)=>{
   res.render('admin/bannerManage',{admin:true})
 })
+// ..............................Adding Banner....................................................................
 router.post('/addBanners',(req,res,next)=>{
 
 
+   adminHelper.addBanner(req.body).then((id)=>{
 
-
-   adminHelper.addBanner(req.body).then((bannerId)=>{
-console.log(bannerId)
  
-   let image = req.files.image;
+   let image1 = req.files.image1;
    let image2= req.files.image2;
-let image3 = req.files.image3;
-let image4 = req.files.image4;
-let image5= req.files.image5;
-let image6 = req.files.image6;
-id=bannerId. insertedId
-console.log(id)
-image.mv('./public/bannerImage/'+id+'image.jpg',(err)=>{
+   let image3 = req.files.image3;
+
+
+
+   image1.mv('./public/bannerImage/'+id.insertedId+'image.jpg',(err)=>{
 if(!err){
-image2.mv('./public/bannerImage/'+id+'image2.jpg',(err)=>{
+image2.mv('./public/bannerImage/'+id.insertedId+'image2.jpg',(err)=>{
 if(!err){
-  image3.mv('./public/bannerImage/'+id+'image3.jpg',(err)=>{
+  image3.mv('./public/bannerImage/'+id.insertedId+'image3.jpg',(err)=>{
     if(!err){
      
-      image4.mv('./public/bannerImage/'+id+'image4.jpg',(err)=>{
-  if(!err){
-    image5.mv('./public/bannerImage/'+id+'image5.jpg',(err)=>{
-      if(!err){
-        image6.mv('./public/bannerImage/'+id+'image6.jpg',(err)=>{
-          if(!err){
+  res.redirect('/admin/bannerManagement')
+       
+     
 
-                      res.redirect('/admin/bannerManagement')
-          }
-        })
-      }
-    })
-  }
-})
     }
   })
 }

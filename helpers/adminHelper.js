@@ -129,8 +129,8 @@ module.exports = {
     },
     addBanner:(banner)=>{
         return new Promise((resolve,reject)=>{
-            db.get().collection(collection.BANNER_COLLECTION).insertOne({banner:banner}).then((bannerId)=>{
-                console.log(bannerId)
+            db.get().collection(collection.BANNER_COLLECTION).insertOne(banner).then((bannerId)=>{
+               
                 resolve(bannerId)
             })
         })
