@@ -131,7 +131,7 @@ router.post('/otpVerificationForUserSignUp', (req, res, next) => {
     }
     else {
       req.session.doNotMatch = invalidOtp
-      console.log(req.session.doNotMatch)
+
       res.redirect('/otpVerification')
     }
   })
@@ -269,13 +269,25 @@ router.get('/placeOrder', verifyLogin, async (req, res, next) => {
   res.render('user/checkOut', { users: true, user, total, products, cartCount })
 })
 router.post('/placeOrder', verifyLogin, async (req, res, next) => {
-  let cartProd = 0
   cartProd = await userHelper.cartProducts(req.body.userId)
   let total = await userHelper.getTotal(req.body.userId)
-  userHelper.placeOrder(req.body, cartProd, total).then((response) => {
-    res.json({ status: true })
-  })
-})
+  userHelper.placeOrder(req.body, cartProd, total).then((orderId) => {
+    if(req.body.method=='COD'){ 
+  
+
+      res.json({codStatus:true})
+    }
+    else{
+      userHelper.generateRazorpay(orderId,total).then((response)=>{
+  console.log(response)
+        
+        res.json(response)
+
+      }) 
+    }
+    
+  })  
+}) 
 router.get('/orderSuccess', (req, res, next) => {
   let user = req.session.user
   res.render('user/orderSuccess', { users: true, user })
@@ -292,7 +304,7 @@ router.get('/viewOrderProd/', async (req, res, next) => {
 
 
   let viewProOrderlist = await userHelper.getOrderPro(req.query.id)
-  console.log(viewProOrderlist)
+ 
 
   res.render('user/viewOrderProductList', { user, users: true, viewProOrderlist })
 })
@@ -301,10 +313,21 @@ router.post('/cancelOrder', (req, res, next) => {
   userHelper.cancelOrder(req.body.orderList)
 
 })
+// testing page.................................................................
 router.get('/timer',(req,res,next)=>{
   res.render('user/timer')
 })
-
+router.post('/verifyPayment',(req,res,next)=>{
+  console.log(req.body)
+userHelper.verifyPay(req.body)
+userHelper.changeOrderStatus(req.body['order[receipt]']).then(()=>{
+ 
+  res.json({status:true})
+})
+})
+//.catch((err)=>{
+//   res.json({status:false,errorMsg:''})
+// })
 
 module.exports = router;
 

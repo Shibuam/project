@@ -135,5 +135,13 @@ module.exports = {
             })
         })
     },
+    updateStatus:(status,id)=>{
+        return new  Promise((resolve,reject)=>{
+            db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:ObjectId(id)},{$set:{status:status}}).then(()=>{
+                resolve()
+            })
+        
+        })
+    }
 }
    

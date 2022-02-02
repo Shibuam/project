@@ -50,7 +50,7 @@
     
     <td>{{this.deliveryDetails.name}}</td>
     <td>{{this.date}}</td>
-    <td> <select class="form-select" name="status" aria-label="Default select example">
+    <td> <select class="form-select" name="status" onclick="changeStatus(value,'{{this._id}}')" aria-label="Default select example">
 
                   <option value="{{this.status}}">{{this.status}}</option>
                   <option value="Packed">Packed</option>
@@ -224,4 +224,22 @@ function FilterkeyWord_all_table() {
       $('#maxRows').trigger('change');
     }
 }
+
+//status change...........................................................
+
+function changeStatus(value,id){
+  console.log(value,id)
+  $.ajax({
+url:'/admin/changeOrderStatus',
+method:'post',
+data:{value,id},
+success : ()  => {
+
+}
+})
+
+}
+
+
 </script>
+

@@ -100,10 +100,10 @@ p.last {
           <i class="bx bxs-user-circle"></i>
           <input type='text' id="verify" name='otp' placeholder="Enter One Time Password" />
         </div>
-   <input type="submit"value="Submit"class="btn btn-success btn_verify">
+   <input type="submit"value="Submit"class="btn btn-success btn_verify" id="submit">
    
 
-  <button class="text-danger font-italic btn_resend" style="display: none;">Resend OTP</button>   
+  <button class="text-danger font-italic btn_resend"  onclick="hideResend()" style="display: none;" id="resend">Resend OTP</button>   
 
  </form>
       
@@ -160,6 +160,7 @@ function countDownTimer(){
             $("#demo").html("EXPIRED");
             $('.btn_resend').show()
                 $('.btn_verify').hide()
+                
         }
     }, 1000);
 }
@@ -168,7 +169,10 @@ $( document ).ready(function() {
     countDownTimer();
 });
 
-
+function hideResend(){
+  document.getElementById('resend').style='none'
+  document.getElementById('submit').style='block'
+}
 </script>
 
 

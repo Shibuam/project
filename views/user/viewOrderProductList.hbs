@@ -40,14 +40,16 @@
                                                 <th class="plantmore-product-thumbnail">Images</th>
                                                 <th class="plantmore-product-price">Unit Price</th>
                                                 <th class="cart-product-name">Size</th>
+                                                  <th class="cart-product-name">Cancel</th>
                                                
                                                 <th >Quantity</th>
                                              
                                               
                                             </tr>
-                                             {{#each viewProOrderlist}}
+                                            
                                         </thead>
                                         <tbody>
+                                             {{#each viewProOrderlist}}
                                             <tr>
                                                
                                               
@@ -63,13 +65,13 @@
                                                 
                                         
                                                 {{!-- <td class="product-subtotal"><span class="amount">$70.00</span></td> --}}
+                                                  <td><button onclick="cancelOrder('{{this._id}}')"class="btn btn-danger">Cancel</a></td>
+                                           
                                             </tr>
-                                       
+                                        {{/each}}
                                         </tbody>
-                                            {{/each}}
-                                               {{#each viewProOrderlist}}
-                                            <td><button onclick="cancelOrder('{{this._id}}')"class="btn btn-danger">Cancel</a></td>
-                                            {{/each}}
+                                           
+                                          
                                     </table>
                                 </div>
                                
