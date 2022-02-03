@@ -14,12 +14,13 @@
     "express-fileupload": "^1.2.1",
     "express-handlebars": "^6.0.2",
     "express-session": "^1.17.2",
-    "hbs": "~4.0.4",
+    "hbs": "^4.2.0",
     "http-errors": "~1.6.3",
     "image-uploader": "^2.0.2",
     "mongodb": "^4.3.0",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.15",
+    "paypal-rest-sdk": "^1.8.1",
     "razorpay": "^2.8.0",
     "twilio": "^3.72.0"
   }

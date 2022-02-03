@@ -1,0 +1,195 @@
+<style>
+    /* .image_area {
+		  position: relative;
+		} */
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    .preview {
+        overflow: hidden;
+        width: 160px;
+        height: 160px;
+        margin: 10px;
+        border: 1px solid red;
+    }
+
+    .modal-lg {
+        max-width: 1000px !important;
+    }
+
+    .overlay {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 0.5);
+        overflow: hidden;
+        height: 0;
+        transition: .5s ease;
+        width: 100%;
+    }
+
+    .image_area:hover .overlay {
+        height: 50%;
+        cursor: pointer;
+    }
+
+    .text {
+        color: #333;
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+</style>
+
+<div class="container">
+      <h1 class="text-align-center">Edit Profile Details</h1>
+    <form action="/admin/addProducts" id="imgInp" name="myform" class="tm-edit-product-form" method="post"
+        enctype="multipart/form-data" onsubmit="return validation()">
+    <div class="row">
+        <div class="col-6">
+             <div id="image-box1" style="width: 300px; height: 300px; display: none;">
+            </div>
+            <div>
+                <button class="btn btn-primary mt-3" type="button" style="display: none;" id="crop-btn1">Done</button>
+            </div>
+            <div class="mt-5 col-md-6">
+               
+                <img src="" alt="" style="width: 100px; height:auto" id="imgview1">
+                <input type="file" name="image1" id="file1" onchange="return fileValidation1()">
+                <p id="img1" class="text text-danger"></p>
+
+            </div>
+        </div>
+          <div class="col-6"><h2>Personal Information</h2>
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>User Id</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{user._id}}</p>
+                                              
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                
+                                                  <input type="text" value="{{user.firstname}}">
+                                            </div>
+                                        </div>
+                                         <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Gender</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                
+  <input  type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+  <label class="form-check-label" for="flexRadioDefault1">
+    Male
+  </label>
+
+
+  <input  type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
+  <label class="form-check-label" for="flexRadioDefault2">
+    Female
+  </label>
+                                        
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" value="{{user.email}}">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Phone</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                 <input type="text" value="{{user.phone}}">
+                                            </div>
+                                        </div>
+                                        
+                                    
+                            </div>
+          </div>
+    </div>
+    <center>
+      <button id="confirm-btn1" type="submit" class="btn btn-primary mt-5">Add
+            Product</button>
+            </center>
+            </form>
+</div>
+
+<link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+<link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet" />
+<script src="https://unpkg.com/dropzone"></script>
+<script src="https://unpkg.com/cropperjs"></script>
+
+<script>
+    function fileValidation1() {
+
+        const imagebox = document.getElementById('image-box1')
+        const crop_btn = document.getElementById('crop-btn1')
+        var fileInput = document.getElementById('file1');
+
+        var filePath = fileInput.value;
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+        if (!allowedExtensions.exec(filePath)) {
+            fileInput.value = '';
+            Swal.fire('Upload image only')
+            return false;
+        } else {
+            //Image preview
+            const img_data = fileInput.files[0]
+            const url = URL.createObjectURL(img_data)
+            imagebox.innerHTML = `<img src="${url}" id="image" style="width:100%">`
+            const image = document.getElementById('image')
+            document.getElementById('image-box1').style.display = 'block'
+            document.getElementById('crop-btn1').style.display = 'block'
+            document.getElementById('confirm-btn1').style.display = 'none'
+
+            const cropper = new Cropper(image, {
+                autoCropArea: 1,
+                viewMode: 1,
+                scalable: false,
+                zoomable: false,
+                movable: false,
+                aspectRatio: 30 / 19,
+                //  preview: '.preview',
+                minCropBoxWidth: 180,
+                minCropBoxHeight: 240,
+            })
+            crop_btn.addEventListener('click', () => {
+                cropper.getCroppedCanvas().toBlob((blob) => {
+                    let fileInputElement = document.getElementById('file1');
+                    let file = new File([blob], img_data.name, { type: "image/*", lastModified: new Date().getTime() });
+                    let container = new DataTransfer();
+
+                    container.items.add(file);
+                    const img = container.files[0]
+                    var url = URL.createObjectURL(img)
+                    fileInputElement.files = container.files;
+                    document.getElementById('imgview1').src = url
+                    document.getElementById('image-box1').style.display = 'none'
+                    document.getElementById('crop-btn1').style.display = 'none'
+                    document.getElementById('confirm-btn1').style.display = 'block'
+                }, 'image/webp', 0.5);
+            });
+        }
+    }
+</script>

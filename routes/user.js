@@ -12,6 +12,16 @@ var router = express.Router();
 var usersHelper = require('../helpers/userHelper');
 const { route } = require('./admin');
 
+
+// paypal................................................................................
+var paypal = require('paypal-rest-sdk');
+
+paypal.configure({
+  'mode': 'sandbox', //sandbox or live
+  'client_id':'AXZo56O1wY_CK2zuMqHcpfjwJIKasLu0XNbnVt0iev_3H071_x1c0aOs2ipg12L4f9dMKKnnDWECInbE',
+  'client_secret':'ECWRerRUqh8mBvQATzSA_hfmtxHYuweRupmPJGtKJ9JveJEwvb-auHCnNbz2Ubfi0uXo2DxDx8QJ0LzJ'
+});
+
 const verifyLogin = (req, res, next) => {
   if (req.session.loggedIn) {
     next()
@@ -94,6 +104,7 @@ router.post('/signup', function (req, res, next) {
       res.redirect('/signup')
     }
     else {
+      req.session.user=req.body
       req.session.userdetails = req.body
       req.session.contact = req.body.phone
       client.verify.services(SERVICE_ID).verifications.create({
@@ -119,7 +130,7 @@ router.get('/otpVerification', (req, res, next) => {
 })
 
 router.post('/otpVerificationForUserSignUp', (req, res, next) => {
-
+  let user = req.session.user
   const { otp } = req.body;
   var userData = req.session.contact
   client.verify.services(SERVICE_ID).verificationChecks.create({
@@ -127,7 +138,10 @@ router.post('/otpVerificationForUserSignUp', (req, res, next) => {
     code: otp
   }).then((data) => {
     if (data.status == 'approved') {
-      res.redirect('/')
+      userHelper. doSignUp(user).then(()=>{
+        res.redirect('/')
+      })
+     
     }
     else {
       req.session.doNotMatch = invalidOtp
@@ -245,6 +259,7 @@ router.get('/cart/:id', verifyLogin, (req, res, next) => {
   })
 
 })
+// change Product quantity..............................................................................................
 router.post('/change-product-quantity', (req, res, next) => {
 
   userHelper.changeProductQuntity(req.body).then((response) => {
@@ -277,13 +292,16 @@ router.post('/placeOrder', verifyLogin, async (req, res, next) => {
 
       res.json({codStatus:true})
     }
-    else{
+    else if(req.body.method=='RazorPay'){
       userHelper.generateRazorpay(orderId,total).then((response)=>{
   console.log(response)
         
         res.json(response)
 
       }) 
+    } 
+    else{
+      res.json({paypalStatus:true})
     }
     
   })  
@@ -314,20 +332,101 @@ router.post('/cancelOrder', (req, res, next) => {
 
 })
 // testing page.................................................................
-router.get('/timer',(req,res,next)=>{
-  res.render('user/timer')
+router.get('/test',(req,res,next)=>{
+  res.render('user/test')
 })
-router.post('/verifyPayment',(req,res,next)=>{
-  console.log(req.body)
-userHelper.verifyPay(req.body)
-userHelper.changeOrderStatus(req.body['order[receipt]']).then(()=>{
+// verify Payment...............................................................
+router.get('/pay', (req, res) => {
+  console.log("This is rouer of paypal");
+  const create_payment_json = {
+    "intent": "sale",
+    "payer": {
+        "payment_method": "paypal"
+    },
+    "redirect_urls": {
+        "return_url": "http://localhost:3000/success",
+        "cancel_url": "http://localhost:3000/cancel"
+    },
+    "transactions": [{
+        "item_list": {
+            "items": [{
+                "name": "Red Sox Hat",
+                "sku": "001",
+                "price": "25.00",
+                "currency": "USD",
+                "quantity": 1
+            }]
+        },
+        "amount": {
+            "currency": "USD",
+            "total": "25.00"
+        },
+        "description": "Hat for the best team ever"
+    }]
+};
+
+paypal.payment.create(create_payment_json, function (error, payment) {
+  if (error) {
+      throw error;
+  } else {
+      for(let i = 0;i < payment.links.length;i++){
+        if(payment.links[i].rel === 'approval_url'){
+          res.redirect(payment.links[i].href);
+        }
+      }
+  }
+});
+
+});
+
+
+
+
+router.get('/success', (req, res) => {
+  console.log("success.............................................................................................")
+  const payerId = req.query.PayerID;
+  const paymentId = req.query.paymentId;
+
+  const execute_payment_json = {
+    "payer_id": payerId,
+    "transactions": [{
+        "amount": {
+            "currency": "USD",
+            "total": "25.00"
+        }
+    }]
+  };
+
+  paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+    if (error) {
+        console.log(error.response);
+        throw error;
+    } else {
+        console.log(JSON.stringify(payment));
+        res.send('Success');
+    }
+});
+});
+
+
+router.get('/cancel', (req, res) => res.send('Cancelled'));
+// end paypal
+
+// myProfile..........................................................................................................
+  router.get('/myProfile',(req,res,next)=>{
+    let user = req.session.user
  
-  res.json({status:true})
-})
-})
-//.catch((err)=>{
-//   res.json({status:false,errorMsg:''})
-// })
+    
+    res.render('user/myProfile',{users:true,user})
 
-module.exports = router;
-
+  })
+  // edit Profile.......................................................................................................
+  router.get('/editProfile',(req,res,next)=>{
+    let user = req.session.user
+    res.render('user/editProfile',{user,users:true})
+  })
+  router.post("/editProfile",(req,res,next)=>{
+    console.log(req.body)
+    res.redirect('/myProfile')
+  })
+module.exports = router;   

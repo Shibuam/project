@@ -300,8 +300,10 @@
                                         <div class="payment_methods">
                                             <p>Payment Method</p>
                                             <p><input type="radio" name="method" value="COD" checked>COD</p>
-                                            <p><input type="radio" name="method" value="Online Payment">Online
-                                                Payment</p>
+                                            <p><input type="radio" name="method" value="RazorPay">RazorPay
+                                            </p>
+                                                 <p><input type="radio" name="method" value="payPal">PayPal
+                                                </p>
                                         </div>
                                         <button class="button-continue-payment" type="submit">Continue to
                                             payment</button>
@@ -577,7 +579,9 @@ const errorElement = document.getElementsByClassName("error")*/
                 alert(response.status)
                 if (response.codStatus) {
                     location.href = '/orderSuccess'
-                } else {
+                } else if(response.paypalStatus){
+                     location.href='/pay'
+                } else{
                     alert('hey')
                     RazorpayPayment(response)
                 }

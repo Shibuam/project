@@ -301,7 +301,9 @@ module.exports = {
             }
 
             db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response) => {
+                if(order.status=='placed'){
                 db.get().collection(collection.CART_COLLECTION).deleteOne({ user: ObjectId(order.userId) })
+                }
 
                 resolve(response.insertedId)
             })

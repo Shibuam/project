@@ -1,55 +1,4 @@
-{{!-- <nav class="navbar navbar-expand-lg  text-danger bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">User</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/logout">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{#if user}}
-            {{user.firstname}}
-            {{else}}
-            Account
-            {{/if}}
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item bg-dark" href="#">Login</a></li>
-        
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-   {{#if user}}
-            {{user.firstname}}
-            {{else}}
-                Login
-            {{/if}}
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    {{#if user}}
-     <li><a class="dropdown-item bg-secondary" href="/logout">LogOut</a></li>
-     {{else}}
-        <li><a class="dropdown-item bg-secondary" href="/login">Login</a></li>
-  {{/if}}
-  </ul>
-</div>
-      </form>
-    </div>
-  </div>
-</nav> --}}
+
 <header>
     <div class="header-top bg-black sticky-header">
                     <div class="container-fluid">
@@ -157,30 +106,21 @@
                                         <div class="full-setting-area setting-style-3">
                                             <div class="top-dropdown">
                                                 <ul>
-                                                    {{!-- <li class="drodown-show"><a href="#">USD <i class="fa fa-angle-down"></i></a> --}}
-                                                        {{!-- <ul class="open-dropdown">
-                                                            <li><a href="#">EUR €</a></li>
-                                                            <li><a href="#">USD $</a></li>
-                                                        </ul> --}}
-                                                    </li>
-                                                     {{#if user}}
-                                                    <li class="drodown-show"><a href="#"> {{user.firstname}}</a>
+                                                   
+                                                    {{#if user}}
+                                                    <li class="drodown-show"><a href="#"> {{user.firstname}} <i class="fa fa-angle-down"></i></a>
                                                     {{else}}
-                                                     <li class="drodown-show"> Guest</li>
-                                                    
-                                                             {{/if}}
-                                                            {{!-- <li><a href="#"><img src="img/icon/p-2.jpg" alt=""> Français</a></li> --}}
-                                                           
-                                                        </ul>
-                                                    </li>
-                                                    <li class="drodown-show"><a href="#"> Setting <i class="fa fa-angle-down"></i></a>
+                                                       <li class="drodown-show"><a href="#"> Login <i class="fa fa-angle-down"></i></a>
+                                                            {{/if}}
                                                         <ul class="open-dropdown setting">
+                                                               {{#if user}}
+                                                                  <li><a href="/myProfile">My Profile</a></li>
                                                             <li><a href="/order">My Order History</a></li>
                                                             <li><a href="/placeOrder">Checkout</a></li>
-                                                            {{#if user}}
-                                                             <li><a class="text-black bg-danger" href="/logout">SignOut</a></li>
+                                                         
+                                                             <li><a class="text-black " href="/logout">SignOut</a></li>
                                                              {{else}}
-                                                            <li><a class="text-black bg-danger" href="/login">Sign in</a></li>
+                                                            <li><a class="text-black " href="/login">Sign in</a></li>
                                                             {{/if}}
                                                         </ul>
                                                     </li>
