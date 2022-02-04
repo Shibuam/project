@@ -52,10 +52,16 @@
 
 <div class="container">
       <h1 class="text-align-center">Edit Profile Details</h1>
-    <form action="/admin/addProducts" id="imgInp" name="myform" class="tm-edit-product-form" method="post"
+    <form action="/editProfile" id="imgInp" name="myform" class="tm-edit-product-form" method="post"
         enctype="multipart/form-data" onsubmit="return validation()">
     <div class="row">
         <div class="col-6">
+               <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="/profileImage/{{user._id}}image.jpg" alt=""/>
+                           
+                        </div>
+                    </div>
              <div id="image-box1" style="width: 300px; height: 300px; display: none;">
             </div>
             <div>
@@ -86,7 +92,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 
-                                                  <input type="text" value="{{user.firstname}}">
+                                                  <input type="text" name="firstname" value="{{user.firstname}}">
                                             </div>
                                         </div>
                                          <div class="row">
@@ -95,13 +101,13 @@
                                             </div>
                                             <div class="col-md-6">
                                                 
-  <input  type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+  <input  type="radio" name="gender"value="male" id="flexRadioDefault1" checked>
   <label class="form-check-label" for="flexRadioDefault1">
     Male
   </label>
 
 
-  <input  type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
+  <input  type="radio" name="gender"value="female" id="flexRadioDefault2" >
   <label class="form-check-label" for="flexRadioDefault2">
     Female
   </label>
@@ -112,7 +118,7 @@
                                                 <label>Email</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="text" value="{{user.email}}">
+                                                <input type="text" name="email" value="{{user.email}}">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -120,7 +126,7 @@
                                                 <label>Phone</label>
                                             </div>
                                             <div class="col-md-6">
-                                                 <input type="text" value="{{user.phone}}">
+                                                 <input type="text" name="phone" value="{{user.phone}}">
                                             </div>
                                         </div>
                                         
@@ -129,8 +135,7 @@
           </div>
     </div>
     <center>
-      <button id="confirm-btn1" type="submit" class="btn btn-primary mt-5">Add
-            Product</button>
+      <button id="confirm-btn1" type="submit" class="btn btn-primary mt-5">Submit</button>
             </center>
             </form>
 </div>
@@ -142,6 +147,18 @@
 
 <script>
     function fileValidation1() {
+    
+         var name=document.forms['myform']['firstname']
+var email=document.forms['myform']['email'] 
+  
+if (name.value==null || name.value==""){  
+ window.alert("Name can't be blank");  
+  return false;  
+}
+else if(email.value==null||email.value==''){  
+  alert("Password must be at least 6 characters long.");  
+  return false;  
+  }  
 
         const imagebox = document.getElementById('image-box1')
         const crop_btn = document.getElementById('crop-btn1')
@@ -191,5 +208,7 @@
                 }, 'image/webp', 0.5);
             });
         }
+        //form validation.....................................................................................
+       
     }
 </script>

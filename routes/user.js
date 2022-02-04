@@ -426,7 +426,25 @@ router.get('/cancel', (req, res) => res.send('Cancelled'));
     res.render('user/editProfile',{user,users:true})
   })
   router.post("/editProfile",(req,res,next)=>{
-    console.log(req.body)
-    res.redirect('/myProfile')
+   
+    let id=req.session.user._id
+  
+    userHelper.updateProfile(id,req.body).then((updatedData)=>{
+      
+      if(req.files){
+      let image=req.files.image1
+     image.mv('./public/profileImage/'+id+'image.jpg',(err)=>{
+      if(!err){
+        res.redirect('/myProfile')
+       }
+     })
+    }
+    else{
+      res.redirect('/myProfile')
+    }
+    
+      
+    })
+   
   })
-module.exports = router;   
+module.exports = router;    
