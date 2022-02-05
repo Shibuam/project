@@ -18,8 +18,8 @@ var paypal = require('paypal-rest-sdk');
 
 paypal.configure({
   'mode': 'sandbox', //sandbox or live
-  'client_id':'AXZo56O1wY_CK2zuMqHcpfjwJIKasLu0XNbnVt0iev_3H071_x1c0aOs2ipg12L4f9dMKKnnDWECInbE',
-  'client_secret':'ECWRerRUqh8mBvQATzSA_hfmtxHYuweRupmPJGtKJ9JveJEwvb-auHCnNbz2Ubfi0uXo2DxDx8QJ0LzJ'
+  'client_id': 'AXZo56O1wY_CK2zuMqHcpfjwJIKasLu0XNbnVt0iev_3H071_x1c0aOs2ipg12L4f9dMKKnnDWECInbE',
+  'client_secret': 'ECWRerRUqh8mBvQATzSA_hfmtxHYuweRupmPJGtKJ9JveJEwvb-auHCnNbz2Ubfi0uXo2DxDx8QJ0LzJ'
 });
 
 const verifyLogin = (req, res, next) => {
@@ -39,20 +39,20 @@ const client = require("twilio")(ACCOUNT_SID, AUTH_TOKEN)
 
 /* GET home page. */
 router.get('/', async (req, res, next) => {
-  let women=await userHelper.women()
-  let men=await userHelper.men()
-  let kids=await userHelper.kids()
- 
+  let women = await userHelper.women()
+  let men = await userHelper.men()
+  let kids = await userHelper.kids()
+
   let user = req.session.user
   let cartCount = null
   if (user) {
     cartCount = await userHelper.cartCount(user._id)
-  
+
   }
   let banner = await userHelper.viewBanner()
   adminHelper.viewProducts().then((products) => {
 
-  
+
 
     if (req.session.status == true) {
       let status = "*Admin Blocked"
@@ -61,7 +61,7 @@ router.get('/', async (req, res, next) => {
     }
 
 
-    res.render('user/home', { users: true, user, products, cartCount, banner,women,men,kids });
+    res.render('user/home', { users: true, user, products, cartCount, banner, women, men, kids });
   })
 });
 
@@ -104,7 +104,7 @@ router.post('/signup', function (req, res, next) {
       res.redirect('/signup')
     }
     else {
-      req.session.user=req.body
+      req.session.user = req.body
       req.session.userdetails = req.body
       req.session.contact = req.body.phone
       client.verify.services(SERVICE_ID).verifications.create({
@@ -119,7 +119,7 @@ router.post('/signup', function (req, res, next) {
   })
 });
 router.get('/otpVerification', (req, res, next) => {
- 
+
   if (req.session.doNotMatch) {
     var OtpError = "Miss Match otp"
     res.render('user/otpverify', { OtpError })
@@ -138,10 +138,10 @@ router.post('/otpVerificationForUserSignUp', (req, res, next) => {
     code: otp
   }).then((data) => {
     if (data.status == 'approved') {
-      userHelper. doSignUp(user).then(()=>{
+      userHelper.doSignUp(user).then(() => {
         res.redirect('/')
       })
-     
+
     }
     else {
       req.session.doNotMatch = invalidOtp
@@ -152,12 +152,12 @@ router.post('/otpVerificationForUserSignUp', (req, res, next) => {
 })
 
 router.get('/contact', (req, res, next) => {
-  if(req.session.errorId){
-    let phone="phone Number do not registerd"
-    res.render('user/contact',{phone})
+  if (req.session.errorId) {
+    let phone = "phone Number do not registerd"
+    res.render('user/contact', { phone })
   }
-  else{
-  res.render('user/contact')
+  else {
+    res.render('user/contact')
   }
 })
 router.post('/numberChecking', (req, res, next) => {
@@ -175,13 +175,13 @@ router.post('/numberChecking', (req, res, next) => {
     else {
       req.session.errorId = true
       res.redirect('/contact')
-      
+
     }
   })
 })
 // Resent OTP
-router.post('/resentOtp',(req,res,next)=>{
-  let number=req.session.contact
+router.post('/resentOtp', (req, res, next) => {
+  let number = req.session.contact
 
 
   client.verify.services(SERVICE_ID).verifications.create({
@@ -207,7 +207,7 @@ router.post('/otpVerification', (req, res, next) => {
     }
     else {
       req.session.doNotMatch = true
-     
+
       res.redirect('/otpVerification')
     }
   })
@@ -273,6 +273,7 @@ router.post('/removeProductFromCart', (req, res, next) => {
 
 })
 router.get('/placeOrder', verifyLogin, async (req, res, next) => {
+  
   let user = req.session.user
   let cartCount = await userHelper.cartCount(user._id)
   let total = 0
@@ -283,10 +284,12 @@ router.get('/placeOrder', verifyLogin, async (req, res, next) => {
   let products = req.session.products
   res.render('user/checkOut', { users: true, user, total, products, cartCount })
 })
+// place order.....................................................................................................................
 router.post('/placeOrder', verifyLogin, async (req, res, next) => {
   cartProd = await userHelper.cartProducts(req.body.userId)
   let total = await userHelper.getTotal(req.body.userId)
   userHelper.placeOrder(req.body, cartProd, total).then((orderId) => {
+    req.session.orderId=orderId
     if(req.body.method=='COD'){ 
   
 
@@ -300,44 +303,49 @@ router.post('/placeOrder', verifyLogin, async (req, res, next) => {
 
       }) 
     } 
-    else{
-      res.json({paypalStatus:true})
-    }
+     else if(req.body.method=='payPal'){
+  res.json({paypal:true})
+     }
     
   })  
 }) 
-router.get('/orderSuccess', (req, res, next) => {
-  let user = req.session.user
-  res.render('user/orderSuccess', { users: true, user })
+router.post('/verifyPayment',(req,res,next)=>{
+userHelper.verifyPay(req.body).then(()=>{
+  res.json({status:true})
 })
+ 
+})
+
+router.get('/orderSuccess', async(req, res, next) => {
+  let user = req.session.user
+ let orderId= req.session.orderId
+ await userHelper.productRemoveFromCart(user._id,orderId).then(()=>{
+  res.render('user/orderSuccess', { users: true, user }) 
+})
+})
+
 router.get('/order', verifyLogin, async (req, res, next) => {
   let user = req.session.user
   let orders = await userHelper.getuserOrders(user._id)
   res.render('user/order', { users: true, user, orders })
 })
+
+
 router.get('/viewOrderProd/', async (req, res, next) => {
   let user = req.session.user
-
-
-
-
   let viewProOrderlist = await userHelper.getOrderPro(req.query.id)
- 
-
   res.render('user/viewOrderProductList', { user, users: true, viewProOrderlist })
 })
 router.post('/cancelOrder', (req, res, next) => {
-
   userHelper.cancelOrder(req.body.orderList)
-
 })
 // testing page.................................................................
-router.get('/test',(req,res,next)=>{
+router.get('/test', (req, res, next) => {
   res.render('user/test')
 })
 // verify Payment...............................................................
 router.get('/pay', (req, res) => {
-  console.log("This is rouer of paypal");
+  console.log("shibu hero");
   const create_payment_json = {
     "intent": "sale",
     "payer": {
@@ -350,7 +358,7 @@ router.get('/pay', (req, res) => {
     "transactions": [{
         "item_list": {
             "items": [{
-                "name": "Red Sox Hat",
+                "name": "juta proucts",
                 "sku": "001",
                 "price": "25.00",
                 "currency": "USD",
@@ -366,6 +374,7 @@ router.get('/pay', (req, res) => {
 };
 
 paypal.payment.create(create_payment_json, function (error, payment) {
+  console.log(payment)
   if (error) {
       throw error;
   } else {
@@ -382,6 +391,7 @@ paypal.payment.create(create_payment_json, function (error, payment) {
 
 
 
+
 router.get('/success', (req, res) => {
   console.log("success.............................................................................................")
   const payerId = req.query.PayerID;
@@ -390,61 +400,86 @@ router.get('/success', (req, res) => {
   const execute_payment_json = {
     "payer_id": payerId,
     "transactions": [{
-        "amount": {
-            "currency": "USD",
-            "total": "25.00"
-        }
+      "amount": {
+        "currency": "USD",
+        "total": "25.00"
+      }
     }]
   };
-
-  paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
-    if (error) {
-        console.log(error.response);
-        throw error;
-    } else {
-        console.log(JSON.stringify(payment));
-        res.send('Success');
-    }
-});
-});
+})
 
 
-router.get('/cancel', (req, res) => res.send('Cancelled'));
+
+  router.get('/cancel', (req, res) => res.send('Cancelled'));
 // end paypal
 
 // myProfile..........................................................................................................
-  router.get('/myProfile',(req,res,next)=>{
-    let user = req.session.user
- 
-    
-    res.render('user/myProfile',{users:true,user})
+router.get('/myProfile', (req, res, next) => {
+  let user = req.session.user
+let passwordChanged= req.session.changed
 
-  })
-  // edit Profile.......................................................................................................
-  router.get('/editProfile',(req,res,next)=>{
-    let user = req.session.user
-    res.render('user/editProfile',{user,users:true})
-  })
-  router.post("/editProfile",(req,res,next)=>{
-   
-    let id=req.session.user._id
-  
-    userHelper.updateProfile(id,req.body).then((updatedData)=>{
-      
-      if(req.files){
-      let image=req.files.image1
-     image.mv('./public/profileImage/'+id+'image.jpg',(err)=>{
-      if(!err){
-        res.redirect('/myProfile')
-       }
-     })
+  res.render('user/myProfile', { users: true, user,passwordChanged})
+
+})
+// edit Profile.......................................................................................................
+router.get('/editProfile', (req, res, next) => {
+  let user = req.session.user
+  res.render('user/editProfile', { user, users: true })
+})
+
+
+
+router.post("/editProfile", (req, res, next) => {
+
+  let id = req.session.user._id
+
+  userHelper.updateProfile(id, req.body).then((updatedData) => {
+
+    if (req.files) {
+      let image = req.files.image1
+      image.mv('./public/profileImage/' + id + 'image.jpg', (err) => {
+        if (!err) {
+          res.redirect('/myProfile')
+        }
+      })
     }
-    else{
+    else {
       res.redirect('/myProfile')
     }
-    
-      
-    })
+
+
+  }) 
+
+})
+// change Password...........................................................
+router.get('/changePassword', (req, res, next) => {
+let falsePassword= req.session.falsePassword 
+
+  let user = req.session.user
+
+  res.render('user/changePassword', { users: true, user,falsePassword})
+})
+
+
+router.post('/changePassword', async (req, res, next) => {
+  console.log(req.body)
+   let user = req.session.user
+ let currentPassword=req.body.currentPassword
+let result= await userHelper.PasswordChecking(currentPassword, user)
+  if(result==true){
+   userHelper.updatePassword(req.body.confirmPassword,user._id)
+
+   req.session.changed="Password changed Successfully"
+res.redirect('/myProfile')
+  }
+  else{
+
+    req.session.falsePassword = "Sorry,Your current Password is wrong"
+    res.redirect('/changePassword')
+  }
+
+ }) 
    
-  })
-module.exports = router;    
+
+module.exports = router;              
+

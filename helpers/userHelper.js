@@ -301,9 +301,9 @@ module.exports = {
             }
 
             db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response) => {
-                if (order.status == 'placed') {
-                    db.get().collection(collection.CART_COLLECTION).deleteOne({ user: ObjectId(order.userId) })
-                }
+                // if (order.status == 'placed') {
+                //     db.get().collection(collection.CART_COLLECTION).deleteOne({ user: ObjectId(order.userId) })
+                // }
 
                 resolve(response.insertedId)
             })
@@ -410,31 +410,62 @@ module.exports = {
                 resolve()
             }
             else {
-                reject()
+                reject() 
             }
         })
     },
-    changeOrderStatus: (orderId) => {
-        return new Promise((resolve, reject) => {
-            db.get().collection(collection.ORDER_COLLECTION).updateOne({ _id: ObjectId(orderId) }, { $set: { status: 'placed' } }).then(() => {
+    // changeOrderStatus: (orderId) => {
+    //     return new Promise((resolve, reject) => {
+    //         db.get().collection(collection.ORDER_COLLECTION).updateOne({ _id: ObjectId(orderId) }, { $set: { status: 'placed' } }).then(() => {
+    //             resolve()
+    //         })
+
+    //     })
+    // },
+    productRemoveFromCart:(userId,orderid)=>{
+      
+        return new Promise(async(resolve,reject)=>{
+         await db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:ObjectId(orderid)},{$set:{status:'placed'}}).then(()=>{
+         db.get().collection(collection.CART_COLLECTION).deleteOne({user:ObjectId(userId)}).then(()=>{
                 resolve()
             })
-
         })
+    })
     },
-    updateProfile: (userId, updatedData) => {
+    updateProfile: (userId, updatedData) =>{
         return new Promise((resolve, reject) => {
             let update = db.get().collection(collection.USER_COLLECTION).
-                updateOne({ _id: ObjectId(userId) }, {
+                updateOne({ _id: ObjectId(userId) }, { 
                     $set:
                     {
                         firstname: updatedData.firstname,
-                        gender:updatedData.gender,
-                        email:updatedData.email,
-                        phone:updatedData.phone
+                        gender: updatedData.gender,
+                        email: updatedData.email,
+                        phone: updatedData.phone
                     }
                 })
-                resolve(update)
+            resolve(update)
+        })
+    },
+    PasswordChecking: (data, user) => {
+        return new Promise(async (resolve, reject) => {
+        
+                let result = await bcrypt.compare(data, user.password)
+                console.log(result);
+                resolve(result)
+            
+         
+
+        })
+    },
+    updatePassword: (password, userId) => {
+        console.log(password, userId)
+        return new Promise(async (resolve, reject) => {
+            password = await bcrypt.hash(password, 10)
+            db.get().collection(collection.USER_COLLECTION).updateOne({ _id: ObjectId(userId) }, { $set: { password: password } }).then(() => {
+                resolve()
+            })
+
         })
     }
 

@@ -567,10 +567,9 @@ const errorElement = document.getElementsByClassName("error")*/
 <script>
 
 
-    $("#checkOutForm").submit((e) => {
+   $("#checkOutForm").submit((e) => {
         e.preventDefault()
         $.ajax({
-
             url: '/placeOrder',
             method: 'post',
             data: $('#checkOutForm').serialize(),
@@ -579,19 +578,18 @@ const errorElement = document.getElementsByClassName("error")*/
                 alert(response.status)
                 if (response.codStatus) {
                     location.href = '/orderSuccess'
-                } else if(response.paypalStatus){
+                } else if(response.paypal){
+                    alert('hai raziq fans')
                      location.href='/pay'
-                } else{
+                }else{
                     alert('hey')
                     RazorpayPayment(response)
                 }
-
             }
         })
     })
-
     function RazorpayPayment(order) {
-
+alert('reached at razorpay payment ')
         console.log("second funtion ", order)
         var options = {
             "key": "rzp_test_LmbUUpofYaXAqd", // Enter the Key ID generated from the Dashboard
@@ -629,7 +627,7 @@ const errorElement = document.getElementsByClassName("error")*/
 
 
     function verifyPayment(payment, order) {
-     
+     alert('reached at virify payment')
         $.ajax({
             url: '/verifyPayment',
             data: {
@@ -638,7 +636,7 @@ const errorElement = document.getElementsByClassName("error")*/
             },
             method: 'post',
                     success: (response) => {
-                if (response.status) {
+                if (response.status) { 
                     location.href = '/orderSuccess'
                 }
                 else {
