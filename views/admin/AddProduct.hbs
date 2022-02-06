@@ -52,41 +52,40 @@
   }
 </style>
 
+ <nav class="navbar  mt-0">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-1 h1"><h1 class="text-white">Add Product</h1></span>
+  </div>
+</nav>
 
 
 
 
 
-<body>
 
   
-  <div class="container tm-mt-big tm-mb-big">
+  <div class="container tm-mt-big tm-mb-big text-white">
  
       <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
         <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
           <center>
-          <div class="row">
-            <div class="col-12">
-
-              <h2 class="tm-block-title d-inline-block">Add Product</h2>
-            </div>
-          </div>
-</center>
+         
+</center >
           <div class="row tm-edit-product-row">
             <center>
-            <div class="col-xl-6 col-lg-6 col-md-12">
+            <div class="col-xl-6 col-lg-6 col-md-12 text-white">
              
 
               <form action="/admin/addProducts" id="imgInp" name="myform" class="tm-edit-product-form" method="post"
                 enctype="multipart/form-data" onsubmit="return validation()">
 
-                <div class="form-group mb-3">
-
-
+                <div class="form-group ">
+                <label for="category" class="text-white">Product Name</label>
+                  <input type="text"   name="name">
                 </div>
                 <div class="form-group mb-3">
 
-                  <label for="category">Category</label>
+                  <label for="category" class="text-white">Category</label>
 
                   <select name="category" id="" onclick="sel()" class="form-select" aria-label="Default select example">
                     <br><br>
@@ -100,7 +99,7 @@
 
 
 
-                  <label for="category">SubCategory</label>
+                  <label for="category"class="text-white">SubCategory</label>
                   <select name="SubCategory" id="" class="form-select" aria-label="Default select example">
 
                     {{#each Subcategory}}
@@ -109,7 +108,7 @@
                   </select>
 
                 </div>
-                <label for="expire_date">Size
+                <label for="expire_date" class="text-white">Size
                 </label>
                 <select class="form-select" name="size" aria-label="Default select example">
 
@@ -123,14 +122,14 @@
                 </select>
                 <div class="row">
                   <div class="form-group mb-3 col-xs-12 col-sm-6">
-                    <label for="expire_date">landing cost
+                    <label for="expire_date"class="text-white">landing cost
                     </label>
                     <div class="error text-danger"></div>
                     <input id="lanCost" name="lanCost" type="text" class="form-control validate"
                       data-large-mode="true" />
                   </div>
                   <div class="form-group mb-3 col-xs-12 col-sm-6">
-                    <label for="stock">MRP
+                    <label for="stock"class="text-white">MRP
                     </label>
                     <div class="error text-danger"></div>
                     <input id="mrp" name="mrp" type="text" class="form-control validate">
@@ -138,13 +137,13 @@
                 </div>
                 <div class="row">
                   <div class="form-group mb-3 col-xs-12 col-sm-6">
-                    <label for="expire_date">Brand
+                    <label for="expire_date"class="text-white">Brand
                     </label>
                     <div class="error text-danger"></div>
                     <input id="brand" name="brand" type="text" class="form-control validate" data-large-mode="true" />
                   </div>
                   <div class="form-group mb-3 col-xs-12 col-sm-6">
-                    <label for="stock">QTY
+                    <label for="stock"class="text-white">QTY
                     </label>
                     <div class="error text-danger"></div>
                     <input id="qty" name="qty" type="text" class="form-control validate">
@@ -328,7 +327,7 @@
         scalable: false,
         zoomable: false,
         movable: false,
-        aspectRatio: 30 / 19,
+        aspectRatio: 35 / 40,
         //  preview: '.preview',
         minCropBoxWidth: 180,
         minCropBoxHeight: 240,
@@ -378,7 +377,7 @@
         scalable: false,
         zoomable: false,
         movable: false,
-        aspectRatio: 30 / 19,
+        aspectRatio: 35 / 40,
         //  preview: '.preview',
         minCropBoxWidth: 180,
         minCropBoxHeight: 240,
@@ -428,7 +427,7 @@
         scalable: false,
         zoomable: false,
         movable: false,
-        aspectRatio: 30 / 19,
+        aspectRatio: 35 / 40,
         //  preview: '.preview',
         minCropBoxWidth: 180,
         minCropBoxHeight: 240,
@@ -451,7 +450,7 @@
       });
     }
   }
-  function fileValidation4() {
+    function fileValidation4() {
     const imagebox = document.getElementById('image-box1')
     const crop_btn = document.getElementById('crop-btn1')
     var fileInput = document.getElementById('file4');
@@ -478,7 +477,7 @@
         scalable: false,
         zoomable: false,
         movable: false,
-        aspectRatio: 30 / 19,
+        aspectRatio: 35 / 40,
         //  preview: '.preview',
         minCropBoxWidth: 180,
         minCropBoxHeight: 240,

@@ -1,13 +1,14 @@
 
  <nav class="navbar   me-auto">
   <div class="container-fluid">
-    <span class="navbar-brand  h1"><h1>Category  Management</h1></span>
+    <span class="navbar-brand  h1"><h1 class="text-white">Category  Management</h1></span>
   </div>
 </nav>
 
   <div class="container tm-mt-big tm-mb-big ">
-    <div class="row">
-      <div>
+    <div class="row ">
+      <center>
+            
         <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
           <div class="row">
             <div class="col-12 text-center">
@@ -19,16 +20,16 @@
               <form action="/admin/addCategory" id="category" method="post">
                 <div class="form-group mb-3">
                   <div class="text-center">
-                  <label for="name">Add New Category </label>
+                  <label for="name" class="text-white">Add New Category </label>
 
                   <input  name="cat" type="text" class="form-control validate " ><br>
-                  <button type="submit" class="btn mx-4 px-5 bg-danger text-white m-1">Add</button>
+                  <button type="submit" class="btn mx-4 px-5 bg-danger text-white m-1 ">Add</button>
                 </div>
               </form>
             </div>
             <div class="form-group mb-3">
               <form action="/admin/addSubCategory">
-                <label for="cars">Choose Category</label>
+                <label for="cars"class="text-white">Choose Category</label>
                 {{!-- <select name="category" id="">
                   {{#each category}}
                   <option value="{{this_id}}">{{this.category}}</option>
@@ -54,7 +55,7 @@
                 </select>
                 <div class="form-group mb-3">
                   <div class="row"></div>
-                  <label for="name">Add Sub Category </label>
+                  <label for="name"class="text-white">Add Sub Category </label>
 
                   <input name="subCategory" type="text" class="form-control validate " ><br>
                   <button type="submit" class="btn bg-danger  mx-4 px-5  text-white m-1">Add</button>
@@ -63,7 +64,7 @@
 
           </div>
         </div>
-
+      </center>
       </div>
 
     </div>
@@ -78,9 +79,9 @@
     <table class="table">
      <thead>
        <tr>
-         <th scope="col">Category Name</th>
+         <th scope="col"class="text-white">Category Name</th>
       <th scope="col">Delete</th>
-      <th scope="col">View Subcategory</th>
+      <th scope="col"class="text-white">View Subcategory</th>
        </tr>
      </thead>
       {{#each category}}
@@ -98,7 +99,7 @@
       <table class="table">
      <thead>
        <tr>
-         <th scope="col">Subcategory Name</th>
+         <th scope="col"class="text-white">Subcategory Name</th>
       <th scope="col">Delete</th>
        </tr>
      </thead>

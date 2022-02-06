@@ -576,7 +576,7 @@ const errorElement = document.getElementsByClassName("error")*/
            
             success: (response) =>{
                 alert(response.status)
-                if (response.codStatus) {
+                if (response.codStatus) { 
                     location.href = '/orderSuccess'
                 } else if(response.paypal){
                     alert('hai raziq fans')

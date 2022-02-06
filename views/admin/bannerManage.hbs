@@ -49,28 +49,33 @@
     text-align: center;
   }
 </style>
+ <nav class="navbar  mt-0">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-1 h1"><h1 class="text-white">Banner Management</h1></span>
+  </div>
+</nav>
 <section>
     <div class="container">
       <center>
          <form action="/admin/addBanners" id="imgInp" name="myform" class="tm-edit-product-form" method="post"
                 enctype="multipart/form-data" onsubmit="return validation()">
-            <h1 class="text-black m-2">Banner Management</h1>
+
           <div class="row m-auto">
-              <div class="m-2"><label for="">Title Of the first Banner</label>
+              <div class="m-2"><label for=""class="text-white">Title Of the first Banner</label>
               <input type="text" name="banner1">
-                <label for="">Text</label>
+                <label for=""class="text-white">Text</label>
              <textarea name="text1"></textarea>
 
               </div>
-               <div class="m-2"><label for="">Title Of the second Banner</label>
+               <div class="m-2"><label for=""class="text-white">Title Of the second Banner</label>
               <input type="text" name="banner2">
-                <label for="">Text</label>
+                <label for=""class="text-white">Text</label>
              <textarea name="text2"></textarea>
 
               </div>
-                 <div class="m-2"><label for="">Title Of the third Banner</label>
+                 <div class="m-2"><label for=""class="text-white">Title Of the third Banner</label>
               <input type="text" name="banner3">
-                <label for="">Text</label>
+                <label for=""class="text-white">Text</label>
              <textarea name="text3"></textarea>
 
               </div>
@@ -82,7 +87,7 @@
                       id="crop-btn1">Done</button>
                   </div>
                   <div class="mt-5 col-md-6">
-                    <label for="">IMAGE 1</label>
+                    <label for=""class="text-white">IMAGE 1</label>
                     <img src="" alt="" style="width: 100px; height:auto" id="imgview1">
                     <input type="file" name="image1" id="file1" class="form-control"
                       onchange="return fileValidation1()">
@@ -90,7 +95,7 @@
      
                   </div>
                   <div class="mt-5 col-md-6">
-                    <label for="">IMAGE 2</label>
+                    <label for=""class="text-white">IMAGE 2</label>
                     <img src="" alt="" style="width: 100px; height:auto" id="imgview2">
                     <input type="file" name="image2" id="file2" class="form-control"
                       onchange="return fileValidation2()">
@@ -98,7 +103,7 @@
                 
                   </div>
                   <div class="mt-5 col-md-6">
-                    <label for="">IMAGE 3</label>
+                    <label for=""class="text-white">IMAGE 3</label>
                     <img src="" alt="" style="width: 100px; height:auto" id="imgview3">
                     <input type="file" name="image3" id="file3" class="form-control"
                       onchange="return fileValidation3()">

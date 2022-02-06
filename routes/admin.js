@@ -90,19 +90,39 @@ router.post('/addProducts', (req, res, next) => {
 router.get('/editProduct/', async (req, res, next) => {
 
   let product = await adminHelper.editProducts(req.query.id)
+  adminHelper.viewCategory().then((category) => {
+    adminHelper.Subcategory().then((Subcategory) => {
 
-
-  res.render('admin/editProduct', { product, admin: true })
+  res.render('admin/editProduct', { product, admin: true,category, Subcategory })
+})
+  })
 });
 
 
 router.post('/editProducts/:id', (req, res, next) => {
+  console.log(req.body)
   req.body.mrp = parseInt(req.body.mrp)
   adminHelper.updateProduct(req.params.id, req.body).then((id) => {
-    if (req.files.image) {
-      let image = req.files.image
-      image.mv('./public/images/proImage/' + req.params.id + 'image.jpg')
+   if(req.file){
+      let image = req.files.image 
+      let image2 = req.files.image2;
+      let image3 = req.files.image3;
+      let image4 = req.files.image4;  
+      if(image){
+
+        image.mv('./public/images/proImage/' + req.params.id + 'image.jpg')
+      }
+      if(image2){
+        image2.mv('./public/images/proImage/' + req.params.id + 'image2.jpg')
+      }
+      if(image3){
+        image3.mv('./public/images/proImage/' + req.params.id + 'image3.jpg',)
+      }
+      if(image4){
+        image4.mv('./public/images/proImage/' + req.params.id + 'image4.jpg')
+      }
     }
+    
     res.redirect('/admin/viewProducts')
   })
 

@@ -1,14 +1,14 @@
 
 <nav class="navbar   me-auto">
   <div class="container-fluid">
-    <span class="navbar-brand  h1"><h1>User  Management</h1></span>
+    <span class="navbar-brand  "><h1 class="text-white">User  Management</h1></span>
   </div>
 </nav>
  
 
 
 <div class="container">
-    <a class="btn-info float-end p-1" href="/admin/addProduct">Add Product</a>
+
  <div class="row mt-1">
     <div class="col-sm">
      <select class  ="form-control " name="state" id="maxRows">
@@ -32,7 +32,7 @@
 
     </div>
   </div>
-    <table  id="user"  class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+    <table  id="user"  class="table table-striped table-bordered table-sm mt-1" cellspacing="0" width="100%">
   <thead>
  
     <tr>
@@ -45,9 +45,9 @@
        
     </tr>
   </thead>
-  <tbody>
+  <tbody >
       {{#each userdata}}
-    <tr>
+    <tr class="text-white">
 
     
       <td>{{this.firstname}}</td>
@@ -56,11 +56,11 @@
       <td> {{#if isblock}}
       
        
-     <a href="/admin/unblock/{{this._id}}" class="btn btn-success" href="">Unblock</a></td>
+     <a href="/admin/unblock/{{this._id}}" class="btn btn-success" href="">Unblock</a>
      {{else}}
  <a href="/admin/block/{{this._id}}" onclick="" class="btn btn-danger" href="">Block</a></td>
      {{/if}}
-       <td>
+       
        
        
 
