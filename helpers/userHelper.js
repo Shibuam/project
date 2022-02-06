@@ -459,7 +459,7 @@ module.exports = {
         })
     },
     updatePassword: (password, userId) => {
-        console.log(password, userId)
+      
         return new Promise(async (resolve, reject) => {
             password = await bcrypt.hash(password, 10)
             db.get().collection(collection.USER_COLLECTION).updateOne({ _id: ObjectId(userId) }, { $set: { password: password } }).then(() => {
@@ -467,7 +467,51 @@ module.exports = {
             })
 
         })
-    }
+    },
+    addAddress:(address)=>{
+        return new Promise((resolve,reject)=>{
+                db.get().collection(collection.ADDRESS_COLLECTION).insertOne(address).then(()=>{
+                    resolve()
+                })
+        })
+    },
+  
 
+    viewAddress:(userId)=>{
+        return new Promise(async(resolve,reject)=>{
+let address=await db.get().collection(collection.ADDRESS_COLLECTION).find({userId:userId}).toArray()
+            resolve(address)
+        })
+    },
+    deleteAddress:(addressId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.ADDRESS_COLLECTION).deleteOne({_id:ObjectId( addressId)}).then(()=>{
+                resolve()
+            })
+        })
+},
+findAddress:(addressId)=>{
+    return new Promise((resolve,reject)=>{
+        db.get().collection(collection.ADDRESS_COLLECTION).findOne({_id:ObjectId(addressId)}).then((data)=>{
+            resolve(data)
+        })
+    })
+},
+editAddress:(data,id)=>{
+    db.get().collection(collection.ADDRESS_COLLECTION).updateOne({_id:ObjectId(id)},{$set:
+        {
+            userId:data.userId,
+            name:data.name,
+            phone:data.phone,
+            city:data.city,
+            state:data.state,
+            post:data.post,
+            addressType:data.addressType
+
+
+    }}).then(()=>{
+        resolve()
+    })
+}
 
 }

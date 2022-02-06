@@ -414,7 +414,7 @@ router.get('/success', (req, res) => {
 // end paypal
 
 // myProfile..........................................................................................................
-router.get('/myProfile', (req, res, next) => {
+router.get('/myProfile',verifyLogin, (req, res, next) => {
   let user = req.session.user
 let passwordChanged= req.session.changed
 
@@ -422,7 +422,7 @@ let passwordChanged= req.session.changed
 
 })
 // edit Profile.......................................................................................................
-router.get('/editProfile', (req, res, next) => {
+router.get('/editProfile',verifyLogin, (req, res, next) => {
   let user = req.session.user
   res.render('user/editProfile', { user, users: true })
 })
@@ -452,7 +452,7 @@ router.post("/editProfile", (req, res, next) => {
 
 })
 // change Password...........................................................
-router.get('/changePassword', (req, res, next) => {
+router.get('/changePassword',verifyLogin, (req, res, next) => {
 let falsePassword= req.session.falsePassword 
 
   let user = req.session.user
@@ -469,17 +469,55 @@ let result= await userHelper.PasswordChecking(currentPassword, user)
   if(result==true){
    userHelper.updatePassword(req.body.confirmPassword,user._id)
 
-   req.session.changed="Password changed Successfully"
+   req.session.changed="Password changed Successfully"  
 res.redirect('/myProfile')
   }
   else{
 
-    req.session.falsePassword = "Sorry,Your current Password is wrong"
+    req.session.falsePassword = "Sorry,Your current Password is wrong" 
     res.redirect('/changePassword')
   }
 
  }) 
-   
+//  Add address...............................................................................................
+router.get('/manageAddress',verifyLogin,async(req,res,next)=>{
+  let user = req.session.user
+let deleteMessage= req.session.deleteMessage
+ await userHelper.viewAddress(user._id).then((viewAddress)=>{
+
+
+  res.render('user/address',{users:true,user,viewAddress,deleteMessage})
+})
+})
+router.post('/addAddress',async(req,res,next)=>{
+ 
+
+ await userHelper.addAddress(req.body).then(()=>{
+   res.redirect('/manageAddress')
+  })
+})
+// delete Address.....................................................................................................
+ router.get('/deleteAddress/:id',verifyLogin,(req,res,next)=>{
+   req.session.deleteMessage="*Address Deleted Successfully.."
+   userHelper.deleteAddress(req.params.id).then(()=>{
+     res.redirect('/manageAddress')
+   })
+ })  
+ router.get('/editAddress/:id',verifyLogin,(req,res,next)=>{
+  let user = req.session.user
+
+ userHelper.findAddress(req.params.id).then((address)=>{
+   req.session.address=address._id
+  res.render('user/editAddress',{address,user, users:true})
+ })
+ })
+ //edit Address........................................................................................
+router.post('/editAddress',async(req,res,next)=>{
+  id=req.session.address
+ await userHelper.editAddress(req.body,id)
+    res.redirect('/manageAddress')
+  
+})
 
 module.exports = router;              
 

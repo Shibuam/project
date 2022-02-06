@@ -5,6 +5,8 @@ var userHelper = require('../helpers/userHelper')
 var adminHelper = require('../helpers/adminHelper');
 const async = require('hbs/lib/async');
 const { localsAsTemplateData } = require('hbs');
+var hbs = require("hbs")
+hbs.registerHelper("equal", require('handlebars-helper-equal'))
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -244,7 +246,7 @@ router.post('/addBanners', (req, res, next) => {
   })
 })
 router.post('/changeOrderStatus', (req, res, next) => {
-  console.log("hai")
+  
   console.log(req.body)
   adminHelper.updateStatus(req.body.value, req.body.id).then(()=>{
     res.redirect('/admin/orderManage')
