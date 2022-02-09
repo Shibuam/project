@@ -240,6 +240,7 @@ router.get('/viewCart', verifyLogin, async (req, res, next) => {
   let products = await userHelper.viewToCart(req.session.user._id)
   req.session.products = products
   let user = req.session.user
+  let addres=await userHelper.viewAddress(user._id)
   let total = 0
   if (products.length > 0) {
     total = await userHelper.getTotal(user._id)
@@ -247,7 +248,7 @@ router.get('/viewCart', verifyLogin, async (req, res, next) => {
 
   cartCount = await userHelper.cartCount(user._id)
 
-  res.render('user/cart', { users: true, products, user, cartCount, total })
+  res.render('user/cart', { users: true, products, user,addres, cartCount, total })
 })
 
 router.get('/cart/:id', verifyLogin, (req, res, next) => {
@@ -280,18 +281,24 @@ router.get('/placeOrder', verifyLogin, async (req, res, next) => {
   if (cartCount > 0) {
     total = await userHelper.getTotal(user._id)
   }
+ let viewAddress=await userHelper.viewAddress(user._id)
 
   let products = req.session.products
-  res.render('user/checkOut', { users: true, user, total, products, cartCount })
+  res.render('user/checkOut', { users: true, user, total, products, cartCount,viewAddress })
 })
 // place order.....................................................................................................................
 router.post('/placeOrder', verifyLogin, async (req, res, next) => {
-  cartProd = await userHelper.cartProducts(req.body.userId)
-  let total = await userHelper.getTotal(req.body.userId)
-  userHelper.placeOrder(req.body, cartProd, total).then((orderId) => {
+  console.log("chefafhdafaf",req.body)
+  let user = req.session.user
+  let method=req.body.method
+   let address=await userHelper.findOneAddress(req.body.address)
+
+  cartProd = await userHelper.cartProducts(user._id)
+  let total = await userHelper.getTotal(user._id)
+  userHelper.placeOrder(address,method, cartProd, total,).then((orderId) => {
     req.session.orderId=orderId
     if(req.body.method=='COD'){ 
-  
+    
 
       res.json({codStatus:true})
     }
@@ -316,7 +323,7 @@ userHelper.verifyPay(req.body).then(()=>{
  
 })
  
-router.get('/orderSuccess', async(req, res, next) => {
+router.get('/orderSuccess',verifyLogin, async(req, res, next) => {
   let user = req.session.user
  let orderId= req.session.orderId
  await userHelper.productRemoveFromCart(user._id,orderId).then(()=>{
@@ -345,7 +352,7 @@ router.get('/test', (req, res, next) => {
 })
 // verify Payment...............................................................
 router.get('/pay', (req, res) => {
-  console.log("shibu hero");
+ 
   const create_payment_json = {
     "intent": "sale",
     "payer": {
@@ -518,6 +525,12 @@ router.post('/editAddress',async(req,res,next)=>{
     res.redirect('/manageAddress')
   
 })
+router.post('/addNewInCheckOut', async(req,res,next)=>{
+  await userHelper.addAddress(req.body).then(()=>{
+    res.redirect('/placeOrder')
+   })
+})
 
 module.exports = router;              
 
+ 

@@ -9,6 +9,7 @@ const { response } = require('express')
 var Razorpay = require('razorpay')
 const crypto = require('crypto')
 const { resolve } = require('path')
+const { log } = require('console')
 
 var instance = new Razorpay({
     key_id: 'rzp_test_LmbUUpofYaXAqd',
@@ -280,21 +281,28 @@ module.exports = {
         })
 
     },
-    placeOrder: (order, products, total) => {
+    placeOrder: (address,method, products, total) => {
+        console.log(products)
+        for(i=0;i<products.length;i++){
+            products[i].status=method==='COD'?'placed':'pending'
+            products[i].cancel=false
+
+        }
+        console.log("after",products)
         return new Promise((resolve, reject) => {
-            let status = order.method === 'COD' ? 'placed' : 'pending'
+     //       let status = method === 'COD' ? 'placed' : 'pending'
             let orderObj = {
                 deliveryDetails: {
-                    name: order.firstname,
-                    mobile: order.phone,
-                    pincode: order.postcode,
-                    state: order.state,
-                    streetName: order.streetName,
+                    name: address.name,
+                    mobile: address.phone,
+                    pincode: address.post,
+                    state: address.state,
+                    streetName: address.city,
 
                 },
-                userId: ObjectId(order.userId),
-                method: order.method,
-                status: status,
+                userId: ObjectId(address.userId),
+                method: method,
+            
                 products: products,
                 total: total,
                 date: new Date()
@@ -512,6 +520,16 @@ editAddress:(data,id)=>{
     }}).then(()=>{
         resolve()
     })
+},
+findOneAddress:(addressId)=>{
+    console.log(addressId,"adddrewrfetgwegerg")
+ return new Promise(async(resolve,reject)=>{
+    await db.get().collection(collection.ADDRESS_COLLECTION).findOne({_id:ObjectId(addressId)}).then((address)=>{
+    console.log(address)
+        resolve(address)
+     })
+
+ })
 }
 
 }

@@ -4,24 +4,25 @@
 <!------ Include the above in your HEAD tag ---------->
  <nav class="navbar  mt-0">
   <div class="container-fluid">
-    <span class="navbar-brand  "><h1 class="text-white">Manage Addresses</h1></span>
+    <span class="navbar-brand  "><h1 class="text-white">Manage Address</h1></span>
   </div>
 </nav>
 
 
     <div class="row">
         <div class=" col-6">
-      <form class="form-horizontal" method="post" action="/addAddress" role="form">
+      <form class="form-horizontal" method="post" action="/addAddress" role="form" id="form">
         <fieldset>
 
           <!-- Form Name -->
 
           <!-- Text input-->
-          <input type="text" name='userId' value='{{user._id}}' hidden>
+          <input type="text"  name='userId' value='{{user._id}}' hidden>
           <div class="form-group">
             <label class="col-sm-2 control-label text-white" for="textinput">Name</label>
             <div class="col-sm-10">
-              <input type="text" placeholder="Name" value="{{address.name}}" name="name" class="form-control">
+              <p class="error text-danger"> </p>
+              <input type="text" placeholder="Name" id="name" value="{{address.name}}" name="name" class="form-control">
             </div>
           </div>
 
@@ -29,7 +30,8 @@
           <div class="form-group">
             <label class="col-sm-2 control-label text-white" for="textinput">Mobile Number</label>
             <div class="col-sm-10">
-              <input type="text" value="{{address.phone}}"  placeholder="Mobile Number"name='phone' class="form-control">
+                            <p class="error text-danger"> </p>
+              <input type="text" value="{{address.phone}}" id="phone"  placeholder="Mobile Number"name='phone' class="form-control">
             </div>
           </div>
 
@@ -37,7 +39,8 @@
           <div class="form-group">
             <label class="col-sm-2 control-label text-white" for="textinput">City</label>
             <div class="col-sm-10">
-              <input type="text" placeholder="City" value="{{address.city}}"  name="city" class="form-control">
+                 <p class="error text-danger"> </p>
+              <input type="text" placeholder="City" id="city" value="{{address.city}}"  name="city" class="form-control">
             </div>
           </div>
 
@@ -45,12 +48,14 @@
           <div class="form-group">
             <label class="col-sm-2 control-label text-white" for="textinput">State</label>
             <div class="col-sm-4">
-              <input type="text" placeholder="State" value="{{address.state}}"  name="state" class="form-control">
+                 <p class="error text-danger"> </p>
+              <input type="text" placeholder="State" value="{{address.state}}" id="stateche"  name="state" class="form-control">
             </div>
 
             <label class="col-sm-2 control-label text-white"   for="textinput">Postcode</label>
             <div class="col-sm-4">
-              <input type="text" placeholder="Post Code" value="{{address.post}}" name="post" class="form-control">
+                 <p class="error text-danger"> </p>
+              <input type="text" placeholder="Post Code" id="post" value="{{address.post}}" name="post" class="form-control">
             </div>
           </div>
 
@@ -68,8 +73,7 @@
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <div class="pull-right">
-                <button type="submit" class="btn btn-default">Cancel</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Add Address</button>
               </div>
             </div>
           </div>
@@ -77,9 +81,9 @@
         </fieldset>
       </form>
     </div>
-    {{#unless adress}}
+
     <div class="col-6">
-    <h1 class="text-white mt-0">Current Addresses</h1>
+    <h1 class="text-white mt-0">Manage Addresses</h1>
     <p class="text-danger">{{deleteMessage}}</p>
     {{#each viewAddress}}
  
@@ -103,4 +107,37 @@
     {{/each}}
 </div>
 </div>
-{{/unless}}
+
+<script>
+  let form=document.getElementById('form')
+  let name=document.getElementById('name')
+  let phone=document.getElementById('phone')
+  let city=document.getElementById('city')
+  let state=document.getElementById('state')
+  let post=document.getElementById('post')
+  let error=document.getElementsByClassName('error')
+
+  form.addEventListener('submit',(e)=>{
+    if(name.value==''||name.value==null){
+      error[0].innerHTML="*Name Required "
+      e.preventDefault()
+    }
+    if(phone.value.length!=10){
+      error[1].innerHTML="* Contact number must be ten digits "
+      e.preventDefault()
+    }
+     if(city.value==''||city.value==null){
+      error[2].innerHTML="*City Name Required "
+      e.preventDefault()
+    }
+     if(state.value==''||state.value==null){
+      error[3].innerHTML="*State Required "
+      e.preventDefault()
+    }
+     if(post.value==''||post.value==null){
+      error[4].innerHTML="*Post Required "
+      e.preventDefault()
+    }
+  })
+
+</script>

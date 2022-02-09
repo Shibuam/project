@@ -1,5 +1,10 @@
-<div class="container mt-1">
-  <div class="row">
+ <nav class="navbar  mt-0">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-1 h1"><h1 class="text-white">View Order</h1></span>
+  </div>
+</nav>
+<div class="container ">
+  <div class="row mb-1">
     <div class="col-sm">
      <select class  ="form-control " name="state" id="maxRows">
 						 
@@ -42,9 +47,9 @@
                                                
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody  >
                                              {{#each orders}}
-                                            <tr>
+                                            <tr >
                                                
                                               <td class="plantmore-product-remove">{{this.date}}</td>
                                                 <td class="plantmore-product-thumbnail">{{this.deliveryDetails.pincode}}</td>

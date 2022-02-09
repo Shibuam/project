@@ -1,323 +1,404 @@
-<!-- Mirrored from template.hasthemes.com/juta/juta-v1/checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jan 2022 12:56:31 GMT -->
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6 col-12">
+                <div class="breadcrumbs-content">
+                    <h1 class="page-title">checkout</h1>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <ul class="breadcrumb-nav">
+                    <li><a href="index-2.html"><i class="lni lni-home"></i> Home</a></li>
+                    <li><a href="index-2.html">Shop</a></li>
+                    <li>checkout</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+     
+<section class="checkout-wrapper section">
+    <div class="container">
+         <form id="checkOutForm">
+               <h1 class=" mt-0">Select Address /<span><button 
+                         onclick="showMe()">Add New Address</button></span>
+                </h1>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+              {{#each viewAddress}}
+
+                <div class="border border-dark  mb-2" style="background-color: rgb(255,255,255);">
+                    <label  for="">name :</label>
+                    <label for="">{{this.name}}</label> <span class="float-right"><input type="radio"
+                            name="address" value="{{this._id}}"> <label for="" > Select
+                            Address</label></span><br>
+
+                    <label  for="">City :</label>
+                    <label  for="">{{this.city}}</label><br>
+                    <label  for="">Contact Number :</label>
+                    <label  for="">{{this.phone}}</label><br>
+                    <label  for="">State :</label>
+                    <label for="">Pin Code :</label>
+                    <label  for="">{{this.post}}</label><br>
+                    <label  for="">Address Type :</label>
+                    <label  for="">{{this.addressType}}</label><br>
 
 
-<!--[if lt IE 8]>
+                </div>
+                {{/each}}
+            </div>
+            <div class="col-lg-4">
+                <div class="checkout-sidebar">
+                    <div class="checkout-sidebar-coupon">
+                        <p>Appy Coupon to get discount!</p>
+                        <form action="#">
+                            <div class="single-form form-default">
+                                <div class="form-input form">
+                                    <input type="text" placeholder="Coupon Code">
+                                </div>
+                                <div class="button">
+                                    <button class="btn">apply</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="checkout-sidebar-price-table mt-30">
+                        <h5 class="title">Pricing Table</h5>
+                        <div class="sub-total-price">
+                            <div class="total-price">
+                                <p class="value">Total Price:</p>
+                                <p class="price">{{total}}</p>
+                            </div>
+                          
+                           
+                        
+                        <div class="total-payable">
+                            <div class="payable-price">
+                                <p class="value">Subotal Price:</p>
+                                <p class="price">$164.50</p>
+                            </div>
+                        </div>
+                            <div class="payment_methods">
+                            <p>Payment Method</p>
+                            <p><input type="radio" name="method" value="COD" checked>COD</p>
+                            <p><input type="radio" name="method" value="RazorPay">RazorPay
+                            </p>
+                            <p><input type="radio" name="method" value="payPal">PayPal
+                            </p>
+                        </div>
+                        <button class="price-table-btn button" type="submit">Continue to
+                            payment</button>
+                    </div>
+                       
+                    </div>
+                    <div class="checkout-sidebar-banner mt-30">
+                        <a href="product-grids.html">
+                            <img src="assets/images/banner/banner.jpg" alt="#">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+         </form>
+    </div>
+     <div id="active" style="display:none;">
+        <form class="form-horizontal" method="post" action="/addNewInCheckOut" role="form" id="form">
+            <fieldset>
+
+                <!-- Form Name -->
+
+                <!-- Text input-->
+                <div class="row">
+                    <div class=" col-6">
+                        <input type="text" name='userId' value='{{user._id}}' hidden>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label text-white" for="textinput">Name</label>
+                            <div class="col-sm-10">
+                                <p class="error text-danger"> </p>
+                                <input type="text" placeholder="Name" id="name" value="{{address.name}}" name="name"
+                                    class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label text-white" for="textinput">Mobile Number</label>
+                            <div class="col-sm-10">
+                                <p class="error text-danger"> </p>
+                                <input type="text" value="{{address.phone}}" id="phone" placeholder="Mobile Number"
+                                    name='phone' class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label text-white" for="textinput">City</label>
+                            <div class="col-sm-10">
+                                <p class="error text-danger"> </p>
+                                <input type="text" placeholder="City" id="city" value="{{address.city}}" name="city"
+                                    class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label text-white" for="textinput">State</label>
+                            <div class="col-sm-4">
+                                <p class="error text-danger"> </p>
+                                <input type="text" placeholder="State" value="{{address.state}}" id="stateche"
+                                    name="state" class="form-control">
+                            </div>
+
+                            <label class="col-sm-2 control-label text-white" for="textinput">Postcode</label>
+                            <div class="col-sm-4">
+                                <p class="error text-danger"> </p>
+                                <input type="text" placeholder="Post Code" id="post" value="{{address.post}}"
+                                    name="post" class="form-control">
+                            </div>
+                        </div>
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label text-white" for="textinput">Address Type</label>
+                            <input type="radio" name="addressType" class="ml-5" value="Home" checked><label
+                                class="text-white">Home</label>
+                            <input type="radio" name="addressType" class="ml-5" value="Office"><label for=""
+                                class="text-white">Office</label>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-primary">Add Address</button>
+                                </div>
+                            </div>
+                        </div>
+
+            </fieldset>
+        </form>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {{!--
+    <!-- Mirrored from template.hasthemes.com/juta/juta-v1/checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jan 2022 12:56:31 GMT -->
+
+    <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience. Thanks</p>
         <![endif]-->
-<!-- Add your application content here -->
+    <!-- Add your application content here -->
 
-<div class="wrapper checkout-page">
+
 
 
     <!-- breadcrumb-area start -->
-    <div class="breadcrumb-area bg-gray">
+    <nav class="navbar  mt-0">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="breadcrumb-list">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item active">Checkout</li>
-                    </ul>
-                </div>
-            </div>
+            <span class="navbar-brand  ">
+                <h1 class="text-white">Checkout</h1>
+            </span>
         </div>
-    </div>
+    </nav>
     <!-- breadcrumb-area end -->
 
     <!-- content-wraper start -->
-    <div class="content-wraper mt-95">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-xl-10 offset-xl-1">
-                    <!-- coupon-area start -->
-                    <div class="coupon-area mb-60">
-                        <div class="coupon-accordion">
-                            <h3>Returning customer? <span id="showlogin" class="coupon">Click here to login</span>
-                            </h3>
-                            <div id="checkout-login" class="coupon-content">
-                                <div class="coupon-info">
-                                    <p>If you have shopped with us before, please enter your details in the boxes
-                                        below. If you are a new customer, please proceed to the Billing & Shipping
-                                        section.</p>
-                                    <form method="post">
-                                        <p class="coupon-input form-row-first">
-                                            <label>Username or email <span class="required">*</span></label>
-                                            <input type="text" name="email">
-                                        </p>
-                                        <p class="coupon-input form-row-last">
-                                            <label>password <span class="required">*</span></label>
-                                            <input type="password" name="password">
-                                        </p>
-                                        <div class="clear"></div>
-                                        <p>
-                                            <button value="Login" name="login" class="button-login"
-                                                type="submit">Login</button>
-                                            <label><input type="checkbox" value="1"><span>Remember me</span></label>
-                                        </p>
-                                        <p class="lost-password">
-                                            <a href="#">Lost your password?</a>
-                                        </p>
 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="coupon-accordion">
-                            <h3>Have a coupon? <span id="showcoupon" class="coupon">Click here to enter your
-                                    code</span></h3>
-                            <div id="checkout-coupon" class="coupon-content">
-                                <div class="coupon-info">
-                                    <form>
-                                        <p class="checkout-coupon">
-                                            <input type="text" placeholder="Coupon code">
-                                            <button value="Apply coupon" name="apply_coupon" class="button-apply-coupon"
-                                                type="submit">Apply coupon</button>
-                                        </p>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- coupon-area end -->
+
+
+    <div class="row">
+
+        <form id="checkOutForm">
+            <div class="col-lg-6  col-xl-6 col-sm-12">
+                <h1 class="text-white mt-0">Select Address /<span><button class="text-white"
+                         onclick="showMe()">Add New Address</button></span>
+                </h1>
+
+                {{#each viewAddress}}
+
+                <div class="border border-dark mb-2">
+                    <label class="text-white" for="">name :</label>
+                    <label class="text-white" for="">{{this.name}}</label> <span class="float-right"><input type="radio"
+                            name="address" value="{{this._id}}"> <label for="" class="text-white"> Select
+                            Address</label></span><br>
+
+                    <label class="text-white" for="">City :</label>
+                    <label class="text-white" for="">{{this.city}}</label><br>
+                    <label class="text-white" for="">Contact Number :</label>
+                    <label class="text-white" for="">{{this.phone}}</label><br>
+                    <label class="text-white" for="">State :</label>
+                    <label class="text-white" for="">{{this.state}}</label><br>
+                    <label class="text-white" for="">Pin Code :</label>
+                    <label class="text-white" for="">{{this.post}}</label><br>
+                    <label class="text-white" for="">Address Type :</label>
+                    <label class="text-white" for="">{{this.addressType}}</label><br>
+
+
                 </div>
+                {{/each}}
+
             </div>
-            <!-- checkout-area start -->
-            <div class="checkout-area">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-lg-6 offset-xl-1 col-xl-5 col-sm-12">
 
-                                <form id="checkOutForm" method="post">
-                                    <div class="checkbox-form">
-                                        <h3 class="shoping-checkboxt-title">Billing Details</h3>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <p class="single-form-row">
-                                                    <label>First name <span class="required">*</span></label>
-                                                <div class="error text-danger"></div>
-                                                <input type="text" id="firstname" name="firstname"
-                                                    value="{{this.user.firstname}}">
-                                                </p>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <p class="single-form-row">
-                                                    <label> Last Name<span class="required">*</span></label>
-                                                <div class="error text-danger"></div>
-                                                <input type="text" id="lastname" name="lastname"
-                                                    value="{{this.user.lastname}}">
-                                                </p>
-                                            </div>
+            {{!-- --}}
+            <div class="col-lg-6  col-xl-6 col-sm-12">
+                <div class="checkout-review-order">
 
-                                            <div class="col-lg-6">
-                                                <p class="single-form-row">
-                                                    <label> email<span class="required">*</span></label>
-                                                    <input type="text" id="email" name="email"
-                                                        value="{{this.user.email}}">
-                                                <div class="error text-danger"></div>
-                                                </p>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <p class="single-form-row">
-                                                    <label>Street name <span class="required">*</span></label>
-                                                <div class="error text-danger"></div>
-                                                <input type="text" id='streetName' name="streetName"
-                                                    placeholder=" street name">
+                    <h3 class="shoping-checkboxt-title">Your order</h3>
+                    <table class="checkout-review-order-table">
+                        <thead>
+                            <tr>
+                                <th class="t-product-name">Product</th>
+                                <th class="product-total">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each products}}
+                            <tr class="cart_item">
 
-                                                </p>
-                                            </div>
-
-                                            <div class="col-lg-12">
-                                                <p class="single-form-row">
-                                                    <label>Town / City <span class="required">*</span></label>
-                                                <div class="error text-danger"></div>
-                                                <input type="text" id="city" name="city">
-                                                <input type="text" name="userId" value="{{this.user._id}}" hidden>
-                                                </p>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <p class="single-form-row">
-                                                    <label>State </label>
-                                                <div class="error text-danger"></div>
-                                                <input type="text" id="state" name="state">
-                                                </p>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <p class="single-form-row">
-                                                    <label>Postcode / ZIP <span class="required">*</span></label>
-                                                <div class="error text-danger"></div>
-                                                <input type="text" id="postcode" name="postcode">
-                                                </p>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <p class="single-form-row">
-                                                    <label>Phone</label>
-                                                <div class="error text-danger"></div>
-                                                <input type="text" name="phone" id="phone" value="{{this.user.phone}}">
-                                                </p>
-                                            </div>
-
-                                            <div class="col-lg-12">
-                                                <div class="single-form-row checkout-area">
-                                                    <label><input type="checkbox" id="chekout-box"> Create an
-                                                        account?</label>
-                                                    <div class="account-create single-form-row">
-                                                        <label class="creat-pass">Create account password
-                                                            <span>*</span></label>
-                                                        <input type="password" class="input-text">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <div class="single-form-row">
-                                                    <label id="chekout-box-2"><input type="checkbox"> Ship to a
-                                                        different address?</label>
-                                                    <div class="ship-box-info">
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <p class="single-form-row">
-                                                                    <label>First name <span
-                                                                            class="required">*</span></label>
-                                                                    <input type="text" name="Firstname">
-                                                                </p>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <p class="single-form-row">
-                                                                    <label>Username or email <span
-                                                                            class="required">*</span></label>
-                                                                    <input type="text" name="Last name ">
-                                                                </p>
-                                                            </div>
-                                                            <div class="col-lg-12">
-                                                                <p class="single-form-row">
-                                                                    <label>Company name</label>
-                                                                    <input type="text" name="email">
-                                                                </p>
-                                                            </div>
-                                                            <div class="col-lg-12">
-                                                                <div class="single-form-row">
-                                                                    <label>Country <span
-                                                                            class="required">*</span></label>
-                                                                    <div class="nice-select wide">
-                                                                        <select>
-                                                                            <option>Select Country...</option>
-                                                                            <option>Albania</option>
-                                                                            <option>Angola</option>
-                                                                            <option>Argentina</option>
-                                                                            <option>Austria</option>
-                                                                            <option>Azerbaijan</option>
-                                                                            <option>Bangladesh</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-12">
-                                                                <p class="single-form-row">
-                                                                    <label>Street address <span
-                                                                            class="required">*</span></label>
-                                                                    <input type="text" name="address"
-                                                                        placeholder="House number and street name">
-                                                                </p>
-                                                            </div>
-                                                            <div class="col-lg-12">
-                                                                <p class="single-form-row">
-                                                                    <input type="text" name="address"
-                                                                        placeholder="Apartment, suite, unit etc. (optional)">
-                                                                </p>
-                                                            </div>
-                                                            <div class="col-lg-12">
-                                                                <p class="single-form-row">
-                                                                    <label>Town / City <span
-                                                                            class="required">*</span></label>
-                                                                    <input type="text" name="address">
-                                                                </p>
-                                                            </div>
-                                                            <div class="col-lg-12">
-                                                                <p class="single-form-row">
-                                                                    <label>State / County</label>
-                                                                    <input type="text" name="address">
-                                                                </p>
-                                                            </div>
-                                                            <div class="col-lg-12">
-                                                                <p class="single-form-row">
-                                                                    <label>Postcode / ZIP <span
-                                                                            class="required">*</span></label>
-                                                                    <input type="text" name="address">
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <p class="single-form-row m-0">
-                                                    <label>Order notes</label>
-                                                    <textarea cols="5" rows="2" class="checkout-mess"
-                                                        placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                            </div>
-                            <div class="col-lg-6  col-xl-5 col-sm-12">
-                                <div class="checkout-review-order">
-
-                                    <h3 class="shoping-checkboxt-title">Your order</h3>
-                                    <table class="checkout-review-order-table">
-                                        <thead>
-                                            <tr>
-                                                <th class="t-product-name">Product</th>
-                                                <th class="product-total">Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {{#each products}}
-                                            <tr class="cart_item">
-
-                                                <td class="t-product-name">{{this.product.SubCategory}}</td>
+                                <td class="t-product-name">{{this.product.SubCategory}}</td>
 
 
-                                                <td> <span> <strong
-                                                            class="product-quantity">{{this.quantity}}</strong></span>
-                                                </td>
+                                <td> <span> <strong class="product-quantity">{{this.quantity}}</strong></span>
+                                </td>
 
-                                                {{/each}}
-                                            </tr>
-                                        </tbody>
-                                        <tfoot>
+                                {{/each}}
+                            </tr>
+                        </tbody>
+                        <tfoot>
 
-                                            <tr class="shipping">
-                                                <th>Shipping</th>
-                                                <td>Free shipping</td>
-                                            </tr>
-                                            <tr class="order-total">
-                                                <th>Total</th>
-                                                <td><strong><span>{{total}}</span></strong></td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                    <div class="checkout-payment">
-                                        <div class="payment_methods">
-                                            <p>Payment Method</p>
-                                            <p><input type="radio" name="method" value="COD" checked>COD</p>
-                                            <p><input type="radio" name="method" value="RazorPay">RazorPay
-                                            </p>
-                                                 <p><input type="radio" name="method" value="payPal">PayPal
-                                                </p>
-                                        </div>
-                                        <button class="button-continue-payment" type="submit">Continue to
-                                            payment</button>
-                                    </div>
-                                    </form>
-                                </div>
-                            </div>
+                            <tr class="shipping">
+                                <th>Shipping</th>
+                                <td>Free shipping</td>
+                            </tr>
+                            <tr class="order-total">
+                                <th>Total</th>
+                                <td><strong><span>{{total}}</span></strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="checkout-payment">
+                        <div class="payment_methods">
+                            <p>Payment Method</p>
+                            <p><input type="radio" name="method" value="COD" checked>COD</p>
+                            <p><input type="radio" name="method" value="RazorPay">RazorPay
+                            </p>
+                            <p><input type="radio" name="method" value="payPal">PayPal
+                            </p>
                         </div>
+                        <button class="button-continue-payment" type="submit">Continue to
+                            payment</button>
                     </div>
                 </div>
             </div>
-            <!-- checkout-area end -->
-        </div>
+
+        </form>
     </div>
+
+    </div>
+    {{!-- row end --}}
+
+
+
+    <div id="active" style="display:none;">
+        <form class="form-horizontal" method="post" action="/addNewInCheckOut" role="form" id="form">
+            <fieldset>
+
+                <!-- Form Name -->
+
+                <!-- Text input-->
+                <div class="row">
+                    <div class=" col-6">
+                        <input type="text" name='userId' value='{{user._id}}' hidden>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label text-white" for="textinput">Name</label>
+                            <div class="col-sm-10">
+                                <p class="error text-danger"> </p>
+                                <input type="text" placeholder="Name" id="name" value="{{address.name}}" name="name"
+                                    class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label text-white" for="textinput">Mobile Number</label>
+                            <div class="col-sm-10">
+                                <p class="error text-danger"> </p>
+                                <input type="text" value="{{address.phone}}" id="phone" placeholder="Mobile Number"
+                                    name='phone' class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label text-white" for="textinput">City</label>
+                            <div class="col-sm-10">
+                                <p class="error text-danger"> </p>
+                                <input type="text" placeholder="City" id="city" value="{{address.city}}" name="city"
+                                    class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label text-white" for="textinput">State</label>
+                            <div class="col-sm-4">
+                                <p class="error text-danger"> </p>
+                                <input type="text" placeholder="State" value="{{address.state}}" id="stateche"
+                                    name="state" class="form-control">
+                            </div>
+
+                            <label class="col-sm-2 control-label text-white" for="textinput">Postcode</label>
+                            <div class="col-sm-4">
+                                <p class="error text-danger"> </p>
+                                <input type="text" placeholder="Post Code" id="post" value="{{address.post}}"
+                                    name="post" class="form-control">
+                            </div>
+                        </div>
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label text-white" for="textinput">Address Type</label>
+                            <input type="radio" name="addressType" class="ml-5" value="Home" checked><label
+                                class="text-white">Home</label>
+                            <input type="radio" name="addressType" class="ml-5" value="Office"><label for=""
+                                class="text-white">Office</label>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-primary">Add Address</button>
+                                </div>
+                            </div>
+                        </div>
+
+            </fieldset>
+        </form>
+    </div>
+    </div>
+
     <!-- content-wraper end -->
 
     <!-- footer-area start -->
@@ -539,111 +620,139 @@
         </div>
     </div>
     <!-- Modal end-->
-</div>
-{{!-- jQuery for checkOut --}}
+    </div>
+    {{!-- jQuery for checkOut --}}
 
 
 
 
-{{!-- razorpay --}}
+    {{!-- razorpay --}}
+    --}}
 
 
 
 
-/*const checkOutForm = document.getElementById("checkOutForm")
-const firstname = document.getElementById("firstname")
-const lastname = document.getElementById("lastname")
-const email = document.getElementById("email")
-const streetName = document.getElementById("streetName")
-const city = document.getElementById("city")
-const state = document.getElementById("state")
-const postcode = document.getElementById("postcode")
-const phone = document.getElementById("phone")
 
 
-const errorElement = document.getElementsByClassName("error")*/
+    <script>
 
 
-<script>
+        $("#checkOutForm").submit((e) => {
+            e.preventDefault()
+            $.ajax({
+                url: '/placeOrder',
+                method: 'post',
+                data: $('#checkOutForm').serialize(),
 
-
-   $("#checkOutForm").submit((e) => {
-        e.preventDefault()
-        $.ajax({
-            url: '/placeOrder',
-            method: 'post',
-            data: $('#checkOutForm').serialize(),
-           
-            success: (response) =>{
-                alert(response.status)
-                if (response.codStatus) { 
-                    location.href = '/orderSuccess'
-                } else if(response.paypal){
-                    alert('hai raziq fans')
-                     location.href='/pay'
-                }else{
-                    alert('hey')
-                    RazorpayPayment(response)
+                success: (response) => {
+                    alert(response.status)
+                    if (response.codStatus) {
+                        location.href = '/orderSuccess'
+                    } else if (response.paypal) {
+                        alert('hai raziq fans')
+                        location.href = '/pay'
+                    } else {
+                        alert('hey')
+                        RazorpayPayment(response)
+                    }
                 }
-            }
+            })
         })
-    })
-    function RazorpayPayment(order) {
-alert('reached at razorpay payment ')
-        console.log("second funtion ", order)
-        var options = {
-            "key": "rzp_test_LmbUUpofYaXAqd", // Enter the Key ID generated from the Dashboard
-            "amount": "order.amount", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-            "currency": "INR",
-            "name": "JUTA",
-            "description": "Test Transaction",
-            "image": "https://example.com/your_logo",
+        function RazorpayPayment(order) {
+            alert('reached at razorpay payment ')
+            console.log("second funtion ", order)
+            var options = {
+                "key": "rzp_test_LmbUUpofYaXAqd", // Enter the Key ID generated from the Dashboard
+                "amount": "order.amount", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": "INR",
+                "name": "JUTA",
+                "description": "Test Transaction",
+                "image": "https://example.com/your_logo",
 
-            "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-            "handler": function (response) {
-                /*      alert(response.razorpay_payment_id);
-                      alert(response.razorpay_order_id);
-                      alert(response.razorpay_signature)
-                  console.log("verify order",response,order)*/
+                "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "handler": function (response) {
+                    /*      alert(response.razorpay_payment_id);
+                          alert(response.razorpay_order_id);
+                          alert(response.razorpay_signature)
+                      console.log("verify order",response,order)*/
 
-                verifyPayment(response, order)
-            },
-            "prefill": {
-                "name": "Gaurav Kumar",
-                "email": "gaurav.kumar@example.com",
-                "contact": "9999999999"
-            },
-            "notes": {
-                "address": "Razorpay Corporate Office"
-            },
-            "theme": {
-                "color": "#3399cc"
-            }
-        };
-        var rzp1 = new Razorpay(options);
-        rzp1.open();
-    }
-
-
-
-    function verifyPayment(payment, order) {
-     alert('reached at virify payment')
-        $.ajax({
-            url: '/verifyPayment',
-            data: {
-                payment,
-                order
-            },
-            method: 'post',
-                    success: (response) => {
-                if (response.status) { 
-                    location.href = '/orderSuccess'
+                    verifyPayment(response, order)
+                },
+                "prefill": {
+                    "name": "Gaurav Kumar",
+                    "email": "gaurav.kumar@example.com",
+                    "contact": "9999999999"
+                },
+                "notes": {
+                    "address": "Razorpay Corporate Office"
+                },
+                "theme": {
+                    "color": "#3399cc"
                 }
-                else {
-                    alert("payment failed")
-                }
-            }
-        })
-    }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        }
 
-</script>
+
+
+        function verifyPayment(payment, order) {
+            alert('reached at virify payment')
+            $.ajax({
+                url: '/verifyPayment',
+                data: {
+                    payment,
+                    order
+                },
+                method: 'post',
+                success: (response) => {
+                    if (response.status) {
+                        location.href = '/orderSuccess'
+                    }
+                    else {
+                        alert("payment failed")
+                    }
+                }
+            })
+        }
+
+    </script>
+
+
+    {{!-- validation --}}
+    <script>
+        let form = document.getElementById('form')
+        let name = document.getElementById('name')
+        let phone = document.getElementById('phone')
+        let city = document.getElementById('city')
+        let state = document.getElementById('state')
+        let post = document.getElementById('post')
+        let error = document.getElementsByClassName('error')
+
+        form.addEventListener('submit', (e) => {
+            if (name.value == '' || name.value == null) {
+                error[0].innerHTML = "*Name Required "
+                e.preventDefault()
+            }
+            if (phone.value.length != 10) {
+                error[1].innerHTML = "* Contact number must be ten digits "
+                e.preventDefault()
+            }
+            if (city.value == '' || city.value == null) {
+                error[2].innerHTML = "*City Name Required "
+                e.preventDefault()
+            }
+            if (state.value == '' || state.value == null) {
+                error[3].innerHTML = "*State Required "
+                e.preventDefault()
+            }
+            if (post.value == '' || post.value == null) {
+                error[4].innerHTML = "*Post Required "
+                e.preventDefault()rgb(255,255,255)
+    </script>
+    {{!-- add new address --}}
+    <script>
+        function showMe() {
+            document.getElementById('active').style.display = 'block'
+        }
+    </script>

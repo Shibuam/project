@@ -1,169 +1,318 @@
-
-
 <header>
-    <div class="header-top bg-black sticky-header">
-                    <div class="container-fluid">
-                      
-                         <div class="mobile-menu-style-2 row">
-                            <div class="col-lg-12 d-block d-lg-none">
-                           
+    {{!-- <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div> --}}
+
+
+    <header class="header navbar-area">
+
+        <div class="topbar">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-left">
+                            <ul class="menu-top-link">
+                                <li>
+                                    <div class="select-position">
+                                        <select id="select4">
+                                            <option value="0" selected>$ USD</option>
+                                            <option value="1">€ EURO</option>
+                                            <option value="2">$ CAD</option>
+                                            <option value="3">₹ INR</option>
+                                            <option value="4">¥ CNY</option>
+                                            <option value="5">৳ BDT</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="select-position">
+                                        <select id="select5">
+                                            <option value="0" selected>English</option>
+                                            <option value="1">Español</option>
+                                            <option value="2">Filipino</option>
+                                            <option value="3">Français</option>
+                                            <option value="4">العربية</option>
+                                            <option value="5">हिन्दी</option>
+                                            <option value="6">বাংলা</option>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-middle">
+                            <ul class="useful-links">
+                                <li><a href="/">Home</a></li>
+                                <li><a href="about-us.html">About Us</a></li>
+                                <li><a href="contact.html">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-end">
+                            <div class="user">
+                                <i class="lni lni-user"></i>
+                                Hello
                             </div>
+                            <ul class="user-login">
+                                <li>
+                                    {{#if user}}
+                                    <label for=""class='text-white'>{{user.firstname}}</label>
+                                    {{else}}
+                                    <a href="/login">Sign In</a>  <span>|</span>
+                                    
+                                
+                                    <a href="/signup">Register</a>
+                                    {{/if}}
+                                </li>
+                              
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <!-- header-top end -->
-                <!-- header-mid-area start -->
-                <div class="header-mid-area header-mid-style-3 bg-black">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <!-- hot-line-area start -->
-                                <div class="hot-line-area">
-                                    
-                                    <div class="phone">
-                                          <span>9846065859</span>
-                                         <a href="/"><img src="/img/logo/logo-2.png" alt=""></a>
-                                       
+            </div>
+        </div>
+
+
+        <div class="header-middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3 col-7">
+
+                        <a class="navbar-brand" href="index-2.html">
+                            <img src="/assets/images/logo/logo.svg" alt="Logo">
+                        </a>
+
+                    </div>
+                    <div class="col-lg-5 col-md-7 d-xs-none">
+
+                        <div class="main-menu-search">
+
+                            <div class="navbar-search search-style-5">
+                                <div class="search-select">
+                                    <div class="select-position">
+                                        <select id="select1">
+                                            <option selected>All</option>
+                                            <option value="1">option 01</option>
+                                            <option value="2">option 02</option>
+                                            <option value="3">option 03</option>
+                                            <option value="4">option 04</option>
+                                            <option value="5">option 05</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <!-- hot-line-area end -->
-                                        <!-- full-setting-area start -->
-                                        <div class="full-setting-area setting-style-3">
-                                            <div class="top-dropdown">
-                                                <ul>
-                                                   
-                                                    {{#if user}}
-                                                    <li class="drodown-show"><a href="#"> {{user.firstname}} <i class="fa fa-angle-down"></i></a>
-                                                    {{else}}
-                                                       <li class="drodown-show"><a href="#"> Login <i class="fa fa-angle-down"></i></a>
-                                                            {{/if}}
-                                                        <ul class="open-dropdown setting">
-                                                               {{#if user}}
-                                                                  <li><a href="/myProfile">My Profile</a></li>
-                                                            <li><a href="/order">My Order History</a></li>
-                                                            <li><a href="/placeOrder">Checkout</a></li>
-                                                         
-                                                             <li><a class="text-black " href="/logout">SignOut</a></li>
-                                                             {{else}}
-                                                            <li><a class="text-black " href="/login">Sign in</a></li>
-                                                            {{/if}}
-                                                        </ul>
-                                                    </li>
-                                                </ul>
+                                <div class="search-input">
+                                    <input type="text" placeholder="Search">
+                                </div>
+                                <div class="search-btn">
+                                    <button><i class="lni lni-search-alt"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4 col-md-2 col-5">
+                        <div class="middle-right-area">
+                            <div class="nav-hotline">
+                                <i class="lni lni-phone"></i>
+                                <h3>Hotline:
+                                    <span>9846065859</span>
+                                </h3>
+                            </div>
+                            <div class="navbar-cart">
+                                <div class="wishlist">
+                                    <a href="javascript:void(0)">
+                                        <i class="lni lni-heart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+                                </div>
+                                <div class="cart-items">
+                                    <a href="javascript:void(0)" class="main-btn">
+                                        <i class="lni lni-cart"></i>
+                                        <span class="total-items">{{cartCount}}</span>
+                                    </a>
+
+                                    <div class="shopping-item">
+                                        <div class="dropdown-cart-header">
+                                            <span>2 Items</span>
+                                            <a href="/viewCart">View Cart</a>
+                                        </div>
+                                        {{!-- <ul class="shopping-list">
+                                            <li>
+                                                <a href="javascript:void(0)" class="remove" title="Remove this item"><i
+                                                        class="lni lni-close"></i></a>
+                                                <div class="cart-img-head">
+                                                    <a class="cart-img" href="product-details.html"><img
+                                                            src="assets/images/header/cart-items/item1.jpg" alt="#"></a>
+                                                </div>
+                                                <div class="content">
+                                                    <h4><a href="product-details.html">
+                                                            Apple Watch Series 6</a></h4>
+                                                    <p class="quantity">1x - <span class="amount">$99.00</span></p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)" class="remove" title="Remove this item"><i
+                                                        class="lni lni-close"></i></a>
+                                                <div class="cart-img-head">
+                                                    <a class="cart-img" href="product-details.html"><img
+                                                            src="assets/images/header/cart-items/item2.jpg" alt="#"></a>
+                                                </div>
+                                                <div class="content">
+                                                    <h4><a href="product-details.html">Wi-Fi Smart Camera</a></h4>
+                                                    <p class="quantity">1x - <span class="amount">$35.00</span></p>
+                                                </div>
+                                            </li>
+                                        </ul> --}}
+                                        <div class="bottom">
+                                            <div class="total">
+                                                <span>Total</span>
+                                                <span class="total-amount">$134.00</span>
+                                            </div>
+                                            <div class="button">
+                                                <a href="checkout.html" class="btn animate">Checkout</a>
                                             </div>
                                         </div>
-                                        <!-- full-setting-area end -->
-                                <!-- shopping-cart-box start -->
-                                <div class="shopping-cart-box white-cart-box">
-                                    <ul>
-                                        <li>
-                                            <a href="/viewCart">
-                                                <span class="item-cart-inner">
-                                                    <span class="item-cont" id="cart-count">{{cartCount}}</span> 
-                                                    My Cart
-                                                </span>
-                                                {{!-- <div class="item-total">$237.00</div> --}}
-                                            </a>
-                                            <ul class="shopping-cart-wrapper">
-                                                <li>
-                                                    <div class="shoping-cart-image">
-                                                        <a href="/viewCart/{{this._id}}">
-                                                            <img  alt="">
-                                                            {{!-- <span class="product-quantity">1x</span> --}}
-                                                        </a>
-                                                    </div>
-                                                    {{!-- <div class="shoping-product-details">
-                                                        <h3><a href="#">brand Free RN 2018</a></h3>
-                                                        <div class="price-box">
-                                                            <span>$230.00</span>
-                                                        </div>
-                                                        <div class="sizeandcolor">
-                                                            <span>Size: S</span>
-                                                            <span>Color: Orange</span>
-                                                        </div>
-                                                        <div class="remove">
-                                                            <button title="Remove"><i class="ion-android-delete"></i></button>
-                                                        </div>
-                                                    </div> --}}
-                                                </li>
-                                                {{!-- <li>
-                                                    <div class="shoping-cart-image">
-                                                        <a href="#">
-                                                            <img src="/img/small-product/2.jpg" alt="">
-                                                            <span class="product-quantity">1x</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="shoping-product-details">
-                                                        <h3><a href="#">Product Free RN 2018</a></h3>
-                                                        <div class="price-box">
-                                                            <span>$230.00</span>
-                                                        </div>
-                                                        <div class="sizeandcolor">
-                                                            <span>Size: S</span>
-                                                            <span>Color: Orange</span>
-                                                        </div>
-                                                        <div class="remove">
-                                                            <button title="Remove"><i class="ion-android-delete"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </li> --}}
-                                                {{!-- <li>
-                                                    <div class="cart-subtotals">
-                                                        <h5>Subtotal<span class="float-right">$698.00</span></h5>
-                                                        <h5>Shipping<span class="float-right"> $7.00 </span></h5>
-                                                        <h5>Taxes<span class="float-right">$0.00</span></h5>
-                                                        <h5> Total<span class="float-right">$705.00</span></h5>
-                                                    </div>
-                                                </li> --}}
-                                                {{!-- <li class="shoping-cart-btn">
-                                                    <a class="checkout-btn" href="checkout.html">checkout</a>
-                                                </li> --}}
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                    </div>
+
                                 </div>
-                                <!-- shopping-cart-box start -->
-                                
-                                <!-- searchbox start -->
-                                <div class="searchbox">
-                                    <form action="#">
-                                        <div class="search-form-input">
-                                            {{!-- <select id="select" name="select" class="nice-select">
-                                                <option value="">All Categories</option>
-                                                <option value="12">Uncategorized</option>
-                                                <option value="22">Electronics</option>
-                                                <option value="26">Accessories</option>
-                                                <option value="27">Cap HDMI</option>
-                                                <option value="28">Headphone</option>
-                                                <option value="29">Keyboard</option>
-                                                <option value="23">Mouse</option>
-                                                <option value="30">Laptops & Tablets</option>
-                                                <option value="31">Laptop</option>
-                                                <option value="31">Macbook</option>
-                                                <option value="31">Smartphone</option>
-                                                <option value="31">Tablets</option>
-                                                <option value="32">Tvs & Audios</option>
-                                                <option value="33">Amply</option>
-                                                <option value="24">Smart TV</option>
-                                                <option value="34">Speaker</option>
-                                                <option value="35">TV</option>
-                                                <option value="36">Fashion & Jewelry</option>
-                                                <option value="37">Accessories</option>
-                                                <option value="25">Rings</option>
-                                                <option value="38">Watches</option>
-                                            </select> --}}
-                                            <input type="text" placeholder="Enter your search key ... ">
-                                            <button class="top-search-btn" type="submit">Search</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <!-- searchbox end -->
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- header-mid-area end -->
-            </header>
+            </div>
+        </div>
 
 
-            
+
+
+        {{!-- new template footer --}}
+
+
+
+        {{!-- <div class="header-top bg-black sticky-header">
+            <div class="container-fluid">
+
+                <div class="mobile-menu-style-2 row">
+                    <div class="col-lg-12 d-block d-lg-none">
+
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+        <!-- header-top end -->
+        <!-- header-mid-area start -->
+        {{!-- <div class="header-mid-area header-mid-style-3 bg-black">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- hot-line-area start -->
+                        <div class="hot-line-area">
+
+                            <div class="phone">
+                                <span>9846065859</span>
+                                <a href="/"><img src="/img/logo/logo-2.png" alt=""></a>
+
+                            </div>
+                        </div>
+                        <!-- hot-line-area end -->
+                        <!-- full-setting-area start -->
+                        {{!-- <div class="full-setting-area setting-style-3">
+                            <div class="top-dropdown">
+                                <ul>
+
+                                    {{#if user}}
+                                    <li class="drodown-show"><a href="#"> {{user.firstname}} <i
+                                                class="fa fa-angle-down"></i></a>
+                                        {{else}}
+                                    <li class="drodown-show"><a href="#"> Login <i class="fa fa-angle-down"></i></a>
+                                        {{/if}}
+                                        <ul class="open-dropdown setting">
+                                            {{#if user}}
+                                            <li><a href="/myProfile">My Profile</a></li>
+                                            <li><a href="/order">My Order History</a></li>
+                                            <li><a href="/placeOrder">Checkout</a></li>
+
+                                            <li><a class="text-black " href="/logout">SignOut</a></li>
+                                            {{else}}
+                                            <li><a class="text-black " href="/login">Sign in</a></li>
+                                            {{/if}}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> --}}
+                        <!-- full-setting-area end -->
+                        <!-- shopping-cart-box start -->
+                        {{!-- <div class="shopping-cart-box white-cart-box">
+                            <ul>
+                                <li>
+                                    <a href="/viewCart">
+                                        <span class="item-cart-inner">
+                                            <span class="item-cont" id="cart-count">{{cartCount}}</span>
+                                            My Cart
+                                        </span>
+                                        {{!-- <div class="item-total">$237.00</div> --}}
+                                    </a>
+                                    <ul class="shopping-cart-wrapper">
+                                        <li>
+                                            <div class="shoping-cart-image">
+                                                <a href="/viewCart/{{this._id}}">
+                                                    <img alt="">
+                                                    {{!-- <span class="product-quantity">1x</span> --}}
+                                                </a>
+                                            </div>
+                                            {{!-- <div class="shoping-product-details">
+                                                <h3><a href="#">brand Free RN 2018</a></h3>
+                                                <div class="price-box">
+                                                    <span>$230.00</span>
+                                                </div>
+                                                <div class="sizeandcolor">
+                                                    <span>Size: S</span>
+                                                    <span>Color: Orange</span>
+                                                </div>
+                                                <div class="remove">
+                                                    <button title="Remove"><i class="ion-android-delete"></i></button>
+                                                </div>
+                                            </div> --}}
+                                        </li>
+                                        {{!-- <li>
+                                            <div class="shoping-cart-image">
+                                                <a href="#">
+                                                    <img src="/img/small-product/2.jpg" alt="">
+                                                    <span class="product-quantity">1x</span>
+                                                </a>
+                                            </div>
+                                            <div class="shoping-product-details">
+                                                <h3><a href="#">Product Free RN 2018</a></h3>
+                                                <div class="price-box">
+                                                    <span>$230.00</span>
+                                                </div>
+                                                <div class="sizeandcolor">
+                                                    <span>Size: S</span>
+                                                    <span>Color: Orange</span>
+                                                </div>
+                                                <div class="remove">
+                                                    <button title="Remove"><i class="ion-android-delete"></i></button>
+                                                </div>
+                                            </div>
+                                   
+                                        
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div> --}}
+                   
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header-mid-area end -->
+    </header>
