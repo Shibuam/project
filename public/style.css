@@ -266,7 +266,7 @@ body {
 #scrollUp {
   background: #333333 none repeat scroll 0 0;
   bottom: 30px;
-  color: #ffffff;
+ /* color: #ffffff; */
   font-size: 22px;
   height: 40px;
   line-height: 38px;

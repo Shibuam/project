@@ -18,8 +18,8 @@ var paypal = require('paypal-rest-sdk');
 
 paypal.configure({
   'mode': 'sandbox', //sandbox or live
-  'client_id': 'AXZo56O1wY_CK2zuMqHcpfjwJIKasLu0XNbnVt0iev_3H071_x1c0aOs2ipg12L4f9dMKKnnDWECInbE',
-  'client_secret': 'ECWRerRUqh8mBvQATzSA_hfmtxHYuweRupmPJGtKJ9JveJEwvb-auHCnNbz2Ubfi0uXo2DxDx8QJ0LzJ'
+  'client_id': 'AYB0IuN_ArwxRXU7eE2dP0H8dYa7raoQmSUvk9usER8Yv0Cbm2CCkggOV6hV_0vKcMPV48U65CLptQmg',
+  'client_secret': 'ENbTS3lTZ-KOQsX9EzT_ve-2bFxPshEGfIPdBmIktWTZr2fjIRv9Uv6hOIHBxI4aWZKP8sf0PeCZGUZa'
 });
 
 const verifyLogin = (req, res, next) => {
@@ -27,7 +27,7 @@ const verifyLogin = (req, res, next) => {
     next()
   } else {
 
-    res.redirect('/login')
+     res.redirect('/login')
   }
 }
 
@@ -51,7 +51,7 @@ router.get('/', async (req, res, next) => {
   }
   let banner = await userHelper.viewBanner()
   adminHelper.viewProducts().then((products) => {
-
+ 
 
 
     if (req.session.status == true) {
@@ -251,12 +251,22 @@ router.get('/viewCart', verifyLogin, async (req, res, next) => {
   res.render('user/cart', { users: true, products, user,addres, cartCount, total })
 })
 
+// add to Cart......................................................................................................
+
 router.get('/cart/:id', verifyLogin, (req, res, next) => {
 
 
   userHelper.addToCart(req.params.id, req.session.user._id).then((data) => {
 
     res.json({ status: true })
+  })
+
+})
+// Add to Wish list...................................................................................................
+router.get('/addToWishlist/:id',(req,res,next)=>{
+  let id= req.params.id
+  userHelper.addToWishlist(id).then((data)=>{
+res.json({status:true})
   })
 
 })
@@ -352,7 +362,6 @@ router.get('/test', (req, res, next) => {
 })
 // verify Payment...............................................................
 router.get('/pay', (req, res) => {
- 
   const create_payment_json = {
     "intent": "sale",
     "payer": {
@@ -365,7 +374,7 @@ router.get('/pay', (req, res) => {
     "transactions": [{
         "item_list": {
             "items": [{
-                "name": "juta proucts",
+                "name": "Red Sox Hat",
                 "sku": "001",
                 "price": "25.00",
                 "currency": "USD",
@@ -381,7 +390,6 @@ router.get('/pay', (req, res) => {
 };
 
 paypal.payment.create(create_payment_json, function (error, payment) {
-  console.log(payment)
   if (error) {
       throw error;
   } else {
@@ -400,20 +408,30 @@ paypal.payment.create(create_payment_json, function (error, payment) {
 
 
 router.get('/success', (req, res) => {
-  console.log("success.............................................................................................")
   const payerId = req.query.PayerID;
   const paymentId = req.query.paymentId;
 
   const execute_payment_json = {
     "payer_id": payerId,
     "transactions": [{
-      "amount": {
-        "currency": "USD",
-        "total": "25.00"
-      }
+        "amount": {
+            "currency": "USD",
+            "total": "25.00"
+        }
     }]
   };
-})
+
+  paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+    if (error) {
+        console.log(error.response);
+        throw error;
+    } else {
+        console.log(JSON.stringify(payment));
+
+  res.redirect('/orderSuccess')
+    }
+});
+});
 
 
 

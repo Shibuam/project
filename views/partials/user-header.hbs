@@ -61,16 +61,27 @@
                                 Hello
                             </div>
                             <ul class="user-login">
-                                <li>
+                                 
+
                                     {{#if user}}
-                                    <label for=""class='text-white'>{{user.firstname}}</label>
-                                    {{else}}
-                                    <a href="/login">Sign In</a>  <span>|</span>
+                                    <li class="drodown-show"><a href="#"> {{user.firstname}} <i
+                                                class="fa fa-angle-down"></i></a>
+                                        {{else}}
+                                    <li class="drodown-show"><a href="#"> Login <i class="fa fa-angle-down"></i></a>
+                                        {{/if}}
+                                        <ul class="open-dropdown setting">
+                                            {{#if user}}
+                                            <li><a href="/myProfile">My Profile</a></li>
+                                            <li><a href="/order">My Order History</a></li>
+                                            <li><a href="/placeOrder">Checkout</a></li>
+
+                                            <li><a class="text-black " href="/logout">SignOut</a></li>
+                                            {{else}}
+                                            <li><a class="text-black " href="/login">Sign in</a></li>
+                                            {{/if}}
                                     
-                                
-                                    <a href="/signup">Register</a>
-                                    {{/if}}
-                                </li>
+                                    </li>
+                                </ul>
                               
                             </ul>
                         </div>
@@ -136,7 +147,7 @@
                                 <div class="cart-items">
                                     <a href="javascript:void(0)" class="main-btn">
                                         <i class="lni lni-cart"></i>
-                                        <span class="total-items">{{cartCount}}</span>
+                                        <span class="total-items"id="cart-count">{{cartCount}}</span>
                                     </a>
 
                                     <div class="shopping-item">
@@ -177,7 +188,7 @@
                                                 <span class="total-amount">$134.00</span>
                                             </div>
                                             <div class="button">
-                                                <a href="checkout.html" class="btn animate">Checkout</a>
+                                                <a href="/placeOrder" class="btn animate">Checkout</a>
                                             </div>
                                         </div>
                                     </div>
@@ -316,3 +327,10 @@
         </div>
         <!-- header-mid-area end -->
     </header>
+
+
+
+
+
+
+    

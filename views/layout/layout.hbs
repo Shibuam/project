@@ -3,6 +3,11 @@
 
 <head>
   {{!-- user login page --}}
+
+{{!-- cdn for sweet alert --}}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
 <meta charset="utf-8" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
 <title>ShopGrids - Bootstrap 5 eCommerce HTML Template.</title>
@@ -16,6 +21,7 @@
 <link rel="stylesheet" href="/assets/css/glightbox.min.css" />
 <link rel="stylesheet" href="/assets/css/main.css" />
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -158,7 +164,7 @@
 
 {{!-- new template footer --}}
 
-
+{{#unless admin}}
     <footer class="footer">
 
         <div class="footer-top">
@@ -406,7 +412,7 @@
 		<!-- main JS -->		
         <script src="/js/main.js"></script>
  
-
+{{/unless}}
 </body>
 
 </html>
