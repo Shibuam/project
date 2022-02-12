@@ -59,10 +59,21 @@ module.exports = {
             resolve(userDetails)
         })
     },
-    viewProduct: () => {
-        return new Promise((resolve, reject) => {
-            let products = db.get().collection(collection.PRODUCTS).find().toArray()
+    viewProduct: (category) => {
+        console.log(category);
+        
+        return new Promise(async(resolve, reject) => {
+            if(category=='all'){
+          let products=await db.get().collection(collection.PRODUCTS).find({}).toArray()
+          console.log(products);
+          resolve(products)
+            }
+            else{
+            let products =await db.get().collection(collection.PRODUCTS).find({category:category}).toArray()
+            console.log(products);
+        
             resolve(products)
+            }
         })
 
     },
@@ -90,13 +101,7 @@ module.exports = {
 
         })
     },
-    // viewProductMen:()=>{
-    //     return new Promise((resolve,reject)=>{
-    //         let productsMen=db.get().collection(collection.PRODUCTS).find({category:"Men Shoes"}).toArray()
-    //         resolve(productsMen)
-    //     })
-
-    // },
+    //add to cart.............................................................................................................................................................
     addToCart: (prodId, userId) => {
         let proObj = {
             item: ObjectId(prodId),
@@ -143,6 +148,153 @@ module.exports = {
             }
         })
     },
+
+    // add to wish list..............................................................................................................................................
+    addToWishlist: (proId, userId) => {
+
+
+        let proObj = {
+            item: ObjectId(proId),
+
+        }
+        return new Promise(async (resolve, reject) => {
+            let wishlist = await db.get().collection(collection.WISHLIST_COLLECTION).findOne({ user: ObjectId(userId) })
+            //checking is there any wish list......................................................................................................          
+            if (wishlist) {
+
+                let proExist = wishlist.products.findIndex(product => product.item == proId)
+                console.log("position of data", proExist)
+                //checking same product alredy in wish list?................................................................................................
+                if (proExist == -1) {
+                    await db.get().collection(collection.WISHLIST_COLLECTION).updateOne({ user: ObjectId(userId) }, { $push: { products: proObj } }).then(() => {
+                
+                   resolve({productAddedToWishList:true})
+                    })
+                }
+                else{
+                    resolve({ProductAllreadyInWishList:true})
+                }
+             
+            }
+
+//    corrently there is no wish list.............................................
+            else {
+             
+                let wishlistObj = {
+                    user: ObjectId(userId),
+                    products: [proObj]
+                }
+                await db.get().collection(collection.WISHLIST_COLLECTION).insertOne(wishlistObj).then(() => {
+                
+                    resolve({newWishListCollectionCreated:true})
+                })
+            }
+        })
+
+    },
+ wishListCount:(userId)=>{
+     return new Promise(async(resolve,reject)=>{
+      
+         let data=null
+          data=await db.get().collection(collection.WISHLIST_COLLECTION).findOne({user:ObjectId(userId)})
+          console.log(data)
+         if(data){
+
+             count=data.products.length
+
+
+         }
+         resolve(count)
+     })
+
+ },
+ viewToWishList:(userId)=>{
+    return new Promise(async(resolve,reject)=>{
+    let wishList=    await db.get().collection(collection.WISHLIST_COLLECTION).aggregate([
+            {
+                $match:{user:ObjectId(userId)}
+            },
+            {
+               $unwind:'$products' 
+            },
+            {
+                $project:{
+                    item:'$products.item',
+                }
+            },
+            {
+                $lookup:{
+                    from:collection.PRODUCTS,
+                    localField:'item',
+                    foreignField:'_id',
+                    as:'product'
+                }
+            },
+            {
+                $project:{
+                    item:1,product:{$arrayElemAt:['$product',0]}
+                }
+            }
+
+        ]).toArray()
+        resolve(wishList)
+    })
+ },
+ removeFromWishList:(prodId,userId)=>{
+return  new Promise(async(resolve,reject)=>{
+await db.get().collection(collection.WISHLIST_COLLECTION).updateOne({user:ObjectId(userId)},{$pull:{products:{item:ObjectId(prodId)}}}).then((response)=>{
+    resolve(response)
+})
+
+})
+ },
+ addToCartFromWishList:(userId,prodId)=>{
+    let proObj = {
+        item: ObjectId(prodId),
+        quantity: 1,
+
+
+    }
+    return new Promise(async (resolve, reject) => {
+        let userCart = await db.get().collection(collection.CART_COLLECTION).findOne({ user: ObjectId(userId) })
+        if (userCart) {
+            let proExist = userCart.products.findIndex(product => product.item == prodId)
+            if (proExist != -1) {
+                db.get().collection(collection.CART_COLLECTION).updateOne({ user: ObjectId(userId), 'products.item': ObjectId(prodId) },
+                    {
+                        $inc: { 'products.$.quantity': 1 }
+                    }).then(() => {
+                        resolve()
+                    })
+            } else {
+
+
+
+
+                db.get().collection(collection.CART_COLLECTION).updateOne({ user: ObjectId(userId) },
+                    {
+                        $push: {
+                            products: proObj
+                        }
+                    }).then((response) => {
+                        resolve()
+                    })
+            }
+        }
+        else {
+
+            let cartObj = {
+                user: ObjectId(userId),
+                products: [proObj]
+
+            }
+            db.get().collection(collection.CART_COLLECTION).insertOne(cartObj).then((response) => {
+                resolve()
+            })
+        }
+    })
+},
+
     viewToCart: (userId) => {
         return new Promise(async (resolve, reject) => {
             let cartItems = await db.get().collection(collection.CART_COLLECTION).aggregate([
@@ -281,16 +433,16 @@ module.exports = {
         })
 
     },
-    placeOrder: (address,method, products, total) => {
+    placeOrder: (address, method, products, total) => {
         console.log(products)
-        for(i=0;i<products.length;i++){
-            products[i].status=method==='COD'?'placed':'pending'
-            products[i].cancel=false
+        for (i = 0; i < products.length; i++) {
+            products[i].status = method === 'COD' ? 'placed' : 'pending'
+            products[i].cancel = false
 
         }
-        console.log("after",products)
+        console.log("after", products)
         return new Promise((resolve, reject) => {
-     //       let status = method === 'COD' ? 'placed' : 'pending'
+            //       let status = method === 'COD' ? 'placed' : 'pending'
             let orderObj = {
                 deliveryDetails: {
                     name: address.name,
@@ -302,7 +454,7 @@ module.exports = {
                 },
                 userId: ObjectId(address.userId),
                 method: method,
-            
+
                 products: products,
                 total: total,
                 date: new Date()
@@ -418,7 +570,7 @@ module.exports = {
                 resolve()
             }
             else {
-                reject() 
+                reject()
             }
         })
     },
@@ -430,20 +582,20 @@ module.exports = {
 
     //     })
     // },
-    productRemoveFromCart:(userId,orderid)=>{
-      
-        return new Promise(async(resolve,reject)=>{
-         await db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:ObjectId(orderid)},{$set:{status:'placed'}}).then(()=>{
-         db.get().collection(collection.CART_COLLECTION).deleteOne({user:ObjectId(userId)}).then(()=>{
-                resolve()
+    productRemoveFromCart: (userId, orderid) => {
+
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(collection.ORDER_COLLECTION).updateOne({ _id: ObjectId(orderid) }, { $set: { status: 'placed' } }).then(() => {
+                db.get().collection(collection.CART_COLLECTION).deleteOne({ user: ObjectId(userId) }).then(() => {
+                    resolve()
+                })
             })
         })
-    })
     },
-    updateProfile: (userId, updatedData) =>{
+    updateProfile: (userId, updatedData) => {
         return new Promise((resolve, reject) => {
             let update = db.get().collection(collection.USER_COLLECTION).
-                updateOne({ _id: ObjectId(userId) }, { 
+                updateOne({ _id: ObjectId(userId) }, {
                     $set:
                     {
                         firstname: updatedData.firstname,
@@ -457,17 +609,17 @@ module.exports = {
     },
     PasswordChecking: (data, user) => {
         return new Promise(async (resolve, reject) => {
-        
-                let result = await bcrypt.compare(data, user.password)
-                console.log(result);
-                resolve(result)
-            
-         
+
+            let result = await bcrypt.compare(data, user.password)
+            console.log(result);
+            resolve(result)
+
+
 
         })
     },
     updatePassword: (password, userId) => {
-      
+
         return new Promise(async (resolve, reject) => {
             password = await bcrypt.hash(password, 10)
             db.get().collection(collection.USER_COLLECTION).updateOne({ _id: ObjectId(userId) }, { $set: { password: password } }).then(() => {
@@ -476,60 +628,62 @@ module.exports = {
 
         })
     },
-    addAddress:(address)=>{
-        return new Promise((resolve,reject)=>{
-                db.get().collection(collection.ADDRESS_COLLECTION).insertOne(address).then(()=>{
-                    resolve()
-                })
-        })
-    },
-  
-
-    viewAddress:(userId)=>{
-        return new Promise(async(resolve,reject)=>{
-let address=await db.get().collection(collection.ADDRESS_COLLECTION).find({userId:userId}).toArray()
-            resolve(address)
-        })
-    },
-    deleteAddress:(addressId)=>{
-        return new Promise((resolve,reject)=>{
-            db.get().collection(collection.ADDRESS_COLLECTION).deleteOne({_id:ObjectId( addressId)}).then(()=>{
+    addAddress: (address) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.ADDRESS_COLLECTION).insertOne(address).then(() => {
                 resolve()
             })
         })
-},
-findAddress:(addressId)=>{
-    return new Promise((resolve,reject)=>{
-        db.get().collection(collection.ADDRESS_COLLECTION).findOne({_id:ObjectId(addressId)}).then((data)=>{
-            resolve(data)
+    },
+
+
+    viewAddress: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            let address = await db.get().collection(collection.ADDRESS_COLLECTION).find({ userId: userId }).toArray()
+            resolve(address)
         })
-    })
-},
-editAddress:(data,id)=>{
-    db.get().collection(collection.ADDRESS_COLLECTION).updateOne({_id:ObjectId(id)},{$set:
-        {
-            userId:data.userId,
-            name:data.name,
-            phone:data.phone,
-            city:data.city,
-            state:data.state,
-            post:data.post,
-            addressType:data.addressType
+    },
+    deleteAddress: (addressId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.ADDRESS_COLLECTION).deleteOne({ _id: ObjectId(addressId) }).then(() => {
+                resolve()
+            })
+        })
+    },
+    findAddress: (addressId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.ADDRESS_COLLECTION).findOne({ _id: ObjectId(addressId) }).then((data) => {
+                resolve(data)
+            })
+        })
+    },
+    editAddress: (data, id) => {
+        db.get().collection(collection.ADDRESS_COLLECTION).updateOne({ _id: ObjectId(id) }, {
+            $set:
+            {
+                userId: data.userId,
+                name: data.name,
+                phone: data.phone,
+                city: data.city,
+                state: data.state,
+                post: data.post,
+                addressType: data.addressType
 
 
-    }}).then(()=>{
-        resolve()
-    })
-},
-findOneAddress:(addressId)=>{
-    console.log(addressId,"adddrewrfetgwegerg")
- return new Promise(async(resolve,reject)=>{
-    await db.get().collection(collection.ADDRESS_COLLECTION).findOne({_id:ObjectId(addressId)}).then((address)=>{
-    console.log(address)
-        resolve(address)
-     })
+            }
+        }).then(() => {
+            resolve()
+        })
+    },
+    findOneAddress: (addressId) => {
+        console.log(addressId, "adddrewrfetgwegerg")
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(collection.ADDRESS_COLLECTION).findOne({ _id: ObjectId(addressId) }).then((address) => {
+                console.log(address)
+                resolve(address)
+            })
 
- })
-}
+        })
+    }
 
 }

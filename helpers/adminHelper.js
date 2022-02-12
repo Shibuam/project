@@ -144,6 +144,19 @@ module.exports = {
             })
         
         })
+    },
+    addOffer:(offer)=>{
+        offer.percentage=parseFloat(offer.percentage)
+        return new Promise(async(resolve,reject)=>{
+           await db.get().collection(collection.OFFER_COLLECTION).insertOne(offer)
+           resolve()
+        })
+    },
+    viewOffer:()=>{
+        return new Promise(async(resolve,reject)=>{
+        let offer=    await db.get().collection(collection.OFFER_COLLECTION).find().toArray()
+        resolve(offer)
+        })
     }
 }
    

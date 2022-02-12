@@ -1,0 +1,85 @@
+<div class="shopping-cart section">
+    <div class="container">
+        <div class="cart-list-head">
+
+            <div class="cart-list-title">
+                <div class="row">
+                    <div class="col-lg-1 col-md-1 col-12">
+                    </div>
+                    <div class="col-lg-4 col-md-3 col-12">
+                        <p>Product Name</p>
+                    </div>
+                  
+                    <div class="col-lg-2 col-md-2 col-12">
+                        <p>Price</p>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-12">
+                        <p>Discount</p>
+                    </div>
+                    <div class="col-lg-1 col-md-2 col-12">
+                        <p>Remove</p>
+                    </div>
+                        <div class="col-lg-1 col-md-2 col-12">
+                        <p>Add to cart</p>
+                    </div>
+                </div>
+            </div>
+
+{{#each wishlist}}
+            <div class="cart-single-list">
+                <div class="row align-items-center">
+                    <div class="col-lg-1 col-md-1 col-12">
+                        <a href=""><img src="/images/proImage/{{this.product._id}}image.jpg" alt="#"></a>
+                    </div>
+                    <div class="col-lg-4 col-md-3 col-12">
+                        <h5 class="product-name"><a href="">
+                                {{this.product.name}}</a></h5>
+                        <p class="product-des">
+                            <span><em>Category</em> {{this.product.category}}</span>
+                            <span><em>Brand</em> {{this.product.brand}}</span>
+                        </p>
+                    </div>
+                 
+                    <div class="col-lg-2 col-md-2 col-12">
+                        <p>{{this.product.mrp}}</p>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-12">
+                        <p>0.00</p>
+                    </div>
+                    <div class="col-lg-1 col-md-2 col-12">
+                        <button class="remove-item" onclick="Delete('{{this.product._id}}')"><i class="lni lni-close"></i></button>
+                    </div>
+                     <div class="col-lg-1 col-md-2 col-12">
+                        <button class="btn btn-success" onclick="addToCart('{{this.product._id}}')">Add to cart</button>
+                    </div>
+                </div>
+            </div>
+
+{{/each}}
+     
+
+    <script>
+        function Delete(proId){
+      
+            $.ajax({
+                
+                
+                url:'/removeFromWishList/'+proId,
+                method:'get',
+                success:(Response)=>{
+                    location.reload();
+
+                }
+            
+            })
+        }
+        function addToCart(proId){
+
+console.log(proId)
+$.ajax({
+    url:'/addToCartFromWishList/'+proId,
+    method:'get',
+
+})
+        }
+    </script>

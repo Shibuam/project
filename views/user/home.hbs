@@ -204,7 +204,7 @@
                             <div class="button">
                               <li class="add-cart"><button onclick="addToCart('{{this._id}}','{{../user._id}}')" class=" btn btn-info rounded-pill text-white"><i class="ion-android-cart"></i> Add to cart</button></li>
                               <li class="add-cart"><button onclick="addToWishlist('{{this._id}}','{{../user._id}}')" class=" btn btn-info rounded-pill text-white"><i class="fa fa-heart" style="color: red;"></i>Wish List</button></li>
-<h1>{{../user._id}}</h1>
+
                           {{!-- <i class="fa fa-heart" style="font-size:30px;color:red"> --}}
                             </div>
                         </div>
@@ -232,11 +232,10 @@
         </div>
     </section>
 
-
-
- <script>
+<script>
 
                function addToCart(proId,userId){
+           
               if(!userId){
             swal("Sorry..login first")
         }
@@ -258,10 +257,11 @@
     })
         }
    }
+</script>
 
-
-function addToWishlist(proId,userId){
-    console.log(proId,userId)
+<script>
+    function addToWishlist(proId,userId){
+ 
     if(!userId){
         swal("Sorry..login first")
     }
@@ -269,7 +269,23 @@ function addToWishlist(proId,userId){
  
     $.ajax({
         url:'/addToWishList/'+proId,
+      
         method:'get',
+        success:(response)=>{
+       
+            if(response.productAddedToWishList||response.newWishListCollectionCreated){
+            
+                swal("product added to wish list")
+            
+            
+                 let count=$('#wish-count').html()
+                count=parseInt(count)+1
+                $('#wish-count').html(count)
+            }
+            else{
+                swal(" Product already in Wish list")
+            }
+        }
     })
 }
 }

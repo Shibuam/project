@@ -252,8 +252,20 @@ router.post('/changeOrderStatus', (req, res, next) => {
     res.redirect('/admin/orderManage')
   })
 })
-
-
+// offer management.................................................................
+router.get('/addOffer',async(req,res,next)=>{
+ await adminHelper.viewCategory().then((category) => {
+  res.render('admin/createOffer',{admin:true,category })
+})
+})
+router.post('/addOffer',async(req,res,next)=>{
+  
+ await adminHelper.addOffer(req.body)
+   await  adminHelper.viewOffer().then((offer)=>{
+     res.render('admin/viewOffer',{offer,admin:true})
+   })
+ 
+})
 
 
 

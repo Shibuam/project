@@ -7,6 +7,7 @@
                     <div class="col-lg-1 col-md-1 col-12">
                     </div>
                     <div class="col-lg-4 col-md-3 col-12">
+                        <p class="text-danger">{{fromWishList}}</p>
                         <p>Product Name</p>
                     </div>
                      <div class="col-lg-2 col-md-2 col-12">
@@ -20,11 +21,11 @@
                         <p>Discount</p>
                     </div>
                     <div class="col-lg-1 col-md-2 col-12">
-                        <p>Remove</p>
+                        <p> Cancel</p>
                     </div>
                 </div>
             </div>
-
+        </div>
  {{#each products}}
             <div class="cart-single-list">
                 <div class="row align-items-center">
@@ -45,7 +46,7 @@
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-2 col-12">
-                           <button
+                           <button 
                                                 onclick="return changeQuantity('{{this._id}}','{{this.product._id}}',-1)">-</button>
                                             <span id="{{this.product._id}}">{{this.quantity}}</span>
                                             <button
@@ -54,16 +55,16 @@
                     <div class="col-lg-2 col-md-2 col-12">
                         <p>0.00</p>
                     </div>
-                    <div class="col-lg-1 col-md-2 col-12">
-                       <button onclick="removeProductFromCart('{{this._id}}','{{this.product._id}}')"  class="text-danger ">X</button>
+                    <button class="remove-item" onclick="removeProductFromCart('{{this._id}}','{{this.product._id}}')"><i class="lni lni-close"></i></button>
+
                     </div>
                 </div>
-            </div>
+        
 {{/each}}
 
        
 
-        </div>
+
         <div class="row">
             <div class="col-12">
 

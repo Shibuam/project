@@ -1,0 +1,28 @@
+
+ <nav class="navbar   me-auto">
+  <div class="container-fluid">
+    <span class="navbar-brand  h1"><h1 class="text-white">View offer</h1></span>
+  </div>
+</nav>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Percentage</th>
+      <th scope="col">Category</th>
+      <th scope="col">Expire Date</th>
+       <th scope="col">Cancel</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each offer}}
+    <tr>
+      <th scope="row">{{this.title}}</th>
+      <td>{{this.percentage}}</td>
+      <td>{{this.category}}</td>
+      <td>{{this.expireDate}}</td>
+       <td><input type="button"></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
