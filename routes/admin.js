@@ -102,7 +102,7 @@ router.get('/editProduct/', async (req, res, next) => {
 
 
 router.post('/editProducts/:id', (req, res, next) => {
-  console.log(req.body)
+
   req.body.mrp = parseInt(req.body.mrp)
   adminHelper.updateProduct(req.params.id, req.body).then((id) => {
    if(req.file){
@@ -247,7 +247,7 @@ router.post('/addBanners', (req, res, next) => {
 })
 router.post('/changeOrderStatus', (req, res, next) => {
   
-  console.log(req.body)
+ 
   adminHelper.updateStatus(req.body.value, req.body.id).then(()=>{
     res.redirect('/admin/orderManage')
   })
@@ -258,12 +258,32 @@ router.get('/addOffer',async(req,res,next)=>{
   res.render('admin/createOffer',{admin:true,category })
 })
 })
+//view Offer...........................................
+router.get('/viewOffer',async(req,res,next)=>{
+  let reply= req.session.resp
+  console.log(reply)
+  await  adminHelper.viewOffer().then((offer)=>{
+    res.render('admin/viewOffer',{offer,admin:true,reply})
+  })
+})
+
+
 router.post('/addOffer',async(req,res,next)=>{
   
- await adminHelper.addOffer(req.body)
-   await  adminHelper.viewOffer().then((offer)=>{
-     res.render('admin/viewOffer',{offer,admin:true})
-   })
+ await adminHelper.addOffer(req.body).then((respo)=>{
+   req.session.resp=respo.data
+   console.log( req.session.resp)
+  res.redirect('/admin/viewOffer')
+ })
+
+ 
+})
+router.get('/cancelOffer/:category',async(req,res,next)=>{
+ 
+ await adminHelper.cancelOffer(req.params.category).then(()=>{
+  res.redirect('/admin/viewOffer')
+ })
+
  
 })
 

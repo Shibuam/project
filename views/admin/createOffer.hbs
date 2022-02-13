@@ -1,8 +1,17 @@
  <nav class="navbar  mt-0">
   <div class="container-fluid">
-    <span class="navbar-brand mb-1 h1"><h1 class="text-white">Offer Management</h1></span>
+    <div class="row">
+          <span class="navbar-brand mb-1 h1"><h1 class="text-white">Offer Management</h1></span>
   </div>
+   <div>
+    <a href="/admin/viewOffer" class="btn btn-danger">View Offer</a>
+
+</div>
+    </div>
 </nav>
+
+ 
+
 
 <section class="h-100 h-custom">
   <div class="container  h-100">
@@ -55,7 +64,7 @@
                 </div>
                 </div>
 
-              <button type="submit"  class="btn btn-success btn-lg mb-1">Submit</button>
+              <button type="submit" onclick="checkDb('{{this.category}}')"  class="btn btn-success btn-lg mb-1">Submit</button>
 
             </form>
 
@@ -91,5 +100,8 @@ error[2].innerHTML="*Date required"
      }
 
  })  
+
+
+
 
 </script>

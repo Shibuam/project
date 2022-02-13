@@ -91,6 +91,24 @@ router.get('/login', function (req, res, next) {
   // }
   res.render('user/login', { error, users: true });
 });
+router.post('/home', function (req, res, next) {
+  usersHelper.doLogin(req.body).then((response) => {
+
+    if (response.status) {
+      req.session.status = response.user.isblock
+      req.session.loggedIn = true,
+        req.session.user = response.user
+
+      res.redirect("/")
+    }
+    else {
+      req.session.error = "You are not a registererd user Or missmatch password  "
+
+      res.redirect('/login')
+    }
+  })
+
+});
 
 router.get('/home', function (req, res, next) {
   usersHelper.doLogin(req.body).then((response) => {
@@ -287,7 +305,7 @@ router.get('/addToWishlist/:id', async(req, res, next) => {
   let user = req.session.user
   let proId = req.params.id
  await userHelper.addToWishlist(proId, user._id).then((response) => {
-    console.log("on user page", response)
+   
     res.json(response)
   })
 
@@ -298,7 +316,7 @@ router.get('/viewWishList',verifyLogin,async(req,res,next)=>{
    wishCount = await userHelper.wishListCount(user._id)
    cartCount = await userHelper.cartCount(user._id)
 let wishlist=  await userHelper.viewToWishList(user._id)
-console.log(wishlist)
+
   res.render('user/wishlist',{users:true,wishlist,wishCount,user,cartCount})
 })
 // add to cart from wish list.......................................................
@@ -351,7 +369,7 @@ router.get('/placeOrder', verifyLogin, async (req, res, next) => {
 })
 // place order.....................................................................................................................
 router.post('/placeOrder', verifyLogin, async (req, res, next) => {
-  console.log("chefafhdafaf", req.body)
+ 
   let user = req.session.user
   let method = req.body.method
   let address = await userHelper.findOneAddress(req.body.address)
@@ -367,7 +385,7 @@ router.post('/placeOrder', verifyLogin, async (req, res, next) => {
     }
     else if (req.body.method == 'RazorPay') {
       userHelper.generateRazorpay(orderId, total).then((response) => {
-        console.log(response)
+       
 
         res.json(response)
 
@@ -476,10 +494,10 @@ router.get('/success', (req, res) => {
 
   paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
     if (error) {
-      console.log(error.response);
+    
       throw error;
     } else {
-      console.log(JSON.stringify(payment));
+    
 
       res.redirect('/orderSuccess')
     }
@@ -540,7 +558,7 @@ router.get('/changePassword', verifyLogin, (req, res, next) => {
 
 
 router.post('/changePassword', async (req, res, next) => {
-  console.log(req.body)
+
   let user = req.session.user
   let currentPassword = req.body.currentPassword
   let result = await userHelper.PasswordChecking(currentPassword, user)

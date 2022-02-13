@@ -201,6 +201,9 @@
                         <div class="product-image">
                              <a href="/product-details/?id={{this._id}}">
                           <img src="/images/proImage/{{this._id}}image.jpg" alt="#"></a>
+                          {{#if this.offerPercentage}}
+                          <span class="sale-tag">{{this.offerPercentage}}%Off</span>
+                          {{/if}}
                             <div class="button">
                               <li class="add-cart"><button onclick="addToCart('{{this._id}}','{{../user._id}}')" class=" btn btn-info rounded-pill text-white"><i class="ion-android-cart"></i> Add to cart</button></li>
                               <li class="add-cart"><button onclick="addToWishlist('{{this._id}}','{{../user._id}}')" class=" btn btn-info rounded-pill text-white"><i class="fa fa-heart" style="color: red;"></i>Wish List</button></li>
@@ -218,8 +221,11 @@
                             
                                 <li><span>{{this.category}}</span><li>
                             </ul>
+                            
+                            
                             <div class="price">Rs:
                                 <span class="text-danger">{{this.mrp}}/-</span>
+                                <span class="discount-price">{{this.OldPrice}}</span>
                             </div>
                         </div>
                     </div>

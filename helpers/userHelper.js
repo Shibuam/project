@@ -193,8 +193,9 @@ module.exports = {
 
     },
  wishListCount:(userId)=>{
+     
      return new Promise(async(resolve,reject)=>{
-      
+      let count=0
          let data=null
           data=await db.get().collection(collection.WISHLIST_COLLECTION).findOne({user:ObjectId(userId)})
           console.log(data)
