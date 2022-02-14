@@ -148,14 +148,13 @@ module.exports = {
         })
     },
     addOffer: (offer) => {
-        console.log(offer,"offer")
-        console.log(offer.category)
+
         offer.percentage = parseFloat(offer.percentage)
         return new Promise(async (resolve, reject) => {
 
 
                 let exist=await db.get().collection(collection.OFFER_COLLECTION).findOne({category:offer.category})
-            
+            console.log(exist)
                 if(exist==null){
             await db.get().collection(collection.OFFER_COLLECTION).insertOne(offer).then(async (offerId) => {
                 let offerData = await db.get().collection(collection.OFFER_COLLECTION).findOne({ _id: offerId.insertedId })
@@ -215,15 +214,63 @@ resolve({data:'*This category offer already exist'})
                             mrp:eachField.OldPrice,
                             offer:false,
                             offerPercentage:'',
-                            OldPrice:''
+                            
                         }
                     })
             
                })
-               resolve()
+               resolve({data:'Offer cancel Successfully'})
         })
        
-    }
+    },
+    addOfferProduct:(offer)=>{
+        offer.percentage = parseFloat(offer.percentage)
+        return new Promise(async (resolve, reject) => {
+
+
+                let exist=await db.get().collection(collection.OFFER_COLLECTION).findOne({product:offer.product})
+            console.log(exist)
+                if(exist==null){
+            await db.get().collection(collection.OFFER_COLLECTION).insertOne(offer).then(async (offerId) => {
+                let offerData = await db.get().collection(collection.OFFER_COLLECTION).findOne({ _id: offerId.insertedId })
+              
+                let id = offerData._id
+                let percentage = offerData.percentage
+                let product = offerData.product
+                let expireDate = offerData.expireDate
+
+                let products = await db.get().collection(collection.PRODUCTS).aggregate([
+                    {
+                        $match: { $and: [{ name: product }, { productOffer: false }] }
+                    }]).toArray()
+                await products.map(async (pro) => {
+
+                    let productPrice = pro.mrp
+                    let offerPrice = productPrice - ((productPrice * percentage) / 100)
+                    offerPrice = parseInt(offerPrice.toFixed(2))
+                    let proId = pro._id + ''
+                    db.get().collection(collection.PRODUCTS).update({ _id: objectId(proId) },
+                        {
+       
+                            $set: {
+                                mrp: offerPrice,
+                                productOffer: true,
+                                OldPrice: productPrice,
+                                offerPercentage: parseInt(percentage)
+
+                            }
+                        })
+                })
+
+
+            })
+            resolve({data:'*Offer added successfully'} )
+        }
+        else{
+resolve({data:'*This Product offer already exist'})
+        }
+        })
+    },
 }
 
 
