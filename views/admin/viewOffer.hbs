@@ -10,20 +10,35 @@
     <tr>
       <th scope="col">Title</th>
       <th scope="col">Percentage</th>
-      <th scope="col">Category</th>
+      <th scope="col">Category/Product</th>
       <th scope="col">Expire Date</th>
        <th scope="col">Cancel</th>
     </tr>
   </thead>
   <tbody>
       {{#each offer}}
+    {{#if this.category}}
     <tr class="text-white">
       <th scope="row">{{this.title}}</th>
       <td>{{this.percentage}}</td>
       <td>{{this.category}}</td>
       <td>{{this.expireDate}}</td>
-       <td><button onclick="cancel('{{this.category}}')"  class="text-danger btn" >Cancel</button></td>
+       <td><button onclick="cancel('{{this.category}}')"  class="text-danger btn" >Cancel Category Offer</button></td>
     </tr>
+    {{/if}}
+    {{/each}}
+  </tbody>
+   <tbody>
+      {{#each offer}}
+      {{#if this.product}}
+    <tr class="text-white">
+      <th scope="row">{{this.title}}</th>
+      <td>{{this.percentage}}</td>
+      <td>{{this.product}}</td>
+      <td>{{this.expireDate}}</td>
+       <td><button onclick="cancelPro('{{this.product}}')"  class="text-danger btn" >Cancel Product Offer</button></td>
+    </tr>
+    {{/if}}
     {{/each}}
   </tbody>
 </table>
@@ -42,6 +57,28 @@ Swal.fire({
 }).then((result) => {
   if (result.isConfirmed) {
     location.href='/admin/cancelOffer/'+category,
+    
+    Swal.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+  }
+})
+}
+ function cancelPro(product){
+   console.log(product)
+Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    location.href='/admin/cancelOfferPro/'+product,
     
     Swal.fire(
       'Deleted!',

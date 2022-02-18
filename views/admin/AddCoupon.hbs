@@ -1,0 +1,109 @@
+<nav class="navbar  mt-0">
+    <div class="container-fluid">
+        <div class="row">
+            <span class="navbar-brand mb-1 h1">
+                <h1 class="text-white">Coupon Management</h1>
+            </span>
+        </div>
+
+    </div>
+</nav>
+
+
+
+
+
+
+<section class="h-100 h-custom">
+    <div class="container  h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+                <div class="card rounded-3">
+
+
+
+
+                    <div class="row">
+                        <div class="card-body p-4 p-md-3">
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Create Coupon</h3>
+
+                            <form class="px-md-2" method="post" id="form" action="/admin/addCoupon">
+
+                                <div class="form-outline mb-2">
+                                    <label class="form-label" for="form3Example1q">Title</label>
+                                    <p class="text-danger error"></p>
+                                    <input type="text" id='title' name="title" class="form-control" />
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4 ">
+
+                                        <div class="form-outline datepicker">
+                                            <label for="exampleDatepicker1" class="form-label"> Amount</label>
+                                            <p class="text-danger error"></p>
+                                            <input name="amount" type="number" class="form-control" id="amount" />
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-4 mb-2">
+                                        <label for="">Expire Date</label>
+                                        <p class="text-danger error"></p>
+                                        <input type="date" id="date" name="expireDate">
+                                    </div>
+                                </div>
+
+                                <button type="submit" onclick="validation()"
+                                    class="btn btn-success btn-lg mb-1">Submit</button>
+
+                            </form>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+</section>
+
+
+{{!-- view coupon........................................ --}}
+
+
+
+
+{{!-- ............................. --}}
+<script>
+
+    let title = document.getElementById('title')
+    let amount = document.getElementById('amount')
+    let date = document.getElementById('date')
+    let form = document.getElementById('form')
+    let error = document.getElementsByClassName('error')
+
+    form.addEventListener("submit", (e) => {
+        if (title.value == '' || title.value == null){
+            error[0].innerHTML = "*Title Required "
+        e.preventDefault()
+        }
+           if (amount.value == '' || amount.value == null){
+            error[1].innerHTML = "* Required "
+        e.preventDefault()
+           }
+            if (date.value == '' || date.value == null){
+            error[2].innerHTML = "* Required "
+        e.preventDefault()
+           }
+    })
+
+</script>

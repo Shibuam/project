@@ -206,30 +206,13 @@ img{
 </style>
 {{!-- style for zooming --}}
 
+<style>
+		.imgkey{width:60px;height:60px;border:1px solid #ddd;}
+.previewPane{display:inline-block;border:1px solid #ddd;width:250px;height:240px;cursor:crosshair;background-repeat:no-repeat;background-position:center;background-size:100% 100%}
+#zoomer{display:none;background-repeat:no-repeat;border:1px solid #ddd;width:300px;height: 300px;z-index:1000;}
+	</style>
 
-        <style>
-    .imgkey{
-        width:100px;
-        height:100px;}
-    .previewPane{
-        /* display:inline-block; */
-        width:500px;
-        height:300px;
-        cursor:crosshair;
-        margin-right: 20rem;
-        background-size:100% 100%}
-    #zoomer{
-        background: #fff;
-        display:none;
-        background-repeat:no-repeat;
-        width:800px;
-        height:550px;
-        z-index: 1000;
-        position: fixed;
-        right: 10%;
-        top: 13%;
-    }
-</style>
+
 
 
 <div class = "card-wrapper">
@@ -279,19 +262,8 @@ img{
     <div class = "product-content">
       <h2 class = "product-title">{{productDetails.brand}}</h2>
       <h4 class = "product-title">{{productDetails.SubCategory}}</h4>
-      <div class = "product-rating">
-        <i class = "fas fa-star"></i>
-        <i class = "fas fa-star"></i>
-        <i class = "fas fa-star"></i>
-        <i class = "fas fa-star"></i>
-        <i class = "fas fa-star-half-alt"></i>
-        <span>4.7(21)</span>
-      </div>
+      
 
-      <div class = "product-price">
-       
-        <p class = "new-price">Price: <span>{{productDetails.mrp}}</span></p>
-      </div>
 
       <div class = "product-detail">
         <h2>about this item: </h2>
@@ -307,30 +279,13 @@ img{
       </div>
 
       <div class = "purchase-info">
-        <input type = "number" min = "0" value = "1">
+       
         <button type = "button" onclick='addToCart("{{productDetails._id}}")' class = "btn">
           Add to Cart <i class = "fas fa-shopping-cart"></i>
         </button>
       </div>
 
-      <div class = "social-links">
-        <p>Share At: </p>
-        <a href = "#">
-          <i class = "fab fa-facebook-f"></i>
-        </a>
-        <a href = "#">
-          <i class = "fab fa-twitter"></i>
-        </a>
-        <a href = "#">
-          <i class = "fab fa-instagram"></i>
-        </a>
-        <a href = "#">
-          <i class = "fab fa-whatsapp"></i>
-        </a>
-        <a href = "#">
-          <i class = "fab fa-pinterest"></i>
-        </a>
-      </div>
+  
     </div>
   </div>
 </div>
@@ -490,42 +445,7 @@ window.addEventListener('resize', slideImage);
   
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<style>
-    .imgkey{width:150px;height:auto;border:1px solid #ddd;}
-    .previewPane{display:inline-block;border:1px solid #ddd;width:250px;height:250px;cursor:crosshair;background-repeat:no-repeat;background-position:center;background-size:100% 100%}
-#zoomer{
-    background-size:cover;
-    display:none;background-repeat:no-repeat;
-    width:30rem;
-	height:40rem;
-	position: fixed;
-	left: 0;
-    top: 10%;
-    }
 
-/*.previewPane{
-	display:inline-block;
-	border:1px solid #ddd;
-	width:450px;height:550px;
-	cursor:crosshair;
-	background-repeat:no-repeat;
-	background-position:center;
-	background-size:100% 100%}
-#zoomer{
-	display:none;
-    background-repeat: no-repeat;
-    background-position-x: center;
-	background: #fff;
-	width:30rem;
-	height:40rem;
-	z-index:1000;
-	position: fixed;
-	right: 25%;
-	top: 20%;
-
-	} --}}*/
-
-    </style>
 
 <script>
     $(function(){
@@ -538,7 +458,7 @@ $('#zoomer').css('display','inline-block');
 var img = $(this).css('background-image').replace(/^url\(['"](.+)['"]\)/, '$1');
 var posX = ev.offsetX ? (ev.offsetX) : ev.pageX - $(this).offset().left;
 var posY = ev.offsetY ? (ev.offsetY) : ev.pageY - $(this).offset().top;
-$('#zoomer').css('background-position',((-posX * 1) + "px " + (-posY * 3) + "px"));
+$('#zoomer').css('background-position',((posX * 1) + "px " + (posY * 1) + "px"));
 $('#zoomer').css('background-image','url('+img+')');
 			});
 $('.previewPane').mouseleave(function(){$('#zoomer').css('display','none');});

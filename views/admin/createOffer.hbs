@@ -1,16 +1,20 @@
- <nav class="navbar  mt-0">
+<nav class="navbar  mt-0">
   <div class="container-fluid">
     <div class="row">
-          <span class="navbar-brand mb-1 h1"><h1 class="text-white">Offer Management</h1></span>
-  </div>
-   <div>
-    <a href="/admin/viewOffer" class="btn btn-danger">View Offer</a>
-
-</div>
+      <span class="navbar-brand mb-1 h1">
+        <h1 class="text-white">Offer Management</h1>
+      </span>
     </div>
+    <div>
+      <a href="/admin/viewOffer" class="btn btn-danger">View Offer</a>
+
+    </div>
+  </div>
 </nav>
 
- 
+
+
+
 
 
 <section class="h-100 h-custom">
@@ -18,90 +22,157 @@
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-8 col-xl-6">
         <div class="card rounded-3">
-          <div class="card-body p-4 p-md-3">
-            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Create an offer</h3>
 
-            <form class="px-md-2" method="post" id="form" action="/admin/addOffer">
 
-              <div class="form-outline mb-2">
-                                  <label class="form-label" for="form3Example1q">Title</label>
-<p class="text-danger error"></p>
-                <input type="text" id='title' name="title" class="form-control" />
-              </div>
+          <button onclick="showViewCategoryOffer()" class="btn btn-info m-1">Add Category  Offer</button>
+            <button onclick="showViewProductOffer()" class="btn btn-info m-1">Add Product Offer</button>
 
-              <div class="row">
-                <div class="col-md-4 ">
+          <div class="row">
+            <div class="card-body p-4 p-md-3" id="cat" style="display: none;">
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Create an offer for Category</h3>
 
-                  <div class="form-outline datepicker">
-                       <label for="exampleDatepicker1"  class="form-label"> Percentage</label>
-                   <p class="text-danger error"></p>
-                    <input
-                    name="percentage"
-                      type="number"
-                      class="form-control"
-                      id="percentage"
-                    />
-                   
+              <form class="px-md-2" method="post" id="form" action="/admin/addOffer">
+
+                <div class="form-outline mb-2">
+                  <label class="form-label" for="form3Example1q">Title</label>
+                  <p class="text-danger error"></p>
+                  <input type="text" id='title' name="title" class="form-control" />
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4 ">
+
+                    <div class="form-outline datepicker">
+                      <label for="exampleDatepicker1" class="form-label"> Percentage</label>
+                      <p class="text-danger error"></p>
+                      <input name="percentage" type="number" class="form-control" id="percentage" />
+
+                    </div>
+
                   </div>
-
+                  <div class="col-md-8 ">
+                    <label for="exampleDatepicker1" class="form-label">Select category</label>
+                    <select name="category" id="" class="form-select" aria-label="Default select example">
+                      <br><br>
+                      {{#each category}}
+                      <option class="mt-5" value="{{this.category}}">{{this.category}}</option>
+                      {{/each}}
+                      <br><br>
+                    </select>
+                  </div>
                 </div>
-                <div class="col-md-8 ">
- <label for="exampleDatepicker1" class="form-label">Select category</label>
-                 <select name="category" id=""class="form-select" aria-label="Default select example">
-                <br><br>
-                  {{#each category}}
-                  <option class="mt-5" value="{{this.category}}">{{this.category}}</option>
-                  {{/each}}
-                  <br><br>
-                </select>
-                </div>
-              </div>
-  <div class="row">
-                <div class="col-md-4 mb-2">
+                <div class="row">
+                  <div class="col-md-4 mb-2">
                     <label for="">Expire Date</label>
                     <p class="text-danger error"></p>
-            <input  type="date" id="date" name="expireDate">
-                </div>
+                    <input type="date" id="date" name="expireDate">
+                  </div>
                 </div>
 
-              <button type="submit" onclick="checkDb('{{this.category}}')"  class="btn btn-success btn-lg mb-1">Submit</button>
+                <button type="submit" onclick="checkDb('{{this.category}}')"
+                  class="btn btn-success btn-lg mb-1">Submit</button>
 
-            </form>
+              </form>
+
+            </div>
+
+
+
+            <div class="card-body p-4 p-md-3" id="pro" style="display: none;">
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Create an offer for Product</h3>
+
+              <form class="px-md-2" method="post" id="form" action="/admin/addOfferForProduct">
+
+                <div class="form-outline mb-2">
+                  <label class="form-label" for="form3Example1q">Title</label>
+                  <p class="text-danger error"></p>
+                  <input type="text" id='title' name="title" class="form-control" />
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4 ">
+
+                    <div class="form-outline datepicker">
+                      <label for="exampleDatepicker1" class="form-label"> Percentage</label>
+                      <p class="text-danger error"></p>
+                      <input name="percentage" type="number" class="form-control" id="percentage" />
+
+                    </div>
+
+                  </div>
+                  <div class="col-md-8 ">
+                    <label for="exampleDatepicker1" class="form-label">Select Product</label>
+                    <select name="product" id="" class="form-select" aria-label="Default select example">
+                      <br><br>
+                      {{#each product}}
+                      <option class="mt-5" value="{{this.name}}">{{this.name}}</option>
+                      {{/each}}
+                      <br><br>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4 mb-2">
+                    <label for="">Expire Date</label>
+                    <p class="text-danger error"></p>
+                    <input type="date" id="date" name="expireDate">
+                  </div>
+                </div>
+
+                <button type="submit" 
+                  class="btn btn-success btn-lg mb-1">Submit</button>
+
+              </form>
+
+            </div>
 
           </div>
+
         </div>
       </div>
+
+
+
+
+
     </div>
   </div>
 </section>
 
 <script>
-let title=document.getElementById('title')
-let percentage=document.getElementById('percentage')
-let date=document.getElementById('date')
- let form=document.getElementById('form') 
- let error=document.getElementsByClassName('error')
+  let title = document.getElementById('title')
+  let percentage = document.getElementById('percentage')
+  let date = document.getElementById('date')
+  let form = document.getElementById('form')
+  let error = document.getElementsByClassName('error')
 
- form.addEventListener('submit',(e)=>{
-   
-     if(title.value==''||title.value==null){
+  form.addEventListener('submit', (e) => {
 
-        e.preventDefault()
-        
-error[0].innerHTML="* Required"
+    if (title.value == '' || title.value == null) {
 
-     }
-          if(percentage.value==''||percentage.value==null){
-error[1].innerHTML="* Required"
-     }
-      if(date.value==''||date.value==null){
-error[2].innerHTML="*Date required"
- e.preventDefault()
-     }
+      e.preventDefault()
 
- })  
+      error[0].innerHTML = "* Required"
+
+    }
+    if (percentage.value == '' || percentage.value == null) {
+      error[1].innerHTML = "* Required"
+    }
+    if (date.value == '' || date.value == null) {
+      error[2].innerHTML = "*Date required"
+      e.preventDefault()
+    }
+
+  })
 
 
-
+  function showViewCategoryOffer(){
+$("#cat").show();
+ $("#pro").hide();
+  }
+   function showViewProductOffer(){
+$("#pro").show();
+ $("#cat").hide();
+   }
 
 </script>

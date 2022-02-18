@@ -361,6 +361,7 @@ router.get('/placeOrder', verifyLogin, async (req, res, next) => {
   let total = 0
   if (cartCount > 0) {
     total = await userHelper.getTotal(user._id)
+    req.session.total=total
   }
   let viewAddress = await userHelper.viewAddress(user._id)
 
@@ -369,14 +370,24 @@ router.get('/placeOrder', verifyLogin, async (req, res, next) => {
 })
 // place order.....................................................................................................................
 router.post('/placeOrder', verifyLogin, async (req, res, next) => {
- 
-  let user = req.session.user
+ console.log(req.body)
+ let total=0
+ let user = req.session.user
+ total = await userHelper.getTotal(user._id)
+ if(req.session.discount){
+ total=  req.session.discount
+ }
   let method = req.body.method
   let address = await userHelper.findOneAddress(req.body.address)
 
   cartProd = await userHelper.cartProducts(user._id)
-  let total = await userHelper.getTotal(user._id)
-  userHelper.placeOrder(address, method, cartProd, total,).then((orderId) => {
+  console.log(total,"total")
+
+    console.log(total,"0000000000000000000000000000000000")
+    
+  
+  
+  userHelper.placeOrder(address, method, cartProd, total).then((orderId) => {
     req.session.orderId = orderId
     if (req.body.method == 'COD') {
 
@@ -510,10 +521,10 @@ router.get('/cancel', (req, res) => res.send('Cancelled'));
 // end paypal
 
 // myProfile..........................................................................................................
-router.get('/myProfile', verifyLogin, (req, res, next) => {
+router.get('/myProfile', verifyLogin,async (req, res, next) => {
   let user = req.session.user
   let passwordChanged = req.session.changed
-
+user=await userHelper.userDetails(user._id)
   res.render('user/myProfile', { users: true, user, passwordChanged })
 
 })
@@ -617,6 +628,16 @@ router.post('/editAddress', async (req, res, next) => {
 router.post('/addNewInCheckOut', async (req, res, next) => {
   await userHelper.addAddress(req.body).then(() => {
     res.redirect('/placeOrder')
+  })
+})
+router.post('/applyCoupon',async(req,res,next)=>{
+ let total=req.session.total
+
+  let user = req.session.user
+  await userHelper.applyCoupon(user._id,req.body.offer,total).then((response)=>{
+     req.session.discount=response.total
+    res.json(response)
+    
   })
 })
 

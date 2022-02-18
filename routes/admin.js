@@ -9,12 +9,32 @@ var hbs = require("hbs")
 hbs.registerHelper("equal", require('handlebars-helper-equal'))
 
 /* GET users listing. */
+
+const adminLogin = (req, res, next) => {
+  if (req.session.admin) {
+    next()
+  } else {
+
+    res.redirect('/admin')
+  }
+}
+
+
+
+
 router.get('/', function (req, res, next) {
   res.render('admin/login')
 });
-router.get('/home', (req, res, next) => {
-  let admin = req.session.admin
-  res.render('admin/home', { admin: true, admin })
+router.get('/home',adminLogin,async (req, res, next) => {
+//  let admin = req.session.admin
+let number= await adminHelper.number()
+let total=await adminHelper.total()
+let totalProduct=await adminHelper.totalPro()
+let profit=await adminHelper.profit(total)
+let pichart=await adminHelper.piChart()
+console.log(JSON.stringify(pichart))
+
+  res.render('admin/home', { admin: true,number,total,totalProduct,profit,pichart:JSON.stringify(pichart)})
 })
 
 router.get('/login', (req, res, next) => {
@@ -24,7 +44,7 @@ router.post('/login', (req, res, next) => {
   adminHelper.adminLogin().then((data) => {
     let adminData = data
     if (adminData.name == req.body.name && adminData.password == req.body.password) {
-      req.session.admin = data.name
+      req.session.admin = true
       res.redirect('/admin/home')
     }
     else {
@@ -34,13 +54,13 @@ router.post('/login', (req, res, next) => {
   })
 
 })
-router.get('/viewUser', function (req, res, next) {
+router.get('/viewUser',adminLogin, function (req, res, next) {
   userHelper.doUser().then((userdata) => {
     res.render('admin/viewUser', { userdata, admin: true })
   })
 
 });
-router.get('/addProduct', (req, res, next) => {
+router.get('/addProduct',adminLogin, (req, res, next) => {
 
 
   adminHelper.viewCategory().then((category) => {
@@ -50,7 +70,7 @@ router.get('/addProduct', (req, res, next) => {
     })
   })
 })
-router.get('/viewProducts', (req, res, next) => {
+router.get('/viewProducts',adminLogin, (req, res, next) => {
 
   adminHelper.viewProducts().then((products) => {
 
@@ -89,7 +109,7 @@ router.post('/addProducts', (req, res, next) => {
     })
   })
 })
-router.get('/editProduct/', async (req, res, next) => {
+router.get('/editProduct/',adminLogin, async (req, res, next) => {
 
   let product = await adminHelper.editProducts(req.query.id)
   adminHelper.viewCategory().then((category) => {
@@ -204,12 +224,12 @@ router.get('/logout', (req, res, next) => {
   req.session.admin = null
   res.redirect('/admin')
 })
-router.get('/orderManage', async (req, res, next) => {
+router.get('/orderManage',adminLogin, async (req, res, next) => {
   let orderList = await adminHelper.orderMng()
 
   res.render('admin/orderManagement', { orderList, admin: true })
 })
-router.get('/bannerManagement', (req, res, next) => {
+router.get('/bannerManagement',adminLogin, (req, res, next) => {
   res.render('admin/bannerManage', { admin: true })
 })
 // ..............................Adding Banner....................................................................
@@ -253,7 +273,7 @@ router.post('/changeOrderStatus', (req, res, next) => {
   })
 })
 // offer management.................................................................
-router.get('/addOffer',async(req,res,next)=>{
+router.get('/addOffer',adminLogin,async(req,res,next)=>{
   let product=  await adminHelper.viewProducts()
 
  await adminHelper.viewCategory().then((category) => {
@@ -262,7 +282,7 @@ router.get('/addOffer',async(req,res,next)=>{
 })
 })
 //view Offer...........................................
-router.get('/viewOffer',async(req,res,next)=>{
+router.get('/viewOffer',adminLogin, async(req,res,next)=>{
   let reply= req.session.resp
  
   await  adminHelper.viewOffer().then((offer)=>{
@@ -275,7 +295,7 @@ router.post('/addOffer',async(req,res,next)=>{
 
   await adminHelper.addOffer(req.body).then((respo)=>{
     req.session.resp=respo.data
-//    console.log( req.session.resp)
+
    res.redirect('/admin/viewOffer')
   })
 
@@ -283,7 +303,7 @@ router.post('/addOffer',async(req,res,next)=>{
 })
 router.get('/cancelOffer/:category',async(req,res,next)=>{
  
- console.log(req.params.category)
+
  await adminHelper.cancelOffer(req.params.category).then((respo)=>{
   req.session.resp=respo.data
   res.redirect('/admin/viewOffer')
@@ -291,7 +311,7 @@ router.get('/cancelOffer/:category',async(req,res,next)=>{
 })
 // add offer on the basis of product................................................................
 router.post('/addOfferForProduct',async(req,res,next)=>{
-  console.log(req.body)
+ 
   await adminHelper.addOfferProduct(req.body).then((respo)=>{
    
     req.session.resp=respo.data
@@ -307,7 +327,43 @@ router.get('/cancelOfferPro/:product',async(req,res,next)=>{
      res.redirect('/admin/viewOffer')
   })
 })
+// coupon.................................................................................................................
+router.get('/addCoupon',adminLogin,(req,res,next)=>{
+  let coupon= req.session.coupon
+  res.render('admin/AddCoupon',{admin:true,coupon})
+})
+router.post('/addCoupon',async(req,res,next)=>{
+ adminHelper.addCoupon(req.body).then(()=>{
+ let data= adminHelper.viewCoupon()
+ req.session.coupon=data
+   res.redirect('/admin/addCoupon') 
+ })
+})
+// sales report....................
+router.get('/salesReport',(req,res,next)=>{
+  let dateReport= req.session.byDate
+  let monthly=req.session.monthly
+  res.render('admin/salesReport',{admin:true,dateReport,monthly})
+})
+
+router.post("/SalesYearlyReport",(req,res,next)=>{
+
+adminHelper.yearlyReport(req.body).then((data)=>{
+
+  req.session.byDate=data
+  res.redirect('/admin/salesReport')
+})
+})
+
+router.post('/monthly',(req,res,next)=>{
 
 
+  adminHelper.monthly(req.body).then((monthly)=>{
+    
+req.session.monthly=monthly
+res.redirect('/admin/salesReport')
+  })
+})
 
 module.exports = router;
+ 

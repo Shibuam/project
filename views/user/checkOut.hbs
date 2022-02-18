@@ -16,23 +16,42 @@
         </div>
     </div>
 </div>
+       <div class="row mb-2 mr-2 align-items-center">
+             <div class="col-lg-6 col-md-6 col-12"></div>
+            <div class="col-lg-6 col-md-6 col-12">
+                  <div class="checkout-sidebar-coupon" style="background-color: #f3f2ee;">
+                        <p>Appy Coupon to get discount!</p>
+                        <form id="checkcoupon" >
+                            <div class="single-form form-default">
+                                <div class="form-input form">
+                                    <input type="text" name="offer" placeholder="Coupon Code">
+                                </div>
+                                <div class="button">
+                                    <button  type="submit" class="btn">apply</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+            </div>
+           
+            </div>
 
- <p class="bg-white ml-5">Select Address /<span><button  onclick="showMe()" class="btn">Add New Address</button></span>
-                </p>    
+            
 <section class="checkout-wrapper section m-0">
    
     <div class="container">
-       
-               
+   <button  onclick="showMe()" class="btn">Add New Address</button>
                   <form id="checkOutForm">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+
+            <div class="col-lg-6">
+               
               {{#each viewAddress}}
 
-                <div class="border border-dark  mb-2" style="background-color: #f3f2ee;">
-                    <label  for="">name :</label>
+                <div class="border border-dark p-2 mb-2" style="background-color: #f3f2ee;">
+                    <label  for="">Name :</label>
                     <label for="">{{this.name}}</label> <span class="float-right"><input type="radio"
-                            name="address" value="{{this._id}}"> <label for="" > Select
+                            name="address" value="{{this._id}}" checked> <label for="" > Select
                             Address</label></span><br>
 
                     <label  for="">City :</label>
@@ -49,22 +68,10 @@
                 </div>
                 {{/each}}
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="checkout-sidebar">
-                    <div class="checkout-sidebar-coupon" style="background-color: #f3f2ee;">
-                        <p>Appy Coupon to get discount!</p>
-                        <form action="#">
-                            <div class="single-form form-default">
-                                <div class="form-input form">
-                                    <input type="text" placeholder="Coupon Code">
-                                </div>
-                                <div class="button">
-                                    <button class="btn">apply</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="checkout-sidebar-price-table mt-30">
+                 
+                    <div class="checkout-sidebar-price-table"  style="background-color: #f3f2ee;">
                         <h5 class="title">Pricing Table</h5>
                         <div class="sub-total-price">
                             <div class="total-price">
@@ -76,8 +83,14 @@
                         
                         <div class="total-payable">
                             <div class="payable-price">
-                                <p class="value">Subotal Price:</p>
-                                <p class="price">{{total}}</p>
+                                <p class="value">Coupon Offer:</p>
+                                <p class="price text-danger" id="couponOffer"></p>
+                            </div>
+                        </div>
+                          <div class="total-payable">
+                            <div class="payable-price">
+                                <p class="value">Payable Amount:</p>
+                                <p class="price text-danger" id="paybleAmount" ></p>
                             </div>
                         </div>
                             <div class="payment_methods">
@@ -88,7 +101,7 @@
                             <p><input type="radio" name="method" value="payPal">PayPal
                             </p>
                         </div>
-                        <button class="price-table-btn button" type="submit">Continue to
+                        <button class="price-table-btn btn btn-success" type="submit">Continue to
                             payment</button>
                     </div>
                        
@@ -111,11 +124,11 @@
                 <!-- Form Name -->
 
                 <!-- Text input-->
-                <div class="row">
-                    <div class=" col-6">
+                <div class="row p-2"  style="background-color: #f3f2ee;">
+                    <div class=" col-6 ">
                         <input type="text" name='userId' value='{{user._id}}' hidden>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label text-white" for="textinput">Name</label>
+                            <label class="col-sm-2 control-label " for="textinput">Name</label>
                             <div class="col-sm-10">
                                 <p class="error text-danger"> </p>
                                 <input type="text" placeholder="Name" id="name" value="{{address.name}}" name="name"
@@ -125,7 +138,7 @@
 
                         <!-- Text input-->
                         <div class="form-group">
-                            <label class="col-sm-2 control-label text-white" for="textinput">Mobile Number</label>
+                            <label class="col-sm-2 control-label" for="textinput">Mobile Number</label>
                             <div class="col-sm-10">
                                 <p class="error text-danger"> </p>
                                 <input type="text" value="{{address.phone}}" id="phone" placeholder="Mobile Number"
@@ -135,7 +148,7 @@
 
                         <!-- Text input-->
                         <div class="form-group">
-                            <label class="col-sm-2 control-label text-white" for="textinput">City</label>
+                            <label class="col-sm-2 control-label " for="textinput">City</label>
                             <div class="col-sm-10">
                                 <p class="error text-danger"> </p>
                                 <input type="text" placeholder="City" id="city" value="{{address.city}}" name="city"
@@ -145,14 +158,14 @@
 
                         <!-- Text input-->
                         <div class="form-group">
-                            <label class="col-sm-2 control-label text-white" for="textinput">State</label>
+                            <label class="col-sm-2 control-label " for="textinput">State</label>
                             <div class="col-sm-4">
                                 <p class="error text-danger"> </p>
                                 <input type="text" placeholder="State" value="{{address.state}}" id="stateche"
                                     name="state" class="form-control">
                             </div>
 
-                            <label class="col-sm-2 control-label text-white" for="textinput">Postcode</label>
+                            <label class="col-sm-2 control-label " for="textinput">Postcode</label>
                             <div class="col-sm-4">
                                 <p class="error text-danger"> </p>
                                 <input type="text" placeholder="Post Code" id="post" value="{{address.post}}"
@@ -164,11 +177,11 @@
 
                         <!-- Text input-->
                         <div class="form-group "style="background-color: #f3f2ee;">
-                            <label class="col-sm-2 control-label text-white" for="textinput">Address Type</label>
+                            <label class="col-sm-2 control-label " for="textinput">Address Type</label>
                             <input type="radio" name="addressType" class="ml-5" value="Home" checked><label
-                                class="text-white">Home</label>
+                                class="">Home</label>
                             <input type="radio" name="addressType" class="ml-5" value="Office"><label for=""
-                                class="text-white">Office</label>
+                                class="">Office</label>
 
                         </div>
 
@@ -192,7 +205,34 @@
 
 
 
-
+<script>
+    $("#checkcoupon").submit((e)=>{
+        e.preventDefault()
+$.ajax({
+   
+    method:'post',
+    url:'/applyCoupon',
+       data: $('#checkcoupon').serialize(),
+       success:(response)=>{
+            let total=response.total
+               document.getElementById('paybleAmount').innerHTML=total
+          if (response.data=="used")
+           swal("alredy used")
+         else    if (response.data=="no coupon")
+           swal("* Sorry there is no such coupon")
+           else{
+               let offer=response.data
+            
+               document.getElementById('couponOffer').innerHTML=offer
+           
+               console.log(offer)
+               swal(offer)
+           }
+           
+       }
+})    
+    })
+</script>
 
 
 
@@ -268,7 +308,7 @@
 
 
         function verifyPayment(payment, order) {
-            alert('reached at virify payment')
+        
             $.ajax({
                 url: '/verifyPayment',
                 data: {
@@ -326,4 +366,8 @@
         function showMe() {
             document.getElementById('active').style.display = 'block'
         }
-    </script>
+</script>
+
+
+
+    

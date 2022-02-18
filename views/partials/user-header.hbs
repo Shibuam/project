@@ -55,32 +55,34 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-end">
-                            <div class="user">
-                                <i class="lni lni-user"></i>
-                                Hello
-                            </div>
-                            <ul class="user-login">
+                    
                                  
 
-                                    {{#if user}}
-                                    <li class="drodown-show"><a href="#"> {{user.firstname}} <i
-                                                class="fa fa-angle-down"></i></a>
+                                    {{!-- {{#if user}}
+                                    <p class="text-white" >{{user.firstname}}`</p>
                                         {{else}}
-                                    <li class="drodown-show"><a href="#"> Login <i class="fa fa-angle-down"></i></a>
-                                        {{/if}}
-                                        <ul class="open-dropdown setting">
+                                    <p ><a href="/login" class="text-white"> Login </i></a></p>
+                                     
+                                    
+                                        {{/if}} --}}
+                                         <select  class="btn text-white " style="background-color: rgb(8,24,40);" onchange="opt(value)">
                                             {{#if user}}
-                                            <li><a href="/myProfile">My Profile</a></li>
-                                            <li><a href="/order">My Order History</a></li>
-                                            <li><a href="/placeOrder">Checkout</a></li>
-                                             <li><a href="/viewWishList">Wishlist</a></li>
-                                            <li><a class="text-black " href="/logout">SignOut</a></li>
+                                            <option value="">{{user.firstname}}</option>
+                                            <option class=""> <a href="/myProfile">My Profile</a></option>
+                                            <option><a href="/order">My Order History</a></option>
+                                            <option><a href="/placeOrder">Checkout</a></options>
+                                             <option><a href="/viewWishList">Wishlist</a></option>
+                                            <option><a class="text-black " href="/logout">SignOut</a></option>
                                             {{else}}
-                                            <li><a class="text-black " href="/login">Sign in</a></li>
+                                               <option value="">Select</option>
+                                            <option><a class="text-black " href="/login">Sign in</a></option>
                                             {{/if}}
                                     
-                                    </li>
-                                </ul>
+                                    
+                                        </select>
+                                       
+                            </div>
+                                       
                               
                             </ul>
                         </div>
@@ -184,7 +186,30 @@ console.log(value)
 </script>
 
 
-      
+      <script>
+          function  opt(value){
+              console.log(value)
+              if(value=="My Order History")
+                  window.location="/order"
+              
+                 if(value=="Checkout")
+                  window.location="/placeOrder"
+              
+                   if(value=="Wishlist")
+                  window.location="/viewWishList"
+              
+                 if(value=="SignOut")
+                  window.location="/logout"
+              
+                 
+                 if(value=="Sign in")
+                  window.location="/login"
+              
+               if(value=="My Profile")
+                  window.location="/myProfile"
+              
+          }
+      </script>
 
 
 

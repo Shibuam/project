@@ -4,13 +4,13 @@
 <!------ Include the above in your HEAD tag ---------->
  <nav class="navbar  mt-0">
   <div class="container-fluid">
-    <span class="navbar-brand  "><h1 class="text-white">Manage Address</h1></span>
+    <span class="navbar-brand  "><h1 class="">Manage Address</h1></span>
   </div>
 </nav>
 
 
     <div class="row">
-        <div class=" col-6">
+        <div class=" col-6 ">
       <form class="form-horizontal" method="post" action="/addAddress" role="form" id="form">
         <fieldset>
 
@@ -19,7 +19,7 @@
           <!-- Text input-->
           <input type="text"  name='userId' value='{{user._id}}' hidden>
           <div class="form-group">
-            <label class="col-sm-2 control-label text-white" for="textinput">Name</label>
+            <label class="col-sm-2 control-label " for="textinput">Name</label>
             <div class="col-sm-10">
               <p class="error text-danger"> </p>
               <input type="text" placeholder="Name" id="name" value="{{address.name}}" name="name" class="form-control">
@@ -28,7 +28,7 @@
 
           <!-- Text input-->
           <div class="form-group">
-            <label class="col-sm-2 control-label text-white" for="textinput">Mobile Number</label>
+            <label class="col-sm-2 control-label " for="textinput">Mobile Number</label>
             <div class="col-sm-10">
                             <p class="error text-danger"> </p>
               <input type="text" value="{{address.phone}}" id="phone"  placeholder="Mobile Number"name='phone' class="form-control">
@@ -37,7 +37,7 @@
 
           <!-- Text input-->
           <div class="form-group">
-            <label class="col-sm-2 control-label text-white" for="textinput">City</label>
+            <label class="col-sm-2 control-label" for="textinput">City</label>
             <div class="col-sm-10">
                  <p class="error text-danger"> </p>
               <input type="text" placeholder="City" id="city" value="{{address.city}}"  name="city" class="form-control">
@@ -46,13 +46,13 @@
 
           <!-- Text input-->
           <div class="form-group">
-            <label class="col-sm-2 control-label text-white" for="textinput">State</label>
+            <label class="col-sm-2 control-label " for="textinput">State</label>
             <div class="col-sm-4">
                  <p class="error text-danger"> </p>
               <input type="text" placeholder="State" value="{{address.state}}" id="stateche"  name="state" class="form-control">
             </div>
 
-            <label class="col-sm-2 control-label text-white"   for="textinput">Postcode</label>
+            <label class="col-sm-2 control-label "   for="textinput">Postcode</label>
             <div class="col-sm-4">
                  <p class="error text-danger"> </p>
               <input type="text" placeholder="Post Code" id="post" value="{{address.post}}" name="post" class="form-control">
@@ -63,9 +63,9 @@
 
           <!-- Text input-->
           <div class="form-group">
-                <label class="col-sm-2 control-label text-white" for="textinput">Address Type</label>
-        <input type="radio" name="addressType" class="ml-5" value="Home"checked><label  class="text-white" >Home</label>
-         <input type="radio" name="addressType"class="ml-5" value="Office"><label for=""class="text-white">Office</label>
+                <label class="col-sm-2 control-label " for="textinput">Address Type</label>
+        <input type="radio" name="addressType" class="ml-5" value="Home"checked><label  class="" >Home</label>
+         <input type="radio" name="addressType"class="ml-5" value="Office"><label for=""class="">Office</label>
 
             </div>
           
@@ -82,24 +82,24 @@
       </form>
     </div>
 
-    <div class="col-6">
-    <h1 class="text-white mt-0">Manage Addresses</h1>
+    <div class="col-6 ">
+    <h1 class=" mt-0">Manage Addresses</h1>
     <p class="text-danger">{{deleteMessage}}</p>
     {{#each viewAddress}}
  
-        <div class="border border-dark">
-            <label class="text-white" for="">name  :</label>
-            <label  class="text-white" for="">{{this.name}}</label><br>
-            <label  class="text-white" for="">City  :</label>
-            <label   class="text-white"for="">{{this.city}}</label><br>
-             <label  class="text-white" for="">Contact Number  :</label>
-            <label  class="text-white" for="">{{this.phone}}</label><br>
-             <label  class="text-white" for="">State  :</label>
-            <label   class="text-white"for="">{{this.state}}</label><br>
-             <label  class="text-white" for="">Pin Code  :</label>
-            <label   class="text-white"for="">{{this.post}}</label><br>
-             <label   class="text-white"for="">Address Type  :</label>
-            <label  class="text-white" for="">{{this.addressType}}</label><br>
+        <div class="border border-dark p-2">
+            <label class="" for="">name  :</label>
+            <label  class="" for="">{{this.name}}</label><br>
+            <label  class="" for="">City  :</label>
+            <label   class=""for="">{{this.city}}</label><br>
+             <label  class="" for="">Contact Number  :</label>
+            <label  class="" for="">{{this.phone}}</label><br>
+             <label  class="" for="">State  :</label>
+            <label   class=""for="">{{this.state}}</label><br>
+             <label  class="" for="">Pin Code  :</label>
+            <label   class=""for="">{{this.post}}</label><br>
+             <label   class=""for="">Address Type  :</label>
+            <label  class="t" for="">{{this.addressType}}</label><br>
     <a class="btn btn-info" href="/editAddress/{{this._id}}">Edit Address</a>
      <a class="btn btn-danger" href="/deleteAddress/{{this._id}}">Delete Address</a>
 

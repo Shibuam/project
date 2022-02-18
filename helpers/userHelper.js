@@ -26,6 +26,15 @@ module.exports = {
         })
 
     },
+
+userDetails:(id)=>{
+    return new Promise(async(resolve,reject)=>{
+        let user=await db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectId(id)})
+        resolve(user)
+    })
+},
+
+
     doLogin: (userData) => {
         return new Promise(async (resolve, reject) => {
             let loginStatus = false
@@ -60,17 +69,17 @@ module.exports = {
         })
     },
     viewProduct: (category) => {
-        console.log(category);
+        
         
         return new Promise(async(resolve, reject) => {
             if(category=='all'){
           let products=await db.get().collection(collection.PRODUCTS).find({}).toArray()
-          console.log(products);
+       
           resolve(products)
             }
             else{
             let products =await db.get().collection(collection.PRODUCTS).find({category:category}).toArray()
-            console.log(products);
+        
         
             resolve(products)
             }
@@ -163,7 +172,7 @@ module.exports = {
             if (wishlist) {
 
                 let proExist = wishlist.products.findIndex(product => product.item == proId)
-                console.log("position of data", proExist)
+             
                 //checking same product alredy in wish list?................................................................................................
                 if (proExist == -1) {
                     await db.get().collection(collection.WISHLIST_COLLECTION).updateOne({ user: ObjectId(userId) }, { $push: { products: proObj } }).then(() => {
@@ -198,7 +207,7 @@ module.exports = {
       let count=0
          let data=null
           data=await db.get().collection(collection.WISHLIST_COLLECTION).findOne({user:ObjectId(userId)})
-          console.log(data)
+      
          if(data){
 
              count=data.products.length
@@ -435,13 +444,13 @@ await db.get().collection(collection.WISHLIST_COLLECTION).updateOne({user:Object
 
     },
     placeOrder: (address, method, products, total) => {
-        console.log(products)
+
         for (i = 0; i < products.length; i++) {
             products[i].status = method === 'COD' ? 'placed' : 'pending'
             products[i].cancel = false
 
         }
-        console.log("after", products)
+    
         return new Promise((resolve, reject) => {
             //       let status = method === 'COD' ? 'placed' : 'pending'
             let orderObj = {
@@ -612,7 +621,7 @@ await db.get().collection(collection.WISHLIST_COLLECTION).updateOne({user:Object
         return new Promise(async (resolve, reject) => {
 
             let result = await bcrypt.compare(data, user.password)
-            console.log(result);
+            
             resolve(result)
 
 
@@ -677,14 +686,50 @@ await db.get().collection(collection.WISHLIST_COLLECTION).updateOne({user:Object
         })
     },
     findOneAddress: (addressId) => {
-        console.log(addressId, "adddrewrfetgwegerg")
+      
         return new Promise(async (resolve, reject) => {
             await db.get().collection(collection.ADDRESS_COLLECTION).findOne({ _id: ObjectId(addressId) }).then((address) => {
-                console.log(address)
+              
                 resolve(address)
             })
 
         })
+    },
+    applyCoupon:(userId,offername,tot)=>{
+        let total=tot
+    let discount=0
+
+        return new Promise(async(resolve,reject)=>{
+           let exist= await db.get().collection(collection.COUPON_COLLECTION).findOne({title:offername})
+  
+            if(exist!=null){
+             let offerID= exist._id
+         
+                        let user=await db.get().collection(collection.COUPON_COLLECTION).findOne({$and:[{user:ObjectId(userId)},{title:offername}]})
+                        if(user==null){
+
+                          await  db.get().collection(collection.COUPON_COLLECTION).updateOne({_id:ObjectId(offerID)},{$set:{user:ObjectId(userId)}})
+                     let offer=     await db.get().collection(collection.COUPON_COLLECTION).findOne({title:offername},{amount:1,_id:0})
+                
+                     offer=parseInt(offer.amount)
+                
+         discount=offer
+         total=total-discount
+       
+                     resolve({data:discount,total:total})
+                        }
+                        else{
+                   
+                            resolve({data:"used",total:total})
+                        }
+
+
+            }
+            else{
+resolve({data:"no coupon",total:total})
+            }
+        
+        })
     }
 
-}
+}       

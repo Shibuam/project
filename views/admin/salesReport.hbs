@@ -1,0 +1,104 @@
+<nav class="navbar  mt-0">
+    <div class="container-fluid">
+        <div class="row">
+            <span class="navbar-brand mb-1 h1">
+                <h1 class="text-white">Sales Report</h1>
+            </span>
+        </div>
+
+    </div>
+</nav>
+
+<button class="btn text-danger" onclick="datewise()">Datewise Report</button><br>
+<button class="btn text-danger mb-5" onclick="monthly()">Monthly Report</button>
+
+<div class="row" id="dt">
+    <div id="dat" style="display:none;" class="col-md-3">
+<form action="/admin/SalesYearlyReport" method="post">
+<label for="" class="text-white">Select Start Date</label>
+<input type="date" name="startDate" class="form-control">
+<label for="" class="text-white">Select End Date</label>
+<input type="date"class="form-control" name="endDate">
+<input class="btn bg-white m-2"  type="submit">
+</form>
+</div>
+{{#if dateReport}}
+
+ 
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+ 
+
+      <th scope="col">quantity</th>
+           <th scope="col">Unit Price</th>
+            <th scope="col">Sub Total</th>
+    </tr>
+  </thead>
+  <tbody>
+         {{#each dateReport}}
+    <tr class="text-white">
+     
+
+      <td>{{this.name}}</td>
+      <td>{{this.quantity}}</td>
+    <td>{{this.price}}</td>
+      <td>{{this.subtotal}}</td>
+    </tr>
+       {{/each}}
+    </tbody>
+</table>
+{{/if}}
+</div>
+
+{{!-- monthly report --}}
+
+<div class="row" id="mn">
+    <div id="mon" style="display:none;" class="col-md-3">
+    <form action="/admin/monthly" method="post">
+        <label class="text-white" for="">Select Month</label>
+    <input type="month"class="form-control" name="month">
+    <input class="btn btn-white m-2 text-danger" type="submit">
+    </form>
+    </div>
+</div>
+{{#if monthly}}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+ 
+
+      <th scope="col">quantity</th>
+           <th scope="col">Unit Price</th>
+            <th scope="col">Sub Total</th>
+    </tr>
+  </thead>
+  <tbody>
+         {{#each monthly}}
+    <tr class="text-white">
+     
+
+      <td>{{this._id}}</td>
+      <td>{{this.quantity}}</td>
+    <td>{{this.price}}</td>
+      <td>{{this.subTotal}}</td>
+    </tr>
+       {{/each}}
+    </tbody>
+</table>
+
+{{/if}}
+
+<script>
+      function datewise(){
+$("#dat").show();
+ $("#mn").hide();
+  }
+
+        function monthly(){
+$("#mon").show();
+ $("#dt").hide();
+  }
+</script>
