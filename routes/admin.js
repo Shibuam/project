@@ -254,39 +254,59 @@ router.post('/changeOrderStatus', (req, res, next) => {
 })
 // offer management.................................................................
 router.get('/addOffer',async(req,res,next)=>{
+  let product=  await adminHelper.viewProducts()
+
  await adminHelper.viewCategory().then((category) => {
-  res.render('admin/createOffer',{admin:true,category })
+
+  res.render('admin/createOffer',{admin:true,category,product })
 })
 })
 //view Offer...........................................
 router.get('/viewOffer',async(req,res,next)=>{
   let reply= req.session.resp
-  console.log(reply)
+ 
   await  adminHelper.viewOffer().then((offer)=>{
     res.render('admin/viewOffer',{offer,admin:true,reply})
   })
 })
-
+// add offer on category basis..........................................
 
 router.post('/addOffer',async(req,res,next)=>{
-  
- await adminHelper.addOffer(req.body).then((respo)=>{
-   req.session.resp=respo.data
-   console.log( req.session.resp)
-  res.redirect('/admin/viewOffer')
- })
+
+  await adminHelper.addOffer(req.body).then((respo)=>{
+    req.session.resp=respo.data
+//    console.log( req.session.resp)
+   res.redirect('/admin/viewOffer')
+  })
 
  
 })
 router.get('/cancelOffer/:category',async(req,res,next)=>{
  
- await adminHelper.cancelOffer(req.params.category).then(()=>{
+ console.log(req.params.category)
+ await adminHelper.cancelOffer(req.params.category).then((respo)=>{
+  req.session.resp=respo.data
   res.redirect('/admin/viewOffer')
  })
-
- 
 })
+// add offer on the basis of product................................................................
+router.post('/addOfferForProduct',async(req,res,next)=>{
+  console.log(req.body)
+  await adminHelper.addOfferProduct(req.body).then((respo)=>{
+   
+    req.session.resp=respo.data
 
+   res.redirect('/admin/viewOffer')
+})
+})
+router.get('/cancelOfferPro/:product',async(req,res,next)=>{
+
+ await adminHelper.cancelOfferOfPro(req.params.product).then((resp)=>{
+    req.session.resp=respo.data
+
+     res.redirect('/admin/viewOffer')
+  })
+})
 
 
 

@@ -154,7 +154,7 @@ module.exports = {
 
 
                 let exist=await db.get().collection(collection.OFFER_COLLECTION).findOne({category:offer.category})
-            console.log(exist)
+          
                 if(exist==null){
             await db.get().collection(collection.OFFER_COLLECTION).insertOne(offer).then(async (offerId) => {
                 let offerData = await db.get().collection(collection.OFFER_COLLECTION).findOne({ _id: offerId.insertedId })
@@ -229,7 +229,7 @@ resolve({data:'*This category offer already exist'})
 
 
                 let exist=await db.get().collection(collection.OFFER_COLLECTION).findOne({product:offer.product})
-            console.log(exist)
+          
                 if(exist==null){
             await db.get().collection(collection.OFFER_COLLECTION).insertOne(offer).then(async (offerId) => {
                 let offerData = await db.get().collection(collection.OFFER_COLLECTION).findOne({ _id: offerId.insertedId })
@@ -271,132 +271,29 @@ resolve({data:'*This Product offer already exist'})
         }
         })
     },
+    cancelOfferOfPro: (product) => {
+
+        return new Promise(async(resolve, reject) => {
+        let result=       await db.get().collection(collection.OFFER_COLLECTION).deleteOne({product:product})
+      
+               let data= await db.get().collection(collection.PRODUCTS).find({name:product}).toArray()
+
+              await data.map(async(eachField)=>{
+                await db.get().collection(collection.PRODUCTS).updateOne({name:product},
+                    {
+                        $set:{
+                            mrp:eachField.OldPrice,
+                            productOffer:false,
+                            offerPercentage:'',
+                            
+                        }
+                    })
+            
+               })
+               resolve({data:'Offer cancel Successfully'})
+        })
+       
+    },
 }
 
 
-/*
-
-addCategoryOffer: (offer) => {
-
-
-        let category = offer.offerItem
-        console.log("category",category);
-
-
-        return new Promise(async (resolve, reject) => {
-            let offerExist = await db.get().collection(collection.CATEGORY_OFFER).findOne(
-                { offerItem: category }
-            )
-            console.log("offer Exist   :", offerExist);
-            if (offerExist) {
-                resolve({ Exist: true })
-            } else {
-
-
-                db.get().collection(collection.CATEGORY_OFFER).insertOne(offer).then(async (data) => {
-                   let activeOffer=await db.get().collection(collection.CATEGORY_OFFER).findOne({_id:data.insertedId})
-                   console.log("activeOfferactiveOfferactiveOfferactiveOfferactiveOfferactiveOffer",activeOffer);
-                    let Id = activeOffer._id
-                    let discount = activeOffer.discount
-                    let category =activeOffer.offerItem
-                    let validity = activeOffer.validity
-
-
-
-
-
-
-                    let items = await db.get().collection(collection.PRODUCT_COLLECTION).aggregate([{
-                        $match: { $and: [{ category: category }, { offer: false }] }
-                    }]).toArray()
-                   console.log("itemsitemsitemsitemsitemsitemsitems",items);
-
-                    await items.map(async (product) => {
-
-
-                        let productPrice = product.price
-
-
-                        let offerPrice = productPrice - ((productPrice * discount) / 100)
-                        offerPrice = parseInt(offerPrice.toFixed(2))
-                        let proId = product._id + ""
-
-                        await db.get().collection(collection.PRODUCT_COLLECTION).updateOne(
-                            {
-                                _id: ObjectId(proId)
-
-                            },
-                            {
-                                $set: {
-                                    price: offerPrice,
-                                    offer: true,
-                                    OldPrice: productPrice,
-                                    offerPercentage: parseInt(discount)
-                                }
-                            })
-                    })
-
-
-                    let Item2 = await db.get().collection(collection.PRODUCT_COLLECTION).aggregate([{
-                        $match: { $and: [{ category: category }, { ProductOffer: true }] }
-                    }]).toArray()
-
-
-
-                    if (Item2[0]) {
-
-                        await Item2.map(async (product) => {
-
-
-
-                            let ProdName = product.name
-                            console.log('********', ProdName, '^^^^^^^^^^^^^^^^^^^^^^^^');
-                            proOFF = await db.get().collection(collection.PRODUCT_OFFER).aggregate([
-                                {
-                                    $match: { items: { $regex: ProdName, $options: 'i' } }
-                                }]).toArray()
-                            console.log('===============', proOFF[0], '================');
-                            let proOffPercentage = parseInt(proOFF[0].discount)
-
-                            console.log('PERCNETAGE OOOOOOOOOOOOOOOOOO', proOffPercentage, 'LLLLL', 'disount', discount);
-                            console.log(discount);
-                            console.log(proOffPercentage);
-                            Discount = parseInt(discount)
-
-                            let BSToFF = proOffPercentage < discount ? discount : proOffPercentage
-                            let prize = product.OldPrice
-                            let offerrate = prize - ((prize * BSToFF) / 100)
-                            console.log(`thisis bst off${BSToFF}`);
-
-                            console.log(BSToFF);
-                            // let idfPro = product._id + ""
-                            // console.log(idfPro);
-                            db.get().collection(collection.PRODUCT_COLLECTION).updateOne(
-                                {
-                                    _id: ObjectId(product._id)
-
-                                },
-                                {
-                                    $set: {
-                                        price: offerrate,
-                                        offer: true,
-                                        OldPrice: prize,
-                                        offerPercentage: parseInt(BSToFF)
-                                    }
-                                }
-                            )
-
-
-                        })
-
-
-                    } else {
-                    }
-
-                    resolve({ Exist: false })
-                })
-            }
-        })
-    },
-
-*/
