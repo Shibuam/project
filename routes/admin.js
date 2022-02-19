@@ -32,9 +32,21 @@ let total=await adminHelper.total()
 let totalProduct=await adminHelper.totalPro()
 let profit=await adminHelper.profit(total)
 let pichart=await adminHelper.piChart()
-console.log(JSON.stringify(pichart))
+let lineChart=await adminHelper.lineChart()
+lineChart.unshift(  ["Element", "sales", { role: "style" } ])
+for(i=1;i<lineChart.length;i++){
+  if(i==1){
+    lineChart[i].push('cilver' )
+  }
+  else if(i==2)
 
-  res.render('admin/home', { admin: true,number,total,totalProduct,profit,pichart:JSON.stringify(pichart)})
+  lineChart[i].push('gold' )
+  else
+  lineChart[i].push('green' )
+}
+console.log(lineChart)
+
+  res.render('admin/home', { admin: true,number,total,totalProduct,lineChart:JSON.stringify(lineChart),profit,pichart:JSON.stringify(pichart)})
 })
 
 router.get('/login', (req, res, next) => {

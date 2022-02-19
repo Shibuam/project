@@ -513,14 +513,52 @@ module.exports = {
 for(i=0;i<pi.length;i++){
     data[i]=pi[i].count
 }
-console.log(data)
+
             resolve(data)
             
+        })
+    },
+    lineChart:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let  result=await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {
+                    $unwind:'$products'
+                },
+                {
+                    $lookup:{
+                        from:'products',
+                        foreignField:'_id',
+                        localField:'products.item',
+                        as:'product'
+                    }
+                   
+
+                },
+                {
+                    $unwind:"$product"
+                },
+                {
+                    $group:{
+                        _id:'$product.category',
+                        count:{$sum:1}
+                    }
+                },
+                
+                    
+                
+                
+            
+            ]).toArray()
+
+             var opt=[]
+             for(i=0;i<result.length;i++){
+               opt.push([result[i]._id,result[i].count]) 
+            }
+console.log(opt)
+            resolve(opt)
         })
     }
 }
 
 
-// { $match : { score : { $gt : 70, $lte : 90 } } },
-// { $group: { _id: null, count: { $sum: 1 } } }
 

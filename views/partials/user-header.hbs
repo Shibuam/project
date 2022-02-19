@@ -1,12 +1,7 @@
 <header>
-    {{!-- <div class="preloader">
-        <div class="preloader-inner">
-            <div class="preloader-icon">
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </div> --}}
+
+
+
 
 
     <header class="header navbar-area">
@@ -20,6 +15,7 @@
                                 <li>
                                     <div class="select-position">
                                         <select id="select4" onChange="ChangeCategory(value)">
+                                              <option value="all" >Select Category</option>
                                             <option value="all" >All Category</option>
                                             <option value="Men Shoes">Men Shoes</option>
                                             <option value="Ladies Shoes">Women Shoes</option>
@@ -28,19 +24,7 @@
                                         </select>
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="select-position">
-                                        <select id="select5">
-                                            <option value="0" selected>English</option>
-                                            <option value="1">Español</option>
-                                            <option value="2">Filipino</option>
-                                            <option value="3">Français</option>
-                                            <option value="4">العربية</option>
-                                            <option value="5">हिन्दी</option>
-                                            <option value="6">বাংলা</option>
-                                        </select>
-                                    </div>
-                                </li>
+                           
                             </ul>
                         </div>
                     </div>
@@ -97,7 +81,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-3 col-7">
 
-                        <a class="navbar-brand" href="index-2.html">
+                        <a class="navbar-brand" href="/">
                             <img src="/assets/images/logo/logo.svg" alt="Logo">
                         </a>
 
@@ -107,24 +91,15 @@
                         <div class="main-menu-search">
 
                             <div class="navbar-search search-style-5">
-                                <div class="search-select">
-                                    <div class="select-position">
-                                        <select id="select1" o>
-                                            <option selected>All</option>
-                                            <option value="1">option 01</option>
-                                            <option value="2">option 02</option>
-                                            <option value="3">option 03</option>
-                                            <option value="4">option 04</option>
-                                            <option value="5">option 05</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="search-input">
-                                    <input type="text" placeholder="Search">
-                                </div>
-                                <div class="search-btn">
-                                    <button><i class="lni lni-search-alt"></i></button>
-                                </div>
+                         
+                                    
+                                <form action="/searchProduct" method="post" >
+   <div class="input-group">
+  <input name="searchProduct" type="search" class="form-control  rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+  <button  type="submit" class="btn btn-outline-primary">search</button>
+</div>
+                                </form>
+                            
                             </div>
 
                         </div>
@@ -175,6 +150,15 @@
                 </div>
             </div>
         </div>
+
+
+
+
+
+
+
+
+        
 
 <script>
     function ChangeCategory(value){

@@ -209,7 +209,7 @@ img{
 <style>
 		.imgkey{width:60px;height:60px;border:1px solid #ddd;}
 .previewPane{display:inline-block;border:1px solid #ddd;width:250px;height:240px;cursor:crosshair;background-repeat:no-repeat;background-position:center;background-size:100% 100%}
-#zoomer{display:none;background-repeat:no-repeat;border:1px solid #ddd;width:300px;height: 300px;z-index:1000;}
+#zoomer{display:block;background-repeat:no-repeat;border:1px solid #ddd;width:400px;height: 400px;z-index:1000;  left: 10%; top: 5%; background-position:center; background-size:200%;  }
 	</style>
 
 
@@ -458,7 +458,7 @@ $('#zoomer').css('display','inline-block');
 var img = $(this).css('background-image').replace(/^url\(['"](.+)['"]\)/, '$1');
 var posX = ev.offsetX ? (ev.offsetX) : ev.pageX - $(this).offset().left;
 var posY = ev.offsetY ? (ev.offsetY) : ev.pageY - $(this).offset().top;
-$('#zoomer').css('background-position',((posX * 1) + "px " + (posY * 1) + "px"));
+$('#zoomer').css('background-position',((posX * -1) + "px " + (posY * -2) + "px"));
 $('#zoomer').css('background-image','url('+img+')');
 			});
 $('.previewPane').mouseleave(function(){$('#zoomer').css('display','none');});

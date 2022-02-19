@@ -730,6 +730,27 @@ resolve({data:"no coupon",total:total})
             }
         
         })
+    },
+    findProduct:(products)=>{
+        let product=products.searchProduct
+       
+        return new Promise(async(resolve,reject)=>{
+         let result= await  db.get().collection(collection.PRODUCTS).aggregate([
+                {
+                   $match:{
+                     $or:[
+                        {'name':{$regex:product,$options:'i'}},
+                
+                        {'category':{$regex:product,$options:'i'}},
+                        {'brand':{$regex:product,$options:'i'}},
+                        {'SubCategory':{$regex:product,$options:'i'}},
+                        ]
+                   } 
+                }
+            ]).toArray()
+            console.log(result)
+            resolve(result)
+    })
     }
 
 }       

@@ -54,14 +54,17 @@ router.get('/', async (req, res, next) => {
   }
   let banner = await userHelper.viewBanner()
 let category='all'
-let fill=false
-fill=req.session.fill
+
+
    let products=await userHelper.viewProduct(category)
-   if(fill==true){
+   if(req.session.fill){
   products=req.session.product
    }
- console.log("............................................")
- console.log(products);
+   if(req.session.product){
+
+     products=req.session.product
+   }
+
 
     if (req.session.status == true) {
       let status = "*Admin Blocked"
@@ -70,7 +73,7 @@ fill=req.session.fill
     }
 
 
-    res.render('user/home', { users: true, user, wishCount, products, cartCount, banner, });
+    res.render('user/home', { users: true, user, wishCount, products,  cartCount, banner, });
   
 });
 // filter the Product.............................................................................................................................................
@@ -639,6 +642,17 @@ router.post('/applyCoupon',async(req,res,next)=>{
     res.json(response)
     
   })
+})
+// search Product...........................................................................
+router.post('/searchProduct',async(req,res,next)=>{
+
+ let product= await userHelper.findProduct(req.body)
+ req.session.product=product
+ res.redirect('/')
+
+})
+router.get('/err',(req,res,next)=>{
+  res.render('user/fourNotFour')
 })
 
 module.exports = router;
