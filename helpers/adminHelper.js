@@ -296,7 +296,7 @@ module.exports = {
 
     },
     addCoupon: (coupon) => {
-     
+
         coupon.amount = parseInt(coupon.amount)
         return new Promise(async (resolve, reject) => {
             await db.get().collection(collection.COUPON_COLLECTION).insertOne(coupon)
@@ -346,7 +346,7 @@ module.exports = {
                 }
 
             ]).toArray()
-     
+
             resolve(test[0].totalQuatity)
         })
     },
@@ -401,58 +401,58 @@ module.exports = {
                 },
                 {
                     $project: {
-                        name: '$product.name', price: '$product.mrp', quantity: '$quantity',productId:'$product.name',category:"$product.category"
+                        name: '$product.name', price: '$product.mrp', quantity: '$quantity', productId: '$product.name', category: "$product.category"
                     }
 
                 },
-                 {
+                {
 
 
-                           $group: {
-                      _id: '$productId',
-                  //      _id:"$category",
-                       quantity:{$sum:'$quantity'},
-                         totalPrice:{$sum:"$price"},
-                         price:{$first:"$price"}
-                        
-          
+                    $group: {
+                        _id: '$productId',
+                        //      _id:"$category",
+                        quantity: { $sum: '$quantity' },
+                        totalPrice: { $sum: "$price" },
+                        price: { $first: "$price" }
+
+
                     }
 
-             },
-             {
-                 $project:{
-                     name:'$_id',quantity:'$quantity',subtotal:"$totalPrice",price:"$price"
-                 }
-             }
-               
+                },
+                {
+                    $project: {
+                        name: '$_id', quantity: '$quantity', subtotal: "$totalPrice", price: "$price"
+                    }
+                }
+
 
             ]).toArray()
-        
-            resolve(data)
-        })
+
+            resolve(data)  
+        })  
     },
-    monthly:(mon)=>{
-        let  startDate=mon.month+'-01'
-        let  endDate=mon.month+'-31'
-   
-        return new Promise(async(resolve,reject)=>{
-        let result= await   db.get().collection(collection.ORDER_COLLECTION).aggregate([
+    monthly: (mon) => {    
+        let startDate = mon.month + '-01' 
+        let endDate = mon.month + '-31'
+
+        return new Promise(async (resolve, reject) => {
+            let result = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
                 {
-                    $unwind:"$products"
-                    
-                    
+                    $unwind: "$products"
+
+
                 },
                 {
                     $project: {
                         productItem: "$products.item", quantity: "$products.quantity", purchaseDate: "$date", saleStatus: "$products.status"
                     }
 
-             },
-             
+                },
 
-                 {
+
+                {
                     $match: {
-                        saleStatus: {
+                        saleStatus: {           
                             $ne: 'cancel'
                         },
                         purchaseDate: {
@@ -462,99 +462,99 @@ module.exports = {
                             $lte:
                                 new Date(endDate)
 
-                        }
+                        }    
                     }
 
                 },
                 {
-                    $lookup:{
-                        from:"products",
-                        foreignField:'_id',
-                        localField:'productItem',
-                        as:'product'
+                    $lookup: {
+                        from: "products",
+                        foreignField: '_id',
+                        localField: 'productItem',
+                        as: 'product'
                     }
                 },
                 {
-                    $unwind:'$product'
+                    $unwind: '$product'
 
                 },
                 {
-                    $project:{
-                        name:'$product.name',unitPrice:'$product.mrp',quantity:'$quantity',
+                    $project: {
+                        name: '$product.name', unitPrice: '$product.mrp', quantity: '$quantity',
                     }
                 },
                 {
-                    $group:{
-                        _id:'$name',
-                        subTotal:{$sum:'$unitPrice'},
-                        quantity:{$sum:'$quantity'},
-                        price:{$first:'$unitPrice'}
+                    $group: {
+                        _id: '$name',
+                        subTotal: { $sum: '$unitPrice' },
+                        quantity: { $sum: '$quantity' },
+                        price: { $first: '$unitPrice' }
                     }
                 }
 
 
             ]).toArray()
-        
+
             resolve(result)
         })
     },
-    piChart:()=>{
-        return new Promise(async(resolve,reject)=>{
-            let pi=await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+    piChart: () => {
+        return new Promise(async (resolve, reject) => {
+            let pi = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
                 {
-                    
-                        $group: { _id: "$method", count: { $sum: 1 } }
-                      
+
+                    $group: { _id: "$method", count: { $sum: 1 } }
+
                 }
-                
-            
+
+
             ]).toArray()
-            data=[] 
-for(i=0;i<pi.length;i++){
-    data[i]=pi[i].count
-}
+            data = []
+            for (i = 0; i < pi.length; i++) {
+                data[i] = pi[i].count
+            }
 
             resolve(data)
-            
+
         })
     },
-    lineChart:()=>{
-        return new Promise(async(resolve,reject)=>{
-            let  result=await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+    lineChart: () => {
+        return new Promise(async (resolve, reject) => {
+            let result = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
                 {
-                    $unwind:'$products'
+                    $unwind: '$products'
                 },
                 {
-                    $lookup:{
-                        from:'products',
-                        foreignField:'_id',
-                        localField:'products.item',
-                        as:'product'
+                    $lookup: {
+                        from: 'products',
+                        foreignField: '_id',
+                        localField: 'products.item',
+                        as: 'product'
                     }
-                   
+
 
                 },
                 {
-                    $unwind:"$product"
+                    $unwind: "$product"
                 },
                 {
-                    $group:{
-                        _id:'$product.category',
-                        count:{$sum:1}
+                    $group: {
+                        _id: '$product.category',
+                        count: { $sum: 1 }
                     }
                 },
-                
-                    
-                
-                
-            
+
+
+
+
+
             ]).toArray()
 
-             var opt=[]
-             for(i=0;i<result.length;i++){
-               opt.push([result[i]._id,result[i].count]) 
+            var opt = []
+            for (i = 0; i < result.length; i++) {
+                opt.push([result[i]._id, result[i].count])
             }
-console.log(opt)
+            console.log(opt)
             resolve(opt)
         })
     }
