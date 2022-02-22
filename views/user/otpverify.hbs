@@ -7,12 +7,12 @@
   font-family: poppins;
 }
 body {
-  background-color: #508bfc;
+  {{!-- background-color: #508bfc; --}}
 }
 .container {
   width: 500px;
   height: 400px;
-  background-color: #508bfc;
+  background-color: #fff;
   margin: 150px auto;
   border-radius: 11px;
   padding: 40px 50px;
@@ -81,13 +81,13 @@ p.last {
       <div class="top-header">
       
         <h3>Welcome back</h3>
-        <p>Enter OTP </p>
+        <p style="color: #0b0c0c;">Enter OTP </p>
       
 
         
         <div class="font-weight-bold text-center mt-5">
           Time Left :: <div  class="text-danger" id="error"></div>
-          <p id="demo"></p>
+          <p class="text-danger" id="demo"></p>
         </div>
 
 
@@ -103,7 +103,7 @@ p.last {
    <input type="submit"value="Submit"class="btn btn-success btn_verify" id="submit">
    
 
-  <button class="text-danger font-italic btn_resend"  onclick="hideResend()" style="display: none;" id="resend">Resend OTP</button>   
+  <button class="text-danger btn font-italic btn_resend"  onclick="hideResend()" style="display: none;" id="resend">Resend OTP</button>   
 
  </form>
       

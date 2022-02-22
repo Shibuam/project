@@ -11,13 +11,13 @@ const userHelper = require('../helpers/userHelper');
 var router = express.Router();
 var usersHelper = require('../helpers/userHelper');
 const { route } = require('./admin');
-
-
+const dotenv =require ('dotenv')
+dotenv.config()
 // paypal................................................................................
 var paypal = require('paypal-rest-sdk');
 
 paypal.configure({
-  'mode': 'sandbox', //sandbox or live
+  'mode': 'sandbox', //sandbox der live
   'client_id': 'AYB0IuN_ArwxRXU7eE2dP0H8dYa7raoQmSUvk9usER8Yv0Cbm2CCkggOV6hV_0vKcMPV48U65CLptQmg',
   'client_secret': 'ENbTS3lTZ-KOQsX9EzT_ve-2bFxPshEGfIPdBmIktWTZr2fjIRv9Uv6hOIHBxI4aWZKP8sf0PeCZGUZa'
 });
@@ -32,10 +32,10 @@ const verifyLogin = (req, res, next) => {
 }
 
 // Otp verification
-const SERVICE_ID = "VA8cb715309d028270bf78e01cb99b48d4"
-const ACCOUNT_SID = "AC0cf099a40e0127b5f6bc9832b90bdbee"
-const AUTH_TOKEN = "af35724e003c285813622ec44122505b"
-const client = require("twilio")(ACCOUNT_SID, AUTH_TOKEN)
+// const SERVICE_ID = "VA8cb715309d028270bf78e01cb99b48d4"
+// const ACCOUNT_SID = "AC0cf099a40e0127b5f6bc9832b90bdbee"
+// const AUTH_TOKEN = "af35724e003c285813622ec44122505b"
+const client = require("twilio")(process.env.TWILLIO_ACCOUNT_SID, process.env.TWILLIO_AUTH_TOKEN)
 
 /* GET home page. */
 router.get('/', async (req, res, next) => {
@@ -47,9 +47,13 @@ router.get('/', async (req, res, next) => {
   let user = req.session.user
   let cartCount = 0
   let wishCount = 0
+  let total=0;
+
   if (user) {
     wishCount = await userHelper.wishListCount(user._id)
     cartCount = await userHelper.cartCount(user._id)
+
+    total = await userHelper.getTotal(user._id)
 
   }
   let banner = await userHelper.viewBanner()
@@ -73,7 +77,7 @@ let category='all'
     }
 
 
-    res.render('user/home', { users: true, user, wishCount, products,  cartCount, banner, });
+    res.render('user/home', { users: true, user, wishCount, products,total,  cartCount, banner, });
   
 });
 // filter the Product.............................................................................................................................................
@@ -89,9 +93,7 @@ res.redirect('/')
 
 router.get('/login', function (req, res, next) {
   let error = req.session.error
-  // if(req.session.status==true){
-  //   console.log(req.session.status);
-  // }
+ 
   res.render('user/login', { error, users: true });
 });
 router.post('/home', function (req, res, next) {
@@ -138,16 +140,19 @@ router.get('/signup', function (req, res, next) {
 
 
 router.post('/signup', function (req, res, next) {
+ 
   userHelper.doLogin(req.body).then((response) => {
     if (response.status) {
-      req.session.userAlreadyExist = "*Sorry you already have an account"
+     
+      req.session.userAlreadyExist = "*This mail already have an account"
       res.redirect('/signup')
     }
     else {
+    
       req.session.user = req.body
       req.session.userdetails = req.body
       req.session.contact = req.body.phone
-      client.verify.services(SERVICE_ID).verifications.create({
+      client.verify.services(process.env.TWILLIO_SERVICEID).verifications.create({
         to: `+91${req.body.phone}`,
         channel: "sms"
       })
@@ -173,13 +178,25 @@ router.post('/otpVerificationForUserSignUp', (req, res, next) => {
   let user = req.session.user
   const { otp } = req.body;
   var userData = req.session.contact
-  client.verify.services(SERVICE_ID).verificationChecks.create({
+  client.verify.services(process.env.TWILLIO_SERVICEID).verificationChecks.create({
     to: `+91${userData}`,
     code: otp
   }).then((data) => {
     if (data.status == 'approved') {
-      userHelper.doSignUp(user).then(() => {
-        res.redirect('/')
+      req.session.loggedIn = true,
+    
+      userHelper.doSignUp(user).then((data) => {
+        if( req.session.ref_id){
+   
+          userHelper.updatRef( req.session.ref_id,data.insertedId).then(()=>{
+            res.redirect('/') 
+          })
+        }
+        else{
+          res.redirect('/')
+
+        }
+
       })
 
     }
@@ -201,12 +218,15 @@ router.get('/contact', (req, res, next) => {
   }
 })
 router.post('/numberChecking', (req, res, next) => {
+  console.log("checking")
   userHelper.findContact(req.body).then((number) => {
 
     if (number) {
-
+    
+       req.session.user=number
+      req.session.loggedIn=true
       req.session.contact = number.phone
-      client.verify.services(SERVICE_ID).verifications.create({
+      client.verify.services(process.env.TWILLIO_SERVICEID).verifications.create({
         to: `+91${req.body.phone}`,
         channel: "sms"
       })
@@ -224,7 +244,7 @@ router.post('/resentOtp', (req, res, next) => {
   let number = req.session.contact
 
 
-  client.verify.services(SERVICE_ID).verifications.create({
+  client.verify.services(process.env.TWILLIO_SERVICEID).verifications.create({
     to: `+91${number}`,
     channel: "sms"
   })
@@ -234,15 +254,17 @@ router.post('/resentOtp', (req, res, next) => {
 })
 
 
-router.post('/otpVerification', (req, res, next) => {
+router.post('/otpVerification',async (req, res, next) => {
 
   const { otp } = req.body;
   var userData = req.session.contact
-  client.verify.services(SERVICE_ID).verificationChecks.create({
+  client.verify.services(process.env.TWILLIO_SERVICEID).verificationChecks.create({
     to: `+91${userData}`,
     code: otp
   }).then((data) => {
     if (data.status == 'approved') {
+      
+req.session.loggedIn=true
       res.redirect('/')
     }
     else {
@@ -269,7 +291,7 @@ router.get('/product-details/', verifyLogin, async (req, res, next) => {
 
 })
 router.get('/numberVerification', (req, res, next) => {
-  client.verify.services(SERVICE_ID).verifications.create({
+  client.verify.services(process.env.TWILLIO_SERVICEID).verifications.create({
     to: `+91${req.body.phone}`,
     channel: "sms"
   })
@@ -295,7 +317,7 @@ router.get('/viewCart', verifyLogin, async (req, res, next) => {
 // add to Cart......................................................................................................
 
 router.get('/cart/:id', verifyLogin, (req, res, next) => {
-
+  let user = req.session.user
 
   userHelper.addToCart(req.params.id, req.session.user._id).then((data) => {
 
@@ -369,11 +391,12 @@ router.get('/placeOrder', verifyLogin, async (req, res, next) => {
   let viewAddress = await userHelper.viewAddress(user._id)
 
   let products = req.session.products
+  
   res.render('user/checkOut', { users: true, user, total, products, cartCount, viewAddress })
 })
 // place order.....................................................................................................................
 router.post('/placeOrder', verifyLogin, async (req, res, next) => {
- console.log(req.body)
+
  let total=0
  let user = req.session.user
  total = await userHelper.getTotal(user._id)
@@ -386,7 +409,7 @@ router.post('/placeOrder', verifyLogin, async (req, res, next) => {
   cartProd = await userHelper.cartProducts(user._id)
   console.log(total,"total")
 
-    console.log(total,"0000000000000000000000000000000000")
+
     
   
   
@@ -653,6 +676,12 @@ router.post('/searchProduct',async(req,res,next)=>{
 })
 router.get('/err',(req,res,next)=>{
   res.render('user/fourNotFour')
+})
+// refereal
+router.get('/signup/:id',(req,res,next)=>{
+ req.session.ref_id=req.params.id
+ 
+  res.render('user/signup'); 
 })
 
 module.exports = router;

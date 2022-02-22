@@ -32,8 +32,8 @@
                         <div class="top-middle">
                             <ul class="useful-links">
                                 <li><a href="/">Home</a></li>
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
+                                <li><a href="">About Us</a></li>
+                                <li><a href="">Contact Us</a></li>
                             </ul>
                         </div>
                     </div>
@@ -115,27 +115,27 @@
                             </div>
                             <div class="navbar-cart">
                                 <div class="wishlist">
-                                    <a href="javascript:void(0)">
+                                    <a href="/viewWishList">
                                         <i class="lni lni-heart"></i>
                                         <span class="total-items" id="wish-count">{{wishCount}}</span>
                                     </a>
                                 </div>
                                 <div class="cart-items">
-                                    <a href="javascript:void(0)" class="main-btn">
+                                    <a href="/viewCart" class="main-btn">
                                         <i class="lni lni-cart"></i>
                                         <span class="total-items"id="cart-count">{{cartCount}}</span>
                                     </a>
 
                                     <div class="shopping-item">
                                         <div class="dropdown-cart-header">
-                                            <span>2 Items</span>
+                                            <span>{{cartCount}} Items</span>
                                             <a href="/viewCart">View Cart</a>
                                         </div>
                                    
                                         <div class="bottom">
                                             <div class="total">
                                                 <span>Total</span>
-                                                <span class="total-amount">$134.00</span>
+                                                <span class="total-amount">{{total}}</span>
                                             </div>
                                             <div class="button">
                                                 <a href="/placeOrder" class="btn animate">Checkout</a>

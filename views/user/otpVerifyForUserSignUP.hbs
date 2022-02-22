@@ -12,7 +12,7 @@ body {
 .container {
   width: 400px;
   height: 400px;
-  background-color: #508bfc;
+  background-color: #fff;
   margin: 150px auto;
   border-radius: 11px;
   padding: 40px 50px;
@@ -79,22 +79,22 @@ p.last {
 
     <div class="container">
       <div class="top-header">
-        <h3>Welcome back</h3>
-        <p>Enter OTP </p>
+       
+        <p style="color:black;">Enter OTP </p>
       </div>
        <div  class="text-danger" id="error"></div>
       <form action="/otpVerificationForUserSignUp" method="post">
         <div class="user">
-          <i class="bx bxs-user-circle"></i>
+    
           <div  class="text-danger" id="error"></div>  
         <div class="font-weight-bold text-center mt-5">
-          Time Left ::   <p id="demo"></p>
+          Time Left ::   <p id="demo" class="text-danger"></p>
         
         </div>
 
           <input type='text' id="verify" name='otp' placeholder="Enter One Time Password" />
         </div>
-          <button class="text-danger font-italic btn_resend" style="display: none;">Resend OTP</button>
+          <button class="text-danger btn font-italic btn_resend" style="display: none;">Resend OTP</button>
      
       <div class="btn">
       <input type="submit"value="Submit" class="btn btn-success btn_verify">
@@ -211,4 +211,5 @@ $( document ).ready(function() {
 
   
           </script>
+        
         

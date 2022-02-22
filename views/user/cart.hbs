@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="shopping-cart section">
     <div class="container">
         <div class="cart-list-head">
@@ -5,7 +6,9 @@
             <div class="cart-list-title">
                 <div class="row">
                     <div class="col-lg-1 col-md-1 col-12">
+<p>Cancel</p>
                     </div>
+                       <div class="col-lg-1 col-md-1 col-12">Image</div>
                     <div class="col-lg-4 col-md-3 col-12">
                         <p class="text-danger">{{fromWishList}}</p>
                         <p>Product Name</p>
@@ -20,15 +23,17 @@
                     {{!-- <div class="col-lg-2 col-md-2 col-12">
                         <p>Discount</p>
                     </div> --}}
-                    <div class="col-lg-1 col-md-2 col-12">
-                        <p> Cancel</p>
-                    </div>
+                  
                 </div>
             </div>
         </div>
  {{#each products}}
             <div class="cart-single-list">
                 <div class="row align-items-center">
+                         <div class="col-lg-1 col-md-1 col-12">
+                    <button class="btn" onclick="removeProductFromCart('{{this._id}}','{{this.product._id}}')"><i class="fa fa-close" style="font-size:24px;color:red"></i></button>
+
+                         </div>
                     <div class="col-lg-1 col-md-1 col-12">
                         <a href="product-details.html"><img src="/images/proImage/{{this.product._id}}image.jpg" alt="#"></a>
                     </div>
@@ -40,20 +45,20 @@
                         
                         </p>
                     </div>
+                 
                     <div class="col-lg-2 col-md-2 col-12">
-                        <div class="count-input">
+                        
                           <p>{{this.product.mrp}}</p>
-                        </div>
+                    
                     </div>
                     <div class="col-lg-2 col-md-2 col-12">
-                           <button 
-                                                onclick="return changeQuantity('{{this._id}}','{{this.product._id}}',-1)">-</button>
+                           <button  class="btn"
+                                                onclick="return changeQuantity('{{this._id}}','{{this.product._id}}',-1)"><i class="fa fa-arrow-circle-down" style="font-size:24px"></i></button>
                                             <span id="{{this.product._id}}">{{this.quantity}}</span>
-                                            <button
-                                                onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)">+</button>
+                                            <button class="btn"
+                                                onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)"><i class="fa fa-arrow-circle-up" style="font-size:24px"></i></button>
                     </div>
                  
-                    <button class="remove-item" onclick="removeProductFromCart('{{this._id}}','{{this.product._id}}')"><i class="lni lni-close"></i></button>
 
                     </div>
                 </div>
@@ -69,7 +74,7 @@
                 <div class="total-amount">
                     <div class="row">
                         <div class="col-lg-8 col-md-6 col-12">
-                            <div class="left">
+                            {{!-- <div class="left">
                                 <div class="coupon">
                                     <form action="#" target="_blank">
                                         <input name="Coupon" placeholder="Enter Your Coupon">
@@ -78,7 +83,7 @@
                                         </div>
                                     </form>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="col-lg-4 col-md-6 col-12">
                             <div class="right">

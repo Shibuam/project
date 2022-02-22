@@ -1,385 +1,135 @@
 <div class="account-login section">
-<div class="container">
-<div class="row">
-<div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
-<div class="register-form">
-<div class="title">
-<h3>No Account? Register</h3>
-<p>Registration takes less than a minute but gives you full control over your orders.</p>
-</div>
-<form class="row" method="post" id="signup" action="/signup">
-<div class="col-sm-6">
-<div class="form-group">
-<label for="reg-fn">First Name</label>
-<p  class="text-danger error"></p>
-<input class="form-control" type="text" id="firstname" name="firstname">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="reg-ln">Last Name</label>
-<p  class="text-danger error"></p>
-<input class="form-control" type="text" id="lastname" name="lastname" >
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="reg-email">E-mail Address</label>
-<p  class="text-danger error"></p>
-<input class="form-control" type="email" name="email" id="email" >
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="reg-phone">Phone Number</label>
-<p  class="text-danger error"></p>
-<input class="form-control" type="text"  name="phone" id="phone">
-</div>
-</div>
-<div class="col-sm-6"> 
-         
-
-<label for="gender">Gender</label><br>
-  <input  type="radio" name="gender" value="male" id=""checked>
-  <label class="form-check-label" for="flexRadioDefault1"> Male </label>
-
-
-  <input  type="radio" name="gender" value="Female" id="" >
-  <label class="form-check-label" for="flexRadioDefault2">
-    Female
-  </label>
-
-
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="reg-pass">Password</label>
-<p  class="text-danger error"></p>
-<input class="form-control" type="password"  name="password" id="password" >
-</div>
-</div>
-
-<div class="button">
-<button class="btn" type="submit" type="submit">Register</button>
-</div>
-<p class="outer-link">Already have an account? <a href="login">Login Now</a>
-</p>
-</form>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-
-
-
-           
-           {{!-- <div class="text-danger">{{alreadyExist}}</div>                      
-      <form class="signup__form" id="signup" action="/signup" method="post">
-       <p class="coupon-input form-row-first"> 
-            <div class="text-danger error"></div>  
-      <input class="form-control-lg" type="text" id="firstname" name="firstname" placeholder="First name"></p>
-
-       <p class="coupon-input form-row-first">  
-<div class="text-danger error"></div>  
-      <input class="form-control-lg" type="text" id="lastname" name="lastname"  placeholder="Last name"></p>
-     
-       <p class="coupon-input form-row-first">  
-<div class="text-danger error"></div>  
-      <input class="form-control-lg" type="text" name="email" id="email" placeholder="your@email.com"></p>
-     
-       <p class="coupon-input form-row-first">  
-<div class="text-danger error"></div>  
-      <input class="form-control-lg" type="text" name="phone" id="phone" placeholder="Contact Number"></p>
-
-     
-<div >
-
-  <input  type="radio" name="gender" value="male" id=""checked>
-  <label class="form-check-label" for="flexRadioDefault1"> Male </label>
-
-
-  <input  type="radio" name="gender" value="Female" id="" >
-  <label class="form-check-label" for="flexRadioDefault2">
-    Female
-  </label>
-
-   </div>       
-          
-           <div class="text-danger error"></div>   
-      <input class="form-control-lg" type="password" name="password" id="password" placeholder="password"></p>
-       <div class="signup__message">
-
-        <span class="">Do you have an account? <a class="text-danger" href="./login">click here</a></span>
-      </div>
-      <button class="button-login" type="submit" value="Submit">Create account</button>
-    </form>    
-                                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
+                <div class="register-form">
+                    <div class="title">
+                        <p class="text-danger">{{alreadyExist}}</p>
+                        <h3>No Account? Register</h3>
+                        <p>Registration takes less than a minute but gives you full control over your orders.</p>
+                    </div>
+                    <form class="row" method="post" id="signup" action="/signup">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="reg-fn">First Name</label>
+                                <p class="text-danger error"></p>
+                                <input class="form-control" type="text" id="firstname" name="firstname">
                             </div>
                         </div>
-                    </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="reg-ln">Last Name</label>
+                                <p class="text-danger error"></p>
+                                <input class="form-control" type="text" id="lastname" name="lastname">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="reg-email">E-mail Address</label>
+                                <p class="text-danger error"></p>
+                                <input class="form-control" type="email" name="email" id="email">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="reg-phone">Phone Number</label>
+                                <p class="text-danger error"></p>
+                                <input class="form-control" type="text" name="phone" id="phone">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+
+
+                            <label for="gender">Gender</label><br>
+                            <input type="radio" name="gender" value="male" id="" checked>
+                            <label class="form-check-label" for="flexRadioDefault1"> Male </label>
+
+
+                            <input type="radio" name="gender" value="Female" id="">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Female
+                            </label>
+
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="reg-pass">Password</label>
+                                <p class="text-danger error"></p>
+                                <input class="form-control" type="password" name="password" id="password">
+                            </div>
+                        </div>
+
+                        <div class="button">
+                            <button class="btn" type="submit" type="submit">Register</button>
+                        </div>
+                        <p class="outer-link">Already have an account? <a href="login">Login Now</a>
+                        </p>
+                    </form>
                 </div>
             </div>
-            </center> --}}
-            <!-- content-wraper end -->
-            
-            <!-- footer-area start -->
-            {{!-- <footer class="footer-area mt-65">
-                <div class="footer-top">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-12">
-                                <div class="about-us-footer">
-                                    <div class="footer-logo">
-                                        <a href="#"><img src="img/logo/logo_footer.png" alt=""></a>
-                                    </div>
-                                    <div class="footer-info">
-                                        <p class="phone">+ (012) 800 456 789</p>
-                                        <p class="desc_footer">We are a team of designers and developers that create high quality Magento, Prestashop, Opencart.</p>
-                                        <div class="social_follow">
-                                            <ul class="social-follow-list">
-                                                <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                                <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                                <li class="youtube"><a href="#"><i class="fa fa-youtube"></i></a></li>
-                                                <li class="google"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                                <li class="instagram"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                            </ul>
-                                      </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-8 col-md-12">
-                                <div class="footer-info-inner">
-                                    <div class="row">
-                                        <div class="col-lg-2 col-md-6 col-sm-6">
-                                            <div class="footer-title">
-                                                <h3>Products</h3>
-                                            </div>
-                                            <ul>
-                                                <li><a href="#">Prices drop </a></li>
-                                                <li><a href="#">New products </a></li>
-                                                <li><a href="#">Best sales </a></li>
-                                                <li><a href="#">Stores</a></li>
-                                                <li><a href="#">Login</a></li>
-                                                <li><a href="#">My account</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-lg-2 col-md-6 col-sm-6">
-                                            <div class="footer-title">
-                                                <h3>Our company</h3>
-                                            </div>
-                                            <ul>
-                                                <li><a href="#">Delivery</a></li>
-                                                <li><a href="#">Legal Notice</a></li>
-                                                <li><a href="#">About us</a></li>
-                                                <li><a href="#">Contact us </a></li>
-                                                <li><a href="#">Sitemap</a></li>
-                                                <li><a href="#">Stores</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-lg-2 col-md-6 col-sm-6">
-                                            <div class="footer-title">
-                                                <h3>Your account </h3>
-                                            </div>
-                                            <ul>
-                                                <li><a href="#">Addresses</a></li>
-                                                <li><a href="#">Credit slips</a></li>
-                                                <li><a href="#">Orders</a></li>
-                                                <li><a href="#">Personal info</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-lg-5 offset-xl-1 col-md-6 col-sm-6">
-                                            <div class="footer-title">
-                                                <h3>Get in touch</h3>
-                                            </div>
-                                            <div class="block-contact-text">
-                                                <p> Juta - Responsive Prestashop Theme<br>123 Main Street, Anytown, CA 12345 - USA.<br>United States</p>
-                                                <p>Call us: <span>(012) 800 456 789-987 </span></p>
-                                                <p>Email us: <span>demo@posthemes.com</span></p>
-                                            </div>
-                                            <div class="time">
-                                                <h3 class="time-title">Opening time</h3>
-                                                <div class="time-text">
-                                                    <p>
-                                                        Open: <span>8:00 AM</span> - Close: <span>18:00 PM</span>
-                                                        Saturday - Sunday: Close
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6">
-                                <div class="copyright">Copyright &copy; <a href="#">Juta</a>. All Rights Reserved</div>
-                            </div>	
-                            <div class="col-lg-6 col-md-6">
-                                 <div class="payment"><img alt="" src="img/icon/payment.png"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer> --}}
-            <!-- footer-area start -->
-            
-            <!-- Modal start-->
-            {{!-- <div class="modal fade modal-wrapper" id="exampleModalCenter" >
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <div class="modal-inner-area row">
-                                <div class="col-lg-5 col-md-5 col-sm-12">
-                                    <div class="single-product-tab">
-                                        <div class="zoomWrapper">
-                                            <div id="img-1" class="zoomWrapper single-zoom">
-                                                <a href="#">
-                                                    <img id="zoom1" src="img/product/1.jpg" data-zoom-image="img/product/1.jpg" alt="big-1">
-                                                </a>
-                                            </div>
-                                            <div class="single-zoom-thumb">
-                                                <ul class="s-tab-zoom single-product-active owl-carousel" id="gallery_01">
-                                                    <li>
-                                                        <a href="#" class="elevatezoom-gallery active" data-update="" data-image="img/product/1.jpg" data-zoom-image="img/product/1.jpg"><img src="img/product/1.jpg" alt="zo-th-1"/></a>
-                                                    </li>
-                                                    <li class="">
-                                                        <a href="#" class="elevatezoom-gallery" data-image="img/product/2.jpg" data-zoom-image="img/product/2.jpg"><img src="img/product/2.jpg" alt="zo-th-2"></a>
-                                                    </li>
-                                                    <li class="">
-                                                        <a href="#" class="elevatezoom-gallery" data-image="img/product/3.jpg" data-zoom-image="img/product/3.jpg"><img src="img/product/3.jpg" alt="ex-big-3" /></a>
-                                                    </li>
-                                                    <li class="">
-                                                        <a href="#" class="elevatezoom-gallery" data-image="img/product/4.jpg" data-zoom-image="img/product/4.jpg"><img src="img/product/4.jpg" alt="zo-th-4"></a>
-                                                    </li>
-                                                    <li class="">
-                                                        <a href="#" class="elevatezoom-gallery" data-image="img/product/5.jpg" data-zoom-image="img/product/5.jpg"><img src="img/product/5.jpg" alt="zo-th-5"></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div> 
-                                </div>
-                                <div class="col-lg-7 col-md-7 col-sm-12">
-                                    <!-- product-thumbnail-content start -->
-                                    {{!-- <div class="quick-view-content">
-                                        <div class="product-info">
-                                            <h2>Brand Name FREE RN 2018</h2>
-                                            <div class="rating-box">
-                                                <ul class="rating">
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                </ul>
-                                            </div>
-                                            <div class="price-box">
-                                               <span class="new-price">$225.00</span>
-                                               <span class="old-price">$250.00</span>
-                                            </div>
-                                            <p>100% cotton double printed dress. Black and white striped top and orange high waisted skater skirt bottom.</p>
-                                            <div class="modal-size">
-                                                <h4>Size</h4>
-                                                <select>
-                                                    <option title="S" value="1">S</option>
-                                                    <option title="M" value="2">M</option>
-                                                    <option title="L" value="3">L</option>
-                                                </select>
-                                            </div>
-                                            <div class="modal-color">
-                                                <h4>Color</h4>
-                                                <div class="color-list">
-                                                    <ul>
-                                                        <li><a href="#" class="orange active"></a></li>
-                                                        <li><a href="#" class="paste"></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="quick-add-to-cart">
-                                                <form class="modal-cart">
-                                                    <div class="quantity">
-                                                        <label>Quantity</label>
-                                                        <div class="cart-plus-minus">
-                                                            <input class="cart-plus-minus-box" type="text" value="0">
-                                                        </div>
-                                                    </div>
-                                                    <button class="add-to-cart" type="submit">Add to cart</button>
-                                                </form>
-                                            </div>
-                                            <div class="instock">
-                                                <p>In stock </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- product-thumbnail-content end -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>    --}}
-            <!-- Modal end-->
-        </div>     --}}
-           
-        
-		{{!-- validation --}}
-        <script>
-  const firstname=document.getElementById("firstname")
-  const lastname=document.getElementById("lastname")
-   const password=document.getElementById("password")
-     const phone=document.getElementById("phone")
-        const email=document.getElementById("email")
+        </div>
+    </div>
+</div>
 
- 
-      const signup=document.getElementById("signup")
-      const errorElement=document.getElementsByClassName('error')
 
-      signup.addEventListener('submit',(e)=>{
-           
-                      let messages=[]
-         if(firstname.value==''||firstname.value==null){
-              messages.push('firstname is required')
-              errorElement[0].innerText="first Name required"
+
+
+
+
+
+{{!-- validation --}}
+<script>
+    const firstname = document.getElementById("firstname")
+    const lastname = document.getElementById("lastname")
+    const password = document.getElementById("password")
+    const phone = document.getElementById("phone")
+    const email = document.getElementById("email")
+
+
+    const signup = document.getElementById("signup")
+    const errorElement = document.getElementsByClassName('error')
+
+    signup.addEventListener('submit', (e) => {
+
+        if (firstname.value == '' || firstname.value == null) {
+       
+            errorElement[0].innerText = "first Name required"
+            e.preventDefault()
+
+        }
+        if (lastname.value == '' || lasttname.value == null) {
+    
+            errorElement[1].innerText = "last Name required"
+            e.preventDefault()
+
+        }
+        if (email.value == '' || email.value == null) {
          
-      }
-      if(lastname.value==''||lasttname.value==null){
-              messages.push('lastname is required')
-               errorElement[1].innerText="last Name required"
+            errorElement[2].innerText = "email required"
+            e.preventDefault()
 
-                 }
-                   if(email.value==''||email.value==null){
-              messages.push('lastname is required')
-               errorElement[2].innerText="email required"
+        }
+        if (password.value.length < 3 || password.value == null) {
+     
+            errorElement[4].innerText = "password required minimum 3 charactors"
+            e.preventDefault()
 
-                 }
-      if(password.value.length<3||password.value==null){
-              messages.push('password required minimum 3 charactors')
-              errorElement[4].innerText="password required minimum 3 charactors"
+        }
+        if (phone.value.length != 10 || phone.value == null) {
         
-      }
-      if(phone.value.length!=10||phone.value==null){
-              messages.push('phone number must be ten digits')
-               errorElement[3].innerText="phone number must be ten digits"
-           
-      }
-      
-      
-          if(messages.length>0){
-                 e.preventDefault()
-                 errorElement.innerText=messages.join(',')
-                 console.log(messages.length)
-          }
-         
-      })
+            errorElement[3].innerText = "phone number must be ten digits"
+            e.preventDefault()
 
-  
-          </script>
+        }
+
+
+        if (errorElement.length > 0) {
+            e.preventDefault()
+       
+        }
+
+    })
+
+
+</script>

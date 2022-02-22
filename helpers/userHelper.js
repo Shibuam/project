@@ -87,10 +87,11 @@ userDetails:(id)=>{
 
     },
     findContact: (phoneNumber) => {
-        return new Promise((resolve, reject) => {
-            let contact = db.get().collection(collection.USER_COLLECTION).findOne({ phone: phoneNumber.phone })
-            if (contact) {
-                resolve(contact)
+        return new Promise(async(resolve, reject) => {
+            let user =await db.get().collection(collection.USER_COLLECTION).findOne({ phone: phoneNumber.phone })
+            if (user) {
+              
+                resolve(user)
             }
         })
 
@@ -429,11 +430,16 @@ await db.get().collection(collection.WISHLIST_COLLECTION).updateOne({user:Object
                 },
             ]).toArray()
 
+            console.log(total.length)
+            if(total.length>0){
+                resolve(total[0].total)
+
+            }
+            else{
+                resolve(0)
+            }
 
 
-
-
-            resolve(total[0].total)
         })
     },
     cartProducts: (userId) => {
@@ -751,6 +757,18 @@ resolve({data:"no coupon",total:total})
             console.log(result)
             resolve(result)
     })
-    }
+    },
+    updatRef:(ref_id,userId)=>{
+    
+      
+        return new Promise(async(resolve,reject)=>{
+       await     db.get().collection(collection.USER_COLLECTION).updateOne({_id:ObjectId( ref_id)}, {$inc:{"ref_balace":100}} )
+       await  db.get().collection(collection.USER_COLLECTION).updateOne({_id:ObjectId( userId)},{$inc:{"ref_balace":100} } )
 
+resolve()
+    })
+
+    },
+
+    
 }       

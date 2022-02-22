@@ -75,6 +75,7 @@
                         <h5 class="title">Pricing Table</h5>
                         <div class="sub-total-price">
                             <div class="total-price">
+
                                 <p class="value">Total Price:</p>
                                 <p class="price">{{total}}</p>
                             </div>
@@ -85,6 +86,12 @@
                             <div class="payable-price">
                                 <p class="value">Coupon Offer:</p>
                                 <p class="price text-danger" id="couponOffer"></p>
+                            </div>
+                      
+                              <div class="total-payable">
+                            <div class="payable-price">
+                                <p class="value">Referel Amount</p>
+                                <p class="price text-danger" id="">{{refAmount}}</p>
                             </div>
                         </div>
                           <div class="total-payable">
@@ -101,8 +108,12 @@
                             <p><input type="radio" name="method" value="payPal">PayPal
                             </p>
                         </div>
+                        {{#if viewAddress}}
                         <button class="price-table-btn btn btn-success" type="submit">Continue to
                             payment</button>
+                            {{else}}
+                             <button  onclick="showMe()" class="btn">Add  Address</button>
+                            {{/if}}
                     </div>
                        
                     </div>
@@ -121,7 +132,7 @@
         <form class="form-horizontal" method="post" action="/addNewInCheckOut" role="form" id="form">
             <fieldset>
 
-                <!-- Form Name -->
+                <!-- Form Name --> 
 
                 <!-- Text input-->
                 <div class="row p-2"  style="background-color: #f3f2ee;">
