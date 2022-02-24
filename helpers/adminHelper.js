@@ -465,7 +465,7 @@ module.exports = {
                         }    
                     }
 
-                },
+                },      
                 {
                     $lookup: {
                         from: "products",
