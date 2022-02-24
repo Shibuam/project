@@ -8,6 +8,8 @@ const fileUpload = require('express-fileupload');
 var { create } = require('express-handlebars');
 const { handlebars } = require('hbs');
 var session = require('express-session')
+const dotenv =require ('dotenv')
+dotenv.config()
 
 
 db.connection((err) => {
