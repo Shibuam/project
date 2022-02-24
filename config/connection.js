@@ -5,7 +5,7 @@ const state={
     db:null
 }
 module.exports.connection=function(done){
-    const url='mongodb://127.0.0.1:27017'
+   const url='mongodb+srv://shibu:123@cluster0.jxuep.mongodb.net/eCommerce?retryWrites=true&w=majority'
     const dbname='eCommerce'
 MongoClient.connect(url,{useNewUrlParser:true},(err,data)=>{
   if(err)return done (err)
