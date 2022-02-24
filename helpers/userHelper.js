@@ -536,7 +536,8 @@ await db.get().collection(collection.WISHLIST_COLLECTION).updateOne({user:Object
     },
     viewBanner: () => {
         return new Promise(async (resolve, reject) => {
-            let banner = await db.get().collection(collection.BANNER_COLLECTION).find().toArray()
+            let banner = await db.get().collection(collection.BANNER_COLLECTION).findOne()
+     
             resolve(banner)
         })
     },

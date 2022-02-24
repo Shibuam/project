@@ -29,7 +29,7 @@ const verifyLogin = (req, res, next) => {
 
     res.redirect('/login')
   }
-}
+} 
 
 // Otp verification
 // const SERVICE_ID = "VA8cb715309d028270bf78e01cb99b48d4"
@@ -56,14 +56,15 @@ router.get('/', async (req, res, next) => {
     total = await userHelper.getTotal(user._id)
 
   }
-  let banner = await userHelper.viewBanner()
+  let banner = await userHelper.viewBanner() 
+  console.log(banner,"000000000000000000000") 
 let category='all'
 
 
    let products=await userHelper.viewProduct(category)
    if(req.session.fill){
   products=req.session.product
-   }
+   } 
    if(req.session.product){
 
      products=req.session.product
