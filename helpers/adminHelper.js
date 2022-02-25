@@ -554,7 +554,7 @@ module.exports = {
             for (i = 0; i < result.length; i++) {
                 opt.push([result[i]._id, result[i].count])
             }
-            console.log(opt)
+         
             resolve(opt)
         })
     }

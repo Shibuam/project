@@ -57,7 +57,7 @@ router.get('/', async (req, res, next) => {
 
   }
   let banner = await userHelper.viewBanner() 
-  console.log(banner,"000000000000000000000") 
+ 
 let category='all'
 
 
@@ -219,7 +219,7 @@ router.get('/contact', (req, res, next) => {
   }
 })
 router.post('/numberChecking', (req, res, next) => {
-  console.log("checking")
+
   userHelper.findContact(req.body).then((number) => {
 
     if (number) {
@@ -280,9 +280,16 @@ router.get('/logout', (req, res, next) => {
   res.redirect('/')
 })
 
-router.get('/product-details/', verifyLogin, async (req, res, next) => {
-  let user = req.session.user
-  cartCount = await userHelper.cartCount(user._id)
+router.get('/product-details/', async (req, res, next) => {
+let  user=null
+let cartCount=0
+if(req.session.user){
+
+  user = req.session.user
+  user_id=user._id
+
+  cartCount = await userHelper.cartCount(user_id)
+}
 
   let productDetails = await adminHelper.viewProductsDetails(req.query.id)
 
@@ -296,7 +303,7 @@ router.get('/numberVerification', (req, res, next) => {
     to: `+91${req.body.phone}`,
     channel: "sms"
   })
-  res.render('user/otpverify')
+  res.render('user/otpverify') 
 })
 
 router.get('/viewCart', verifyLogin, async (req, res, next) => {
@@ -304,7 +311,7 @@ router.get('/viewCart', verifyLogin, async (req, res, next) => {
   let products = await userHelper.viewToCart(req.session.user._id)
   req.session.products = products
   let user = req.session.user
-  let addres = await userHelper.viewAddress(user._id)
+  let addres = await userHelper.viewAddress(user._id) 
   let total = 0
   if (products.length > 0) {
     total = await userHelper.getTotal(user._id)
@@ -408,7 +415,7 @@ router.post('/placeOrder', verifyLogin, async (req, res, next) => {
   let address = await userHelper.findOneAddress(req.body.address)
 
   cartProd = await userHelper.cartProducts(user._id)
-  console.log(total,"total")
+
 
 
     

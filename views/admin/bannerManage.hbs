@@ -61,24 +61,24 @@
                 enctype="multipart/form-data" onsubmit="return validation()">
 
           <div class="row m-auto">
-              <div class="m-2"><label for=""class="text-white">Title Of the first Banner</label>
+              {{!-- <div class="m-2"><label for=""class="text-white">Title Of the first Banner</label>
               <input type="text" name="banner1">
                 <label for=""class="text-white">Text</label>
              <textarea name="text1"></textarea>
 
-              </div>
-               <div class="m-2"><label for=""class="text-white">Title Of the second Banner</label>
+              </div> --}}
+               {{!-- <div class="m-2"><label for=""class="text-white">Title Of the second Banner</label>
               <input type="text" name="banner2">
                 <label for=""class="text-white">Text</label>
              <textarea name="text2"></textarea>
 
-              </div>
-                 <div class="m-2"><label for=""class="text-white">Title Of the third Banner</label>
+              </div> --}}
+                 {{!-- <div class="m-2"><label for=""class="text-white">Title Of the third Banner</label>
               <input type="text" name="banner3">
                 <label for=""class="text-white">Text</label>
              <textarea name="text3"></textarea>
 
-              </div>
+              </div> --}}
                     <div class="row">
                   <div id="image-box1" style="width: 300px; height: 300px; display: none;">
                   </div>
@@ -87,28 +87,28 @@
                       id="crop-btn1">Done</button>
                   </div>
                   <div class="mt-5 col-md-6">
-                    <label for=""class="text-white">IMAGE 1</label>
+                   
                     <img src="" alt="" style="width: 100px; height:auto" id="imgview1">
-                    <input type="file" name="image1" id="file1" class="form-control"
+                    <input type="file" class="m-2"  name="image1" id="file1" 
                       onchange="return fileValidation1()">
-                      <p id="img1" class="text text-danger"></p>
+                       <label for=""class="text-white">IMAGE 1</label>
+                      <p id="img1" class="text text-danger"></p><br>
      
-                  </div>
-                  <div class="mt-5 col-md-6">
-                    <label for=""class="text-white">IMAGE 2</label>
+                 
+                   
                     <img src="" alt="" style="width: 100px; height:auto" id="imgview2">
-                    <input type="file" name="image2" id="file2" class="form-control"
-                      onchange="return fileValidation2()">
-                      <p id="img2" class="text text-danger"></p>
+                    <input type="file" name="image2" id="file2"  class="m-2"
+                      onchange="return fileValidation2()"> <label for=""class="text-white">IMAGE 2</label>
+                      <p id="img2" class="text text-danger"></p><br>
                 
-                  </div>
-                  <div class="mt-5 col-md-6">
-                    <label for=""class="text-white">IMAGE 3</label>
+                 
+               
+                   
                     <img src="" alt="" style="width: 100px; height:auto" id="imgview3">
-                    <input type="file" name="image3" id="file3" class="form-control"
+                    <input type="file" name="image3" id="file3"  class="m-2"
                       onchange="return fileValidation3()">
-                      <p id="img3" class="text text-danger"></p>
-                  </div>
+                      <p id="img3" class="text text-danger "></p> <label for=""class="text-white">IMAGE 3</label><br>
+                 
                     </div>
 
     <div class="col-12">

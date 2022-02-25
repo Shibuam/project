@@ -430,7 +430,7 @@ await db.get().collection(collection.WISHLIST_COLLECTION).updateOne({user:Object
                 },
             ]).toArray()
 
-            console.log(total.length)
+        
             if(total.length>0){
                 resolve(total[0].total)
 
@@ -755,7 +755,7 @@ resolve({data:"no coupon",total:total})
                    } 
                 }
             ]).toArray()
-            console.log(result)
+     
             resolve(result)
     })
     },
