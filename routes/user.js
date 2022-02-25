@@ -15,6 +15,7 @@ const dotenv =require ('dotenv')
 dotenv.config()
 // paypal................................................................................
 var paypal = require('paypal-rest-sdk');
+const { cartCount } = require('../helpers/userHelper');
 
 paypal.configure({
   'mode': 'sandbox', //sandbox der live
@@ -283,6 +284,7 @@ router.get('/logout', (req, res, next) => {
 router.get('/product-details/', async (req, res, next) => {
 let  user=null
 let cartCount=0
+
 if(req.session.user){
 
   user = req.session.user
@@ -309,6 +311,7 @@ router.get('/numberVerification', (req, res, next) => {
 router.get('/viewCart', verifyLogin, async (req, res, next) => {
   let fromWishList=req.params.addToWishList
   let products = await userHelper.viewToCart(req.session.user._id)
+
   req.session.products = products
   let user = req.session.user
   let addres = await userHelper.viewAddress(user._id) 
@@ -316,8 +319,12 @@ router.get('/viewCart', verifyLogin, async (req, res, next) => {
   if (products.length > 0) {
     total = await userHelper.getTotal(user._id)
   }
+  else{
+    res.redirect('/emptyCart')
+  }
 
-  cartCount = await userHelper.cartCount(user._id)
+
+ let  cartCount = await userHelper.cartCount(user._id)
 
   res.render('user/cart', { users: true, products, user, addres,fromWishList, cartCount, total })
 })
@@ -346,8 +353,11 @@ router.get('/addToWishlist/:id', async(req, res, next) => {
 // view wish list.....................................................................................................
 router.get('/viewWishList',verifyLogin,async(req,res,next)=>{
    let user = req.session.user
-   wishCount = await userHelper.wishListCount(user._id)
-   cartCount = await userHelper.cartCount(user._id)
+  let  wishCount = await userHelper.wishListCount(user._id)
+   let cartCount = await userHelper.cartCount(user._id)
+   if(wishCount==0){
+     res.redirect('/emptyCart')
+   }
 let wishlist=  await userHelper.viewToWishList(user._id)
 
   res.render('user/wishlist',{users:true,wishlist,wishCount,user,cartCount})
@@ -392,15 +402,26 @@ router.get('/placeOrder', verifyLogin, async (req, res, next) => {
   let user = req.session.user
   let cartCount = await userHelper.cartCount(user._id)
   let total = 0
+ 
   if (cartCount > 0) {
     total = await userHelper.getTotal(user._id)
     req.session.total=total
+  }
+  
+  if (total===0){
+    res.redirect('/emptyCart')
+    
   }
   let viewAddress = await userHelper.viewAddress(user._id)
 
   let products = req.session.products
   
   res.render('user/checkOut', { users: true, user, total, products, cartCount, viewAddress })
+})
+// empty cart...........................................................
+router.get('/emptyCart',(req,res,next)=>{
+ user=req.session.user
+res.render('user/emptyCart',{users:true,user})
 })
 // place order.....................................................................................................................
 router.post('/placeOrder', verifyLogin, async (req, res, next) => {
