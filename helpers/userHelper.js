@@ -87,11 +87,17 @@ userDetails:(id)=>{
 
     },
     findContact: (phoneNumber) => {
+      
+       
         return new Promise(async(resolve, reject) => {
             let user =await db.get().collection(collection.USER_COLLECTION).findOne({ phone: phoneNumber.phone })
+         
             if (user) {
               
                 resolve(user)
+            }
+            else{
+                resolve()
             }
         })
 

@@ -211,6 +211,7 @@ router.post('/otpVerificationForUserSignUp', (req, res, next) => {
 })
 
 router.get('/contact', (req, res, next) => {
+
   if (req.session.errorId) {
     let phone = "phone Number do not registerd"
     res.render('user/contact', { phone })
@@ -220,11 +221,11 @@ router.get('/contact', (req, res, next) => {
   }
 })
 router.post('/numberChecking', (req, res, next) => {
-
+console.log(req.body)
   userHelper.findContact(req.body).then((number) => {
 
     if (number) {
-    
+   
        req.session.user=number
       req.session.loggedIn=true
       req.session.contact = number.phone
