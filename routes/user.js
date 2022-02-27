@@ -216,7 +216,7 @@ router.get('/contact', (req, res, next) => {
     let phone = "phone Number do not registerd"
     res.render('user/contact', { phone })
   }
-  else {
+  else { 
     res.render('user/contact')
   }
 })

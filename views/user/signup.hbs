@@ -94,39 +94,44 @@
 
         if (firstname.value == '' || firstname.value == null) {
        
-            errorElement[0].innerText = "first Name required"
+            errorElement[0].innerHTML = "first Name required"
             e.preventDefault()
 
         }
-        if (lastname.value == '' || lasttname.value == null) {
-    
-            errorElement[1].innerText = "last Name required"
-            e.preventDefault()
-
-        }
+       
         if (email.value == '' || email.value == null) {
          
-            errorElement[2].innerText = "email required"
+            errorElement[2].innerHTML = "email required"
+            e.preventDefault()
+
+        }
+           if (phone.value.length != 10 || phone.value == null) {
+      
+            errorElement[3].innerHTML = "phone number must be ten digits"
             e.preventDefault()
 
         }
         if (password.value.length < 3 || password.value == null) {
+  
+            errorElement[4].innerHTML = "password required minimum 3 charactors"
+            e.preventDefault()
+
+        }
+         if (lastname.value == '' || lasttname.value == null) {
+    
+            errorElement[1].innerHTML = "last Name required"
+            e.preventDefault()
+
+        }
      
-            errorElement[4].innerText = "password required minimum 3 charactors"
-            e.preventDefault()
-
-        }
-        if (phone.value.length != 10 || phone.value == null) {
-        
-            errorElement[3].innerText = "phone number must be ten digits"
-            e.preventDefault()
-
-        }
 
 
         if (errorElement.length > 0) {
+          
             e.preventDefault()
        
+        }else{
+            alert(errorElement.length )
         }
 
     })
